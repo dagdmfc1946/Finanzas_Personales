@@ -2,6 +2,15 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.6] - 2026-10-18
+
+Ajuste local pendiente de autorización para publicar.
+
+### Cambiado
+
+- Buscador, contador y tres botones del lector reubicados dentro del panel En este documento, encima del índice, tanto en el manual como en el historial.
+- Controles adaptados al ancho de la columna; la lista de títulos tiene desplazamiento propio para mantenerlos disponibles.
+
 ## [0.2.0-alpha.5] - 2026-10-18
 
 Ajuste local pendiente de revisión y autorización para publicar.

@@ -15,16 +15,17 @@
   <main class="document-reader">
     <nav aria-label="Documentación"><a href="{% url 'home' %}">Volver a Finanzas DAGD</a></nav>
     <header><p>{{ filename }}</p><p>Documento actualizado con el proyecto.</p></header>
+    <div class="document-layout">
+      {% if toc_html %}<aside class="document-index">
+        <h2>En este documento</h2>
     <section class="document-tools" aria-label="Filtrar y organizar documento" hidden>
       <div class="document-search"><label for="document-filter">Filtrar títulos y contenido</label>
-        <input id="document-filter" type="search" maxlength="120" placeholder="Por ejemplo: respaldo, contraseña o una versión" autocomplete="off">
+        <input id="document-filter" type="search" maxlength="120" placeholder="Buscar en el documento" autocomplete="off">
       </div>
       <div class="document-actions"><button id="document-clear" type="button">Limpiar filtro</button><button id="document-expand" type="button">Expandir todo</button><button id="document-collapse" type="button">Contraer todo</button></div>
       <p id="document-results" role="status" aria-live="polite"></p>
     </section>
-    <div class="document-layout">
-      {% if toc_html %}<aside class="document-index">
-        <h2>En este documento</h2>
+
         <nav aria-label="Índice del documento">{{ toc_html|safe }}</nav>
       </aside>{% endif %}
       <article id="documento" class="document-content" aria-label="Contenido de {{ filename }}">{{ content_html|safe }}</article>
