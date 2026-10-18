@@ -4,8 +4,8 @@ Aplicativo de finanzas personales para ejecutar localmente en Windows. Fase 1: v
 
 ## Abrir la entrega preparada
 
-1. Ejecutar `Iniciar_Finanzas_DAGD.cmd` en esta carpeta y mantener la ventana abierta.
-2. Abrir http://127.0.0.1:8765/ en el navegador.
+1. Ejecutar `Iniciar_Finanzas_DAGD.cmd` en esta carpeta. Si inicia un servidor nuevo, mantener la consola abierta.
+2. Se abre una pestaña automáticamente cuando el servidor responde. Una instancia existente de Finanzas DAGD se reutiliza; dirección alternativa: http://127.0.0.1:8765/.
 3. Recorrer las secciones y la página **Revisar esta fase**. Enviar sugerencias o aprobación por el chat.
 4. Para detener el servidor, pulsar Ctrl+C en su ventana.
 

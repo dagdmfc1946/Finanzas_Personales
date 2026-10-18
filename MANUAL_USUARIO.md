@@ -2,7 +2,7 @@
 
 Este manual explica cómo ejecutar y revisar las funciones disponibles. Se actualizará con cada cambio que afecte el inicio, acceso, pantallas, registro de información, respaldos o uso del aplicativo, sin esperar al cierre del proyecto.
 
-Estado actual: **Fase 1, vista previa con datos ficticios, pendiente de tu aprobación**. Versión cubierta: `0.1.0-alpha.1`. La fuente única de versión del software es `VERSION`; el historial está en `CHANGELOG.md`.
+Estado actual: **Fase 1, vista previa con datos ficticios, pendiente de tu aprobación**. Versión cubierta: `0.1.0-alpha.2`. La fuente única de versión del software es `VERSION`; el historial está en `CHANGELOG.md`.
 
 ## 1. Lo que debes saber antes de comenzar
 
@@ -44,7 +44,7 @@ Requisitos del entorno preparado:
 
 1. Abre [Finanzas DAGD](http://127.0.0.1:8765/) en el navegador.
 2. Comprueba que aparezcan el nombre Finanzas DAGD y el aviso de datos ficticios.
-3. Si carga correctamente, ya puedes recorrerlo. No abras otra instancia del iniciador.
+3. Si carga correctamente, ya puedes recorrerlo. Si ejecutas el iniciador, reconocerá la instancia existente y abrirá una pestaña sin crear otro servidor.
 4. Si aparece un error de conexión, utiliza el iniciador descrito a continuación.
 
 El servidor que abre Codex puede estar funcionando en segundo plano, sin una consola visible. Si necesitas detener esa instancia y no tienes su consola, solicítalo en el chat para identificar el proceso correspondiente; no cierres indiscriminadamente procesos Python.
@@ -55,9 +55,9 @@ El servidor que abre Codex puede estar funcionando en segundo plano, sin una con
 2. Haz doble clic en **`Iniciar_Finanzas_DAGD.cmd`**.
 3. Se abrirá una ventana de consola. Déjala abierta mientras uses el aplicativo.
 4. Espera a que la consola indique que el servidor está escuchando en `http://127.0.0.1:8765/`. La salida de Django puede mostrar `Starting development server at ...`.
-5. Abre el navegador y entra en [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
+5. El iniciador abrirá automáticamente una pestaña en tu navegador predeterminado cuando confirme que Finanzas DAGD está listo. Si el navegador no se abre, entra manualmente en [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
 
-El iniciador muestra la dirección; no abre automáticamente una pestaña. La ruta del proyecto no se introduce en la barra del navegador: se utiliza la dirección HTTP indicada.
+El iniciador espera hasta 20 segundos al servidor antes de abrir la pestaña. Si Finanzas DAGD ya está abierto, reutiliza ese servidor; si el puerto pertenece a otro servicio, informa del conflicto y no lo detiene. Al reutilizar una instancia, el iniciador termina: esa ventana no controla el servidor existente. La ruta del proyecto no se introduce en la barra del navegador: se utiliza la dirección HTTP indicada.
 
 El aviso de Django sobre servidor de desarrollo es esperado en esta entrega local. No cambies la dirección a `0.0.0.0`, no configures acceso desde Internet y no abras puertos del router para esta fase.
 

@@ -4,6 +4,20 @@ Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del núm
 
 ## [Sin publicar]
 
+- Nuevas propuestas posteriores a la publicación de Fase 1 se revisarán antes de iniciar la Fase 2.
+
+## [0.1.0-alpha.2] - 2026-10-17
+
+Publicación en dev1 autorizada por el usuario; no es una versión estable ni el inicio de Fase 2.
+
+### Cambiado
+
+- El iniciador espera al servidor y abre automáticamente una pestaña del navegador predeterminado.
+- Si ya existe una instancia de Finanzas DAGD la reutiliza; ante otro servicio en el puerto no lo detiene.
+- Pruebas del iniciador y manual de primera ejecución actualizados.
+- La referencia financiera de septiembre proporcionada por el usuario se conserva en local/, excluida de Git. Los ejemplos públicos siguen siendo ficticios.
+
+
 ### Documentación
 
 - Manual de usuario ampliado con primera ejecución, requisitos, ausencia de usuarios en Fase 1, solución de problemas y mantenimiento continuo. No cambia la versión ejecutable.
@@ -12,7 +26,7 @@ Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del núm
 
 ## [0.1.0-alpha.1] - 2026-10-17
 
-Versión local preliminar, pendiente de aprobación; aún no publicada en GitHub.
+Primera vista previa local; incluida posteriormente en la publicación autorizada de Fase 1.
 
 ### Añadido
 

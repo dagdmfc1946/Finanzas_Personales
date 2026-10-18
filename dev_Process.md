@@ -55,3 +55,7 @@ Revisión propia de corrección, legibilidad, separación de datos ficticios, l�
 ## Actualización del manual antes de la primera prueba
 
 Por solicitud del usuario, se amplía MANUAL_USUARIO.md como documentación de uso mantenida durante todo el desarrollo. Incluye inicio desde el entorno ya preparado, acceso sin crear usuario ni superusuario, arranque manual y recuperación del entorno, cierre, recorrido de pantallas, límites, privacidad y solución de problemas. Se contrastó con el iniciador y la configuración actuales. Cada cambio de funcionamiento o acceso deberá actualizar el manual, el proceso y el changelog. No se modificó código ni el número de versión y no se repitieron pruebas de comportamiento por un cambio exclusivamente documental. La Fase 1 sigue pendiente de revisión; no se ejecuta push.
+
+## Publicación autorizada de la Fase 1 y mejora de inicio
+
+El usuario pidió publicar toda la Fase 1, abrir automáticamente el navegador y conservar Revisar esta fase durante el desarrollo. Se añade iniciar.py: confirma identidad del servidor, espera su disponibilidad, abre una pestaña y reutiliza una instancia existente. Cuatro pruebas del iniciador cubren reutilización, espera, fallo de arranque y puerto ocupado por otro servicio. La versión cambia a 0.1.0-alpha.2. Se mantiene la muestra pública ficticia; la referencia exacta de septiembre se documenta exclusivamente en local/REFERENCIA_SEPTIEMBRE.md, ignorada por Git. No se implementan aún las nuevas capacidades propuestas para Fase 2 y posteriores.

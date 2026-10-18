@@ -19,7 +19,7 @@
 | 4. Ahorros y obligaciones | Metas, aportes, préstamos otorgados y recibidos, compras financiadas, cuotas, abonos y vencimientos. | Gestionar metas y pagos con separación de capital, intereses y cargos. | Verificar movimientos, saldos de obligaciones y reglas de ahorro con casos acordados. |
 | 5. Entrega local | Reportes, CSV, importación revisable del notebook, restauración completa y manual final. | Iniciar, utilizar, respaldar y recuperar el aplicativo siguiendo el manual. | Aceptación de los flujos completos y de la documentación de entrega. |
 
-Estado actual: **Fase 1 en revisión; aún no aprobada**. Fases 2–5 pendientes. El incremento ejecutable de la Fase 1 anticipa la base mínima de Django para satisfacer la revisión visual; no implementa aún el registro financiero de la Fase 2.
+Estado actual: **Fase 1 entregada; el usuario ordenó su publicación en dev1**. La nueva ampliación del plan y el inicio de Fase 2 continúan pendientes de aprobación. El incremento ejecutable de la Fase 1 anticipa la base mínima de Django para satisfacer la revisión visual; no implementa aún el registro financiero de la Fase 2.
 
 ## Mapa de capacidades y dependencias
 
