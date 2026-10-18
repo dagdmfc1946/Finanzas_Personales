@@ -16,7 +16,7 @@ from .models import Account, Activity, AuditEvent, Category, Entry, Installation
 from .services import save_entry, summary, void_entry
 from .backups import write_backup
 
-NAVIGATION = [("resumen", "Resumen", ""), ("movimientos", "Movimientos", ""), ("organizacion", "Actividades y cuentas", ""), ("historial", "Historial", ""), ("respaldo", "Respaldos", ""), ("revision", "Revisar esta fase", "")]
+NAVIGATION = [("resumen", "Resumen", ""), ("movimientos", "Movimientos", ""), ("sueldo", "Mi sueldo", ""), ("organizacion", "Actividades y cuentas", ""), ("historial", "Historial", ""), ("respaldo", "Respaldos", ""), ("revision", "Revisar esta fase", "")]
 
 
 def context(section, title=None, **kwargs):

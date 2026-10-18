@@ -27,3 +27,7 @@ Inicio expresamente autorizado por el usuario. Se conserva el alcance del plan d
 Pruebas de detalle neto, importes, meses, pertenencia, vínculos repetidos/parciales, anulación/corrección de ingresos, ediciones obsoletas, desvinculación, protección de acceso y restauración nueva/antigua. Revisión visual en base de ensayo aislada; nunca crear credenciales personales del usuario. Manual actualizado y Revisar esta fase refleja el incremento vigente y sus límites.
 
 Este primer incremento inicia Fase 3, sin afirmar que estén implementados todavía los presupuestos, recurrencias o el saldo proyectado de un plan mensual completo. Sus contratos se concretarán en incrementos siguientes antes de codificarlos. No anticipar ahorro/deudas/simulador de Fase 4.
+
+## Estado del primer incremento
+
+3.1 implementado localmente en `0.3.0-alpha.1`: 10 pruebas específicas; suite completa de 61 pruebas Django y 2 JavaScript aprobada. Migración aplicada con copia privada previa. Pendiente revisión personal del usuario; 3.2 y 3.3 aún no implementados.

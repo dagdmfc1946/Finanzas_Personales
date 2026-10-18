@@ -1,6 +1,6 @@
 # Finanzas DAGD
 
-Aplicativo de finanzas personales para ejecutar localmente en Windows. Fase 2 disponible localmente para revisión: actividades, cuentas, ingresos, gastos, transferencias, correcciones y respaldos. La integración bancaria está cancelada.
+Aplicativo de finanzas personales para ejecutar localmente en Windows. Fase 3 iniciada: primer incremento local revisable con sueldo neto/detallado, meses independientes y cobros vinculados sin duplicar ingresos. Conserva actividades, cuentas, movimientos, correcciones y respaldos. Presupuestos y recurrencias son los siguientes incrementos de esta fase. La integración bancaria está cancelada.
 
 ## Ejecutar
 
@@ -36,7 +36,7 @@ Las pruebas financieras usan una base aislada; no escriben en tus movimientos pe
 
 ## Documentación y reglas
 
-- [Fases](info_Fases.md), [especificación de Fase 2](SPEC_FASE2.md), [tareas](tasks/todo.md), [especificación histórica de Fase 1](SPEC_FASE1.md).
+- [Fases](info_Fases.md), [especificación de Fase 3](SPEC_FASE3.md), [especificación de Fase 2](SPEC_FASE2.md), [tareas](tasks/todo.md), [especificación histórica de Fase 1](SPEC_FASE1.md).
 - [Proceso](dev_Process.md), [cambios](CHANGELOG.md), [manual](MANUAL_USUARIO.md), [reglas](AGENTS.md).
 - [Instalación REA](Analisis_REA/INSTALACION_REA.md), [análisis público de Moneri](Analisis_REA/ANALISIS_REA_MONERI.md), [skills UI](docs/SKILLS_UI.md).
 - Versión única en `VERSION` según SemVer. Commits nuevos en español. Cada fase requiere revisión ejecutable; publicar únicamente con autorización explícita.

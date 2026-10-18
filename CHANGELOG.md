@@ -2,6 +2,20 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.3.0-alpha.1] - 2026-10-18
+
+Entrega local del incremento 3.1, pendiente de revisión y autorización de publicación. Fase 3 continúa en desarrollo.
+
+### Añadido
+- Mi sueldo: previsión neta o cálculo manual de bruto, adicionales y deducciones; actividad, mes trabajado, fecha de cobro esperada y mes presupuestado independientes.
+- Cobros parciales mediante vínculos a ingresos existentes, sin duplicar movimientos; pendiente/exceso, correcciones, exclusión de previsiones y desvinculación con motivo.
+- Control de versión, pertenencia y trazabilidad. Correcciones/anulaciones de ingresos actualizan el cálculo de cobros.
+- Migración de tablas y respaldos de formato 2 con sueldos/vínculos. Lectura del formato 1: restaurarlo deja vacía la planificación que no contiene, con copia previa y reversión ante errores.
+- Manual y revisión de fase actualizados. Presupuestos y recurrencias permanecen pendientes en Fase 3.
+
+### Verificado
+- 61 pruebas Django y 2 JavaScript aprobadas; migraciones sin cambios pendientes y dependencias consistentes.
+
 ## [0.2.0-alpha.10] - 2026-10-18
 
 Publicación en dev1 autorizada por el usuario al solicitar iniciar Fase 3.

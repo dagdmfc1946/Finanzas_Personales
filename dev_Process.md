@@ -201,3 +201,21 @@ Verificación de la corrección: nueve pruebas del lector correctas; mediciones 
 ## Inicio de Fase 3 autorizado — 2026-10-18
 
 El usuario aprobó el resultado visual, ordenó subir d606a9c (altura de botones) e iniciar Fase 3. Se registra esta autorización en reglas/plan y SPEC_FASE3.md antes de codificar. Aplicación de Agent Skills: implementación incremental y especificación concreta dentro del alcance ya autorizado; no se pide nuevamente aprobar el plan general. Primer incremento ejecutable 3.1: sueldo y cobros sin duplicación; presupuestos y recurrencias siguen dentro de la fase como próximos incrementos. Nueva implementación local hasta autorización de publicación. La corrección anterior conserva sus nueve pruebas de lector y comprobación visual; no se repiten por este registro documental.
+
+## 2026-10-18 — Fase 3, incremento 3.1 local
+
+Publicación previa completada en dev1: d606a9c (altura compacta de los tres botones) y 3673d8e (inicio autorizado y SPEC_FASE3.md). Nueva implementación se conserva local para revisión, sin nuevo push automático.
+
+Agent Skills: using-agent-skills, especificación, implementación incremental, TDD, Git/versionado, seguridad y revisión de calidad; Impeccable para mantener la interfaz existente. No se instalaron dependencias nuevas. Decisión: vincular ingresos existentes al plan de sueldo; la planificación no crea dinero. Importes enteros en centavos, meses diferenciados, acceso por propietario, CSRF, revisión optimista y auditoría.
+
+TDD: inicialmente falló la importación de Salary inexistente; se implementaron modelo, servicios, formularios y rutas. Una prueba detectó que la relación inversa de un ingreso podía conservar un None en caché: la validación ahora consulta el vínculo vigente en la base. Se corrigió también una variable de redirección detectada por prueba HTTP. Diez casos de sueldo verifican pagos parciales/exceso, detalle y meses, duplicados, propietarios, corrección/anulación, ediciones obsoletas, desvinculación, formularios/CSRF y restauración v1/v2 con reversión de datos inválidos.
+
+Resultado: 61 pruebas Django y 2 JavaScript aprobadas; makemigrations --check --dry-run sin cambios; pip check sin conflictos. Los mensajes de errores de arranque impresos por la suite corresponden a escenarios negativos simulados. Se creó copia SQLite privada mediante Connection.backup antes de aplicar ledger.0003; migración aplicada correctamente. No se añadieron planes ni movimientos de prueba a la base personal.
+
+Fuentes técnicas: https://docs.djangoproject.com/en/5.2/topics/db/transactions/ (atomicidad) y https://docs.python.org/3.12/library/sqlite3.html#sqlite3.Connection.backup (copia consistente). Respaldo JSON formato 2; lectura del formato 1 normaliza sueldo/vínculos como listas vacías y advierte su efecto en el manual. Restauración conserva credenciales e historial y crea copia previa.
+
+La revisión visual se realiza en 127.0.0.1:8766, base y cookies separadas con datos sintéticos. Presupuestos/recurrencias siguen pendientes dentro de Fase 3; metas, deudas y simulador permanecen en Fase 4. Se conserva Revisar esta fase y se actualiza MANUAL_USUARIO.md antes de entregar.
+
+Revisión visual completada: acceso en base aislada, detalle sintético y guardado desde formulario de un neto con centavos. Previsión conjunta y pendiente correctos; recibido permanece sin duplicación. Se ajustó alineación del botón Consultar mes y se unificó formato COP del selector de ingresos. Impeccable detect no informó hallazgos; advirtió que no resuelve enlaces Django static, por lo que se complementó con navegador real. Se retiró validación de tipos repetida en restauración: validate_backup ya la ejecuta antes de cualquier escritura.
+
+Verificación final tras ajustes: 19 pruebas de sueldo y documentación aprobadas. Navegador sin errores ni advertencias; sección 14 del manual accesible mediante índice/ancla en el servidor real reiniciado. Captura de ensayo guardada fuera del repositorio. El servidor personal queda disponible en 127.0.0.1:8765; la instancia sintética se detiene al concluir. Commit local en español; nueva implementación no publicada.

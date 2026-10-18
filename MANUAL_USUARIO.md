@@ -1,12 +1,12 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.10`, pendiente de revisión del usuario.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 3, primer incremento local `0.3.0-alpha.1`, pendiente de revisión del usuario.
 
 ## 1. Qué puedes usar ahora
 
 Registro persistente de actividades, cuentas, categorías, saldos iniciales, ingresos, gastos y transferencias; resumen por actividad o consolidado; filtros; correcciones y anulaciones con historial; creación y restauración básica de respaldos. Se conserva **Revisar esta fase**.
 
-El detalle de sueldo, recurrencias, presupuestos por proyecto/compra, metas y calculadora de cuotas se desarrollarán en Fases 3 y 4. La integración bancaria está cancelada. Las pantallas anteriores de esos módulos siguen disponibles como demostración ficticia, sin guardar operaciones.
+Ya puedes planear el sueldo neto o detallado y vincular sus cobros en **Mi sueldo** (sección 14). Las recurrencias y los presupuestos por proyecto/compra siguen pendientes dentro de Fase 3; metas y calculadora de cuotas corresponden a Fase 4. La integración bancaria está cancelada. Las pantallas anteriores de esos módulos siguen disponibles como demostración ficticia, sin guardar operaciones.
 
 ## 2. Ejecutar en este PC
 
@@ -111,7 +111,7 @@ En **Respaldos**, pulsa **Crear y descargar respaldo**. Además de la descarga, 
 .\.venv\Scripts\python.exe manage.py respaldo_finanzas
 ```
 
-La copia JSON incluye actividades, cuentas, categorías, movimientos e historial financiero. No contiene contraseñas, usuarios, sesiones ni claves del sistema. El respaldo básico admite hasta 5 MiB o 10.000 registros. Conserva copias fuera del mismo disco y comprueba su recuperación con datos de ensayo antes de depender de ellas.
+La copia JSON de formato 2 incluye actividades, cuentas, categorías, movimientos, sueldos previstos, vínculos de cobros e historial financiero. Esta versión también lee las copias anteriores de formato 1, pero una versión antigua del aplicativo no podrá leer las nuevas copias de formato 2. No contiene contraseñas, usuarios, sesiones ni claves del sistema. El respaldo básico admite hasta 5 MiB o 10.000 registros. Conserva copias fuera del mismo disco y comprueba su recuperación con datos de ensayo antes de depender de ellas.
 
 ## 10. Restaurar una copia propia
 
@@ -126,7 +126,9 @@ La restauración **reemplaza los registros financieros actuales** por los del ar
 ```
 
 4. Lee el resultado: muestra la ruta del respaldo previo.
-5. Inicia nuevamente y revisa cuentas, movimientos y saldos.
+5. Inicia nuevamente y revisa cuentas, movimientos, saldos y Mi sueldo.
+
+**Copias antiguas:** restaurar un respaldo de formato 1 también deja vacíos los planes de sueldo y sus vínculos, porque esos datos no existían en la copia. Los ingresos recuperados siguen siendo movimientos reales. La copia previa permite recuperar la planificación actual si elegiste el archivo equivocado.
 
 El comando rechaza formatos incompatibles, archivos dañados, campos inesperados y referencias inválidas. Si la validación financiera falla, revierte los cambios de la base. La huella SHA-256 detecta alteraciones accidentales; no acredita quién creó el archivo. Restaura únicamente copias propias de confianza, sin editarlas manualmente.
 
@@ -156,7 +158,7 @@ Estos controles requieren JavaScript en el navegador y se ejecutan localmente, s
 
 Ambos documentos pueden consultarse antes de crear el usuario: `/documentacion/manual/` y `/documentacion/changelog/`. Solo se sirven esos dos archivos públicos; no se exponen archivos financieros privados.
 
-Ahorros y Préstamos y deudas permanecen previstos para Fase 4. Sus pantallas de Fase 1 son demostraciones ficticias, accesibles mediante **Revisar esta fase → Consultar la vista previa ficticia de Fase 1**. El menú de registro real de Fase 2 muestra las funciones ya implementadas. Puedes usar cuentas de tipo Ahorros para registrar dinero guardado, pero las metas y los cálculos de obligaciones siguen pendientes.
+Ahorros y Préstamos y deudas permanecen previstos para Fase 4. Sus pantallas de Fase 1 son demostraciones ficticias, accesibles mediante **Revisar esta fase → Consultar la vista previa ficticia de Fase 1**. El menú de registro real muestra las funciones ya implementadas. Puedes usar cuentas de tipo Ahorros para registrar dinero guardado, pero las metas y los cálculos de obligaciones siguen pendientes.
 
 Si actualizas una copia anterior del proyecto, instala las dependencias fijadas y reinicia el aplicativo:
 
@@ -164,7 +166,7 @@ Si actualizas una copia anterior del proyecto, instala las dependencias fijadas 
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-El lector utiliza Python-Markdown y nh3 dentro del entorno `.venv`. No carga procesadores externos ni necesita Internet para mostrar los documentos una vez instaladas las dependencias. La corrección se publica por autorización del usuario; el avance a Fase 3 sigue pendiente de revisión expresa.
+El lector utiliza Python-Markdown y nh3 dentro del entorno `.venv`. No carga procesadores externos ni necesita Internet para mostrar los documentos una vez instaladas las dependencias. La Fase 3 ya fue autorizada y se entrega por incrementos revisables.
 
 ## 13. Revisión y solución de problemas
 
@@ -175,4 +177,22 @@ El lector utiliza Python-Markdown y nh3 dentro del entorno `.venv`. No carga pro
 - **Falta una cuenta o actividad:** créala en **Actividades y cuentas** y vuelve al formulario.
 - **Dudas de saldos:** comprueba actividad, fechas, anulaciones y posibles saldos iniciales duplicados.
 
-En **Revisar esta fase**, marca temporalmente lo comprobado y envía tus observaciones por el chat. Las casillas no guardan una aprobación. El avance a Fase 3 y la publicación de implementación nueva requieren tu autorización explícita. Todos los commits nuevos se redactan en español.
+En **Revisar esta fase**, marca temporalmente lo comprobado y envía tus observaciones por el chat. Las casillas no guardan una aprobación. La Fase 3 está en desarrollo. Avanzar a Fase 4 o publicar nueva implementación requiere tu autorización explícita. Todos los commits nuevos se redactan en español.
+
+## 14. Mi sueldo: previsión y cobros
+
+Abre **Mi sueldo → Planear sueldo**. Elige título y actividad; distingue **mes trabajado**, **fecha prevista de cobro** y **mes presupuestado**. Por ejemplo, un trabajo de agosto puede cobrarse en septiembre y destinarse al presupuesto de octubre. El filtro consulta el mes presupuestado, no la fecha real del movimiento.
+
+- **Neto conocido:** introduce solo el importe neto; deja bruto vacío y adicionales/deducciones en cero o vacíos.
+- **Bruto y deducciones:** deja el neto vacío e indica bruto, adicionales y deducciones. El sistema calcula bruto + adicionales − deducciones. El resultado debe ser positivo. Son importes manuales; no liquida impuestos ni nómina legal.
+- **Incluir en previsiones:** desmárcalo para excluir el plan del previsto y pendiente. Los cobros reales vinculados se conservan y siguen visibles.
+
+Guardar un plan **no registra ingresos ni aumenta saldos**. Cuando recibas dinero, regístralo una sola vez como ingreso en **Movimientos**, con su fecha, cuenta y actividad reales. Después pulsa **Vincular ingreso existente** en el plan y selecciona ese ingreso. Debe pertenecer a la misma actividad, estar vigente y no tener otro vínculo. Si la lista está vacía, comprueba estos requisitos. Puedes asociar varios cobros parciales.
+
+La pantalla muestra previsto activo, cobros vinculados y pendiente previsto. Si recibiste más que el neto planeado, señala el exceso y el pendiente queda en cero. Estos cálculos describen los planes del mes elegido; no representan el saldo bancario ni un presupuesto mensual completo.
+
+**Corregir plan** exige un motivo; si otra ventana lo modificó, recarga antes de guardar. Para cambiar de actividad, desvincula primero los cobros incompatibles. No existe borrado de planes; utiliza la casilla de previsión para conservar la trazabilidad.
+
+Corregir el importe de un ingreso vinculado actualiza lo recibido. Anularlo lo excluye del cálculo, conservando su vínculo e historial. Para cambiar su tipo o actividad, primero **Desvincular**, con motivo y confirmación. Desvincular conserva el ingreso y su efecto en el saldo; no equivale a anularlo.
+
+El iniciador aplica la migración de tablas al actualizar. En este equipo se guardó una copia SQLite privada previa al primer cambio de Fase 3 en `backups/`. Los nuevos respaldos financieros incluyen planes y vínculos. No se importan automáticamente tus ejemplos personales. Para revisar este incremento usa las casillas de **Revisar esta fase**; presupuestos y recurrencias se entregarán después dentro de esta fase.

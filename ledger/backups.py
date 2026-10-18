@@ -8,8 +8,9 @@ from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import transaction
 from django.utils import timezone
-from .models import Account, Activity, AuditEvent, Category, Entry
+from .models import Account, Activity, AuditEvent, Category, Entry, Salary, SalaryReceipt
 from .services import ENTRY_FIELDS
+from .salary_services import SALARY_FIELDS
 
 LIMIT = 5 * 1024 * 1024
 TABLES = {
@@ -17,6 +18,8 @@ TABLES = {
     "accounts": (Account, ("name", "kind")),
     "categories": (Category, ("name", "kind")),
     "entries": (Entry, ENTRY_FIELDS),
+    "salaries": (Salary, SALARY_FIELDS),
+    "salary_receipts": (SalaryReceipt, ("salary_id","entry_id")),
     "events": (AuditEvent, ("at", "action", "entity", "before", "after", "reason")),
 }
 
@@ -31,7 +34,7 @@ def export_backup(user):
     for key, (model, fields) in TABLES.items():
         objects[key] = [{"id": str(item.pk), "fields": {field: getattr(item, field) for field in fields}}
                         for item in model.objects.filter(owner=user)]
-    payload = {"application": "Finanzas DAGD", "format": 1, "created": timezone.now().isoformat(), "software_version": settings.APP_VERSION, "objects": objects}
+    payload = {"application": "Finanzas DAGD", "format": 2, "created": timezone.now().isoformat(), "software_version": settings.APP_VERSION, "objects": objects}
     payload["sha256"] = hashlib.sha256(canonical(payload)).hexdigest()
     raw = canonical(payload)
     if len(raw) > LIMIT or sum(len(rows) for rows in objects.values()) > 10000:
@@ -66,13 +69,16 @@ def validate_backup(raw):
         if set(payload) != {"application", "format", "created", "software_version", "objects", "sha256"}:
             raise ValueError("Formato desconocido")
         digest = payload.pop("sha256")
-        if payload["application"] != "Finanzas DAGD" or type(payload["format"]) is not int or payload["format"] != 1:
+        if payload["application"] != "Finanzas DAGD" or type(payload["format"]) is not int or payload["format"] not in (1,2):
             raise ValueError("Aplicación o versión de formato incompatible")
         if not isinstance(digest, str) or hashlib.sha256(canonical(payload)).hexdigest() != digest:
             raise ValueError("La huella no coincide")
         objects = payload["objects"]
-        if not isinstance(objects, dict) or set(objects) != set(TABLES):
+        allowed=set(TABLES) if payload["format"]==2 else set(TABLES)-{"salaries","salary_receipts"}
+        if not isinstance(objects, dict) or set(objects) != allowed:
             raise ValueError("Tablas inesperadas")
+        if payload["format"]==1:
+            objects={**objects,"salaries":[],"salary_receipts":[]}
         for key, (_, fields) in TABLES.items():
             rows = objects[key]
             if not isinstance(rows, list):
@@ -89,6 +95,10 @@ def validate_backup(raw):
                     values = row["fields"]
                     if type(values["cents"]) is not int or type(values["revision"]) is not int or values["revision"] < 1 or type(values["void"]) is not bool:
                         raise ValueError("Importe, versión o estado inválido")
+                if key == "salaries":
+                    values=row["fields"]
+                    if any(type(values[field]) is not int for field in ("net_cents","additions_cents","deductions_cents","revision")) or (values["gross_cents"] is not None and type(values["gross_cents"]) is not int) or type(values["active"]) is not bool:
+                        raise ValueError("Importes o estado de sueldo inválidos")
                 if key == "events" and (not isinstance(row["fields"]["before"], dict) or not isinstance(row["fields"]["after"], dict)):
                     raise ValueError("Antecedentes inválidos")
         if sum(len(rows) for rows in objects.values()) > 10000:
@@ -102,6 +112,8 @@ def restore_backup(user, raw):
     objects = validate_backup(raw)
     with transaction.atomic():
         previous, _ = write_backup(user)
+        SalaryReceipt.objects.filter(owner=user).delete()
+        Salary.objects.filter(owner=user).delete()
         Entry.objects.filter(owner=user).delete()
         Category.objects.filter(owner=user).delete()
         Account.objects.filter(owner=user).delete()

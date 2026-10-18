@@ -9,7 +9,7 @@ if not exist ".venv\Scripts\python.exe" (
   exit /b 1
 )
 echo.
-echo Finanzas DAGD - Fase 2 - Registro local
+echo Finanzas DAGD - Fase 3 - Sueldo y registro local
 echo Se abrira una pestana en el navegador cuando el servidor este listo.
 echo Para detener el aplicativo, presiona Ctrl+C en esta ventana.
 echo.

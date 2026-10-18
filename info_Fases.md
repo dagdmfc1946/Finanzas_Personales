@@ -2,13 +2,13 @@
 
 ## Estado y acuerdos
 
-Fase 1 publicada en `dev1` por orden del usuario, hasta `7153eb6`, versión `0.1.0-alpha.2`. **El usuario aprobó el alcance revisado y autorizó iniciar Fase 2. Integración bancaria cancelada.**
+Fases 1 y 2 publicadas en `dev1`. El usuario autorizó iniciar Fase 3. Primer incremento local `0.3.0-alpha.1`: Mi sueldo y cobros vinculados. Presupuestos y recurrencias siguen pendientes dentro de Fase 3. Integración bancaria cancelada.
 
 - Nombre: Finanzas DAGD. Desarrollo local en `D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales`.
 - Toda fase tendrá una entrega ejecutable para revisión del usuario. Se conserva **Revisar esta fase** hasta culminar el desarrollo; su contenido reflejará la fase vigente. Sus casillas temporales no son aprobación.
 - Agent Skills se aplica durante todo el desarrollo; skills UI instaladas y criterio de uso en `docs/SKILLS_UI.md`.
 - Versionado SemVer 2.0.0, número ejecutable en `VERSION`, historial en `CHANGELOG.md`, manual actualizado con cada cambio de uso.
-- Publicar o fusionar cambios en GitHub requiere orden o aprobación explícita. El usuario autorizó publicar los documentos pendientes de esta revisión. Los nuevos incrementos de Fase 2 quedarán locales hasta otra autorización. Todos los nuevos commits serán en español.
+- Publicar o fusionar cambios en GitHub requiere orden o aprobación explícita. La corrección pendiente de los botones y el registro de inicio de Fase 3 se publicaron por orden expresa. La nueva implementación de Fase 3 quedará local hasta otra autorización. Todos los nuevos commits serán en español.
 - La referencia principal es el caso de septiembre compartido por el usuario, conservado en `local/REFERENCIA_SEPTIEMBRE.md`, fuera de Git. Los importes reales no se copian a fixtures ni a documentos públicos.
 - APK de Moneri diferido. Referencias públicas previas en `Analisis_REA/`.
 

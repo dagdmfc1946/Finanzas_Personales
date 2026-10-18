@@ -31,11 +31,11 @@
   </aside>
   <main id="contenido" tabindex="-1">
     <div class="topline"><span>PERSONAL / <strong>{{ title }}</strong></span><span class="profile" aria-label="Espacio personal de DAGD">DAGD</span></div>
-    {% if financial %}<div class="demo-notice" role="note"><strong>Fase 2 · Registro local</strong><span>Tus datos se guardan en este PC. Usuario: {{ request.user.username }}</span></div>
+    {% if financial %}<div class="demo-notice" role="note"><strong>Fase 3 · Sueldo y registro local</strong><span>Tus datos se guardan en este PC. Usuario: {{ request.user.username }}</span></div>
     <div class="session-actions"><a href="{% url 'password-change' %}">Cambiar contraseña</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="button secondary">Cerrar sesión</button></form></div>
     {% else %}<div class="demo-notice" role="note"><strong>Vista previa · Fase 1</strong><span>Datos ficticios · puedes explorar; todavía no se guardan movimientos.</span><a href="{% url 'home' %}">Abrir mi registro local</a></div>{% endif %}
     {% for message in messages %}<p class="notice" role="status">{{ message }}</p>{% endfor %}
-    <header class="page-header"><div><p class="eyebrow">TU DINERO, CON CLARIDAD</p><h1>{{ title }}</h1><p class="subtitle">{% block subtitle %}{% endblock %}</p></div><span class="period">{% if financial %}COP <small>Todo el historial vigente</small>{% else %}Octubre 2026 <small>Escenario de ejemplo</small>{% endif %}</span></header>
+    <header class="page-header"><div><p class="eyebrow">TU DINERO, CON CLARIDAD</p><h1>{{ title }}</h1><p class="subtitle">{% block subtitle %}{% endblock %}</p></div><span class="period">{% if financial %}COP <small>{% if section == 'sueldo' %}Mes presupuestado{% else %}Todo el historial vigente{% endif %}</small>{% else %}Octubre 2026 <small>Escenario de ejemplo</small>{% endif %}</span></header>
     {% block content %}{% endblock %}
     <footer>Finanzas DAGD · diseñado para tu día a día <a href="{% if financial %}{% url 'ledger:section' 'revision' %}{% else %}{% url 'section' 'revision' %}{% endif %}">Revisar y personalizar esta fase <span aria-hidden="true">↗</span></a></footer>
   </main>

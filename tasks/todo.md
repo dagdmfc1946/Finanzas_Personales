@@ -38,6 +38,16 @@ El usuario aprobó el alcance, canceló la integración bancaria y autorizó ini
 - [x] Transferencias, filtros y resumen consolidado sin duplicación; correcciones/anulación con historial y versiones.
 - [x] Respaldo y restauración básica, copia previa y validación; ver BackupTests y comandos documentados.
 - [x] Primer uso, estados vacíos, manual y revisión visual en navegador con base sintética aislada.
-- [ ] Revisión del usuario en su pantalla y observaciones de personalización.
-- [ ] Aprobación explícita de la entrega y autorización para subir la nueva implementación.
-- [ ] Inicio de Fase 3 autorizado.
+- [x] Revisión del usuario en su pantalla y observaciones de personalización.
+- [x] Publicación de Fase 2 e inicio de Fase 3 autorizados expresamente en el chat.
+- [x] Inicio de Fase 3 autorizado expresamente por el usuario.
+
+## Fase 3: incrementos ejecutables
+
+- [x] 3.1 Sueldo neto/detallado, meses independientes, cobros parciales sin duplicación, correcciones y respaldo compatible; pruebas automatizadas aprobadas.
+- [ ] Revisión del usuario del incremento 3.1 y observaciones.
+- [ ] 3.2 Presupuestos mensuales y por proyecto/compra con partidas, tope, plazo y actividad.
+- [ ] 3.3 Recurrencias, suscripciones y comparación previsto/comprometido/realizado.
+- [ ] Revisión de la Fase 3 completa y autorización para Fase 4.
+
+La orden de publicar el ajuste previo no publica automáticamente la implementación nueva de Fase 3.
