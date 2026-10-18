@@ -98,3 +98,7 @@ Para verificar comportamientos visibles también sirven grabaciones o capturas d
 - Rama de trabajo: `dev1`, creada y publicada previamente por orden del usuario.
 - Esta intervención instala herramientas y prepara los dos informes solicitados. No crea aún `info_Fases.md`, `dev_Process.md`, `CHANGELOG.md` ni `MANUAL_USUARIO.md` y no implementa el aplicativo.
 - La autorización de instalación no se interpreta como permiso para publicar estos cambios. No se realiza push.
+
+### Actualización de organización y publicación
+
+Por instrucción posterior del usuario, los dos informes se reubican en la carpeta Analisis_REA y se autoriza su publicación en dev1. La evidencia JSON, instaladores, configuraciones, respaldos y datos personales permanecen fuera del conjunto publicado. El plan se revisa en el chat y queda pendiente de aprobación; la Fase 1 continúa sin iniciarse.
