@@ -1,6 +1,6 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.6`, pendiente de revisión del usuario.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.7`, pendiente de revisión del usuario.
 
 ## 1. Qué puedes usar ahora
 
@@ -148,7 +148,7 @@ En ambos lectores encontrarás **En este documento**, un índice con títulos y 
 
 Cada capítulo del manual y cada versión del historial se pueden abrir o cerrar pulsando su título. Al abrir el lector, la primera sección está desplegada y las demás contraídas; si entras por un enlace a una sección, esta se abre automáticamente. En el índice, las versiones o capítulos con subtítulos también pueden contraerse; **Ver esta sección** lleva a su contenido.
 
-El buscador y los botones **Limpiar filtro**, **Expandir todo** y **Contraer todo** están dentro del panel izquierdo **En este documento**, encima de los títulos. Al recorrer un índice largo, se desplaza la lista de títulos mientras los controles permanecen disponibles. En pantallas pequeñas el panel completo se coloca encima del contenido.
+El buscador y los botones **Limpiar filtro**, **Expandir todo** y **Contraer todo** están dentro del panel izquierdo **En este documento**, encima de los títulos. Cada botón ocupa el mismo ancho del buscador y se apilan verticalmente; la descripción del filtro usa un tamaño de letra menor. Al recorrer un índice largo, se desplaza la lista de títulos mientras los controles permanecen disponibles. En pantallas pequeñas el panel completo se coloca encima del contenido.
 
 Utiliza **Filtrar títulos y contenido** para buscar una palabra, frase o número de versión. La búsqueda ignora mayúsculas y tildes, muestra solo secciones coincidentes y las abre automáticamente, junto con sus entradas del índice. **Limpiar filtro** recupera todas las secciones y el estado anterior a la búsqueda. **Expandir todo** y **Contraer todo** afectan a las secciones visibles y a los grupos del índice. Si no hay coincidencias, cambia la consulta o limpia el filtro. Son controles temporales; no modifican los archivos ni guardan la búsqueda.
 

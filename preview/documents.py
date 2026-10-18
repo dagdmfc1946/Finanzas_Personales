@@ -47,4 +47,4 @@ def document(request, document):
     except FileNotFoundError as error:
         raise Http404("Documento no disponible") from error
     content_html, toc_html = render_markdown(content)
-    return render(request, "preview/document.html", {"title": title, "filename": filename, "content_html": content_html, "toc_html": toc_html})
+    return render(request, "preview/document.html", {"title": title, "filename": filename, "content_html": content_html, "toc_html": toc_html, "version": settings.APP_VERSION})
