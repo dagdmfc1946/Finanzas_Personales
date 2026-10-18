@@ -4,6 +4,10 @@ Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del núm
 
 ## [Sin publicar]
 
+### Documentación
+
+- Manual de usuario ampliado con primera ejecución, requisitos, ausencia de usuarios en Fase 1, solución de problemas y mantenimiento continuo. No cambia la versión ejecutable.
+
 - Pendiente: revisión del usuario sobre la vista previa de Fase 1 y personalizaciones solicitadas.
 
 ## [0.1.0-alpha.1] - 2026-10-17

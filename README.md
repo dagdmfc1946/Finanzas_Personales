@@ -28,7 +28,7 @@ El servidor de desarrollo y el parámetro `--insecure` sirven esta demostración
 ## Documentación y reglas
 
 - [Fases](info_Fases.md), [especificación de Fase 1](SPEC_FASE1.md), [tareas](tasks/todo.md).
-- [Proceso](dev_Process.md), [cambios](CHANGELOG.md), [manual provisional](MANUAL_USUARIO.md).
+- [Proceso](dev_Process.md), [cambios](CHANGELOG.md), [manual de usuario](MANUAL_USUARIO.md).
 - [Instalación REA](Analisis_REA/INSTALACION_REA.md) y [análisis público de Moneri](Analisis_REA/ANALISIS_REA_MONERI.md).
 - Número de versión en `VERSION`, sin duplicarlo en código. Cada fase requiere revisión ejecutable y aprobación del usuario. Subir a GitHub únicamente por orden o aprobación explícita.
 - `.venv/`, bases, respaldos, secretos, registros locales y datos reales quedan fuera de Git.

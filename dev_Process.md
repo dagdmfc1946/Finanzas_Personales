@@ -51,3 +51,7 @@ Revisión propia de corrección, legibilidad, separación de datos ficticios, l�
 ### Estado de aprobación
 
 **Fase 1 pendiente de revisión y aprobación del usuario.** Fase 2 no iniciada. No se autoriza ni ejecuta push de esta entrega. El manual actual es provisional.
+
+## Actualización del manual antes de la primera prueba
+
+Por solicitud del usuario, se amplía MANUAL_USUARIO.md como documentación de uso mantenida durante todo el desarrollo. Incluye inicio desde el entorno ya preparado, acceso sin crear usuario ni superusuario, arranque manual y recuperación del entorno, cierre, recorrido de pantallas, límites, privacidad y solución de problemas. Se contrastó con el iniciador y la configuración actuales. Cada cambio de funcionamiento o acceso deberá actualizar el manual, el proceso y el changelog. No se modificó código ni el número de versión y no se repitieron pruebas de comportamiento por un cambio exclusivamente documental. La Fase 1 sigue pendiente de revisión; no se ejecuta push.
