@@ -1,0 +1,5 @@
+{% load money %}
+<div class="table-scroll" tabindex="0" role="region" aria-label="Movimientos de ejemplo, tabla desplazable">
+<table><caption class="sr-only">Movimientos de octubre de 2026, datos ficticios</caption><thead><tr><th scope="col">Concepto</th><th scope="col">Cuenta</th><th scope="col">Tipo</th><th scope="col" class="number">Importe COP</th></tr></thead>
+<tbody>{% for row in movements %}<tr><td><strong>{{ row.description }}</strong><small>{{ row.date }} · {{ row.category }}</small></td><td>{{ row.account }}</td><td><span class="badge {{ row.kind }}">{{ row.label }}</span></td><td class="number {% if row.kind == 'ingreso' %}positive{% endif %}">{% if row.kind == 'ingreso' %}+ {% elif row.kind == 'gasto' %}− {% else %}↔ {% endif %}{{ row.amount|cop }}</td></tr>{% empty %}<tr><td colspan="4"><div class="empty-state"><strong>Sin movimientos para estos filtros</strong><p>Prueba otra búsqueda o <a href="{% url 'section' 'movimientos' %}">limpia los filtros</a>.</p></div></td></tr>{% endfor %}</tbody></table>
+</div>
