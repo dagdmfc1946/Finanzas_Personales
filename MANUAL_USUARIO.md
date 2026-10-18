@@ -1,215 +1,152 @@
-# Manual de usuario · Finanzas DAGD
+# Manual de usuario — Finanzas DAGD
 
-Este manual explica cómo ejecutar y revisar las funciones disponibles. Se actualizará con cada cambio que afecte el inicio, acceso, pantallas, registro de información, respaldos o uso del aplicativo, sin esperar al cierre del proyecto.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.1`, pendiente de revisión del usuario.
 
-Estado actual: **Fase 1, vista previa con datos ficticios, pendiente de tu aprobación**. Versión cubierta: `0.1.0-alpha.2`. La fuente única de versión del software es `VERSION`; el historial está en `CHANGELOG.md`.
+## 1. Qué puedes usar ahora
 
-## 1. Lo que debes saber antes de comenzar
+Registro persistente de actividades, cuentas, categorías, saldos iniciales, ingresos, gastos y transferencias; resumen por actividad o consolidado; filtros; correcciones y anulaciones con historial; creación y restauración básica de respaldos. Se conserva **Revisar esta fase**.
 
-| Pregunta | Respuesta para esta versión |
-|---|---|
-| ¿Debo crear un usuario? | **No.** Todavía no hay registro, inicio de sesión ni usuarios del aplicativo. |
-| ¿Debo crear un superusuario de Django? | **No.** No hay un panel de administración habilitado ni debes ejecutar `createsuperuser`. |
-| ¿Necesito contraseña? | No para esta vista previa. La protección del acceso se definirá antes de trabajar con información personal. |
-| ¿Debo preparar la base de datos? | No. No debes ejecutar migraciones para esta fase. SQLite funciona en memoria para las comprobaciones internas de arranque. |
-| ¿Puedo ingresar ya mis cuentas reales? | Todavía no. Las pantallas son de demostración y no permiten guardar movimientos financieros. |
-| ¿Se importó mi notebook? | No. Todos los importes y nombres del escenario se crearon como ejemplos ficticios. |
-| ¿Necesito Internet? | Solo para instalar dependencias si el entorno no está preparado. La vista previa ya instalada funciona sin Internet. |
-| ¿Necesito REA o el APK de Moneri? | No. REA fue una herramienta de referencia; no es requisito para ejecutar Finanzas DAGD. |
-| ¿Es un programa Android? | No. Actualmente se ejecuta en tu PC y se utiliza desde el navegador. |
-| ¿Debo abrir puertos o usar permisos de administrador? | No. La aplicación se inicia con tu sesión habitual de Windows y escucha únicamente en tu propio PC. |
+El detalle de sueldo, recurrencias, presupuestos por proyecto/compra, metas y calculadora de cuotas se desarrollarán en Fases 3 y 4. La integración bancaria está cancelada. Las pantallas anteriores de esos módulos siguen disponibles como demostración ficticia, sin guardar operaciones.
 
-El período **octubre de 2026** es un escenario fijo de ejemplo, no una consulta de tus finanzas ni un selector de mes funcional. La Fase 1 sirve para personalizar la estructura antes de implementar el registro real.
+## 2. Ejecutar en este PC
 
-## 2. Ubicación y requisitos
+Carpeta: `D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales`.
 
-Carpeta del proyecto:
+1. Abre esa carpeta en el Explorador de Windows.
+2. Haz doble clic en `Iniciar_Finanzas_DAGD.cmd`.
+3. El iniciador prepara las tablas de la base local y abre una pestaña cuando el servidor está listo.
+4. Si el navegador no abre automáticamente, visita **http://127.0.0.1:8765/**.
+5. Conserva abierta la consola del iniciador. Para detener esa instancia, presiona **Ctrl+C** en ella.
 
-```text
-D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales
-```
+Si ya existe una instancia identificada como Finanzas DAGD, el iniciador la reutiliza. Si el puerto pertenece a otro servicio, muestra un aviso y no lo cierra. Después de actualizar el código, detén la instancia anterior y vuelve a iniciar para cargar los cambios.
 
-Requisitos del entorno preparado:
-
-- Windows y un navegador, como Chrome o Edge.
-- Python 3.12; en la preparación inicial se utilizó Python 3.12.10.
-- Entorno virtual `.venv` dentro del proyecto, con las dependencias de `requirements.txt`.
-- Puerto local 8765 disponible, salvo que Finanzas DAGD ya esté ejecutándose allí.
-
-**El entorno ya se preparó en este PC.** Para la primera prueba, comienza por el apartado siguiente; no necesitas reinstalar Python, Django ni las dependencias.
-
-## 3. Primera ejecución en tu PC
-
-### Si el aplicativo ya quedó abierto por Codex
-
-1. Abre [Finanzas DAGD](http://127.0.0.1:8765/) en el navegador.
-2. Comprueba que aparezcan el nombre Finanzas DAGD y el aviso de datos ficticios.
-3. Si carga correctamente, ya puedes recorrerlo. Si ejecutas el iniciador, reconocerá la instancia existente y abrirá una pestaña sin crear otro servidor.
-4. Si aparece un error de conexión, utiliza el iniciador descrito a continuación.
-
-El servidor que abre Codex puede estar funcionando en segundo plano, sin una consola visible. Si necesitas detener esa instancia y no tienes su consola, solicítalo en el chat para identificar el proceso correspondiente; no cierres indiscriminadamente procesos Python.
-
-### Inicio habitual con doble clic
-
-1. Abre el Explorador de archivos y entra en la carpeta del proyecto.
-2. Haz doble clic en **`Iniciar_Finanzas_DAGD.cmd`**.
-3. Se abrirá una ventana de consola. Déjala abierta mientras uses el aplicativo.
-4. Espera a que la consola indique que el servidor está escuchando en `http://127.0.0.1:8765/`. La salida de Django puede mostrar `Starting development server at ...`.
-5. El iniciador abrirá automáticamente una pestaña en tu navegador predeterminado cuando confirme que Finanzas DAGD está listo. Si el navegador no se abre, entra manualmente en [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
-
-El iniciador espera hasta 20 segundos al servidor antes de abrir la pestaña. Si Finanzas DAGD ya está abierto, reutiliza ese servidor; si el puerto pertenece a otro servicio, informa del conflicto y no lo detiene. Al reutilizar una instancia, el iniciador termina: esa ventana no controla el servidor existente. La ruta del proyecto no se introduce en la barra del navegador: se utiliza la dirección HTTP indicada.
-
-El aviso de Django sobre servidor de desarrollo es esperado en esta entrega local. No cambies la dirección a `0.0.0.0`, no configures acceso desde Internet y no abras puertos del router para esta fase.
-
-### Inicio alternativo desde PowerShell
+Para iniciar desde PowerShell:
 
 ```powershell
-Set-Location -LiteralPath 'D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales'
+Set-Location 'D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales'
 .\Iniciar_Finanzas_DAGD.cmd
 ```
 
-También puedes ejecutar directamente:
+El entorno `.venv` ya está preparado en este PC con Python 3.12 y Django 5.2. En otra instalación con Python disponible:
 
 ```powershell
-Set-Location -LiteralPath 'D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales'
-.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8765 --insecure --noreload
-```
-
-No es necesario activar el entorno virtual: estos comandos invocan su Python directamente. El parámetro `--insecure` permite servir los estilos e icono con `DEBUG=False` en esta configuración de desarrollo; no debe interpretarse como una instrucción para desactivar la seguridad del equipo.
-
-## 4. Cerrar, detener y volver a abrir
-
-- Cerrar la pestaña **no detiene** el servidor.
-- Si lo iniciaste con el archivo `.cmd` o desde PowerShell, vuelve a esa consola y pulsa **Ctrl+C**. Si Windows pregunta si deseas terminar el trabajo por lotes, confirma.
-- Con el servidor detenido, la dirección local dejará de responder. Para volver a utilizarlo, ejecuta de nuevo el iniciador y abre la misma dirección.
-- Al reiniciar o apagar el PC, será necesario iniciar otra vez el aplicativo. No se configuró inicio automático con Windows.
-- Esta vista previa no tiene datos financieros guardados que puedas perder al detenerla. Las casillas de revisión son temporales.
-
-Si el servidor fue iniciado en segundo plano por Codex, aplica la indicación del apartado 3 para identificarlo antes de detenerlo.
-
-## 5. Recorrido recomendado para tu primera revisión
-
-### Resumen
-
-Revisa las tarjetas de ingresos, gastos realizados y saldo en cuentas. En el ejemplo:
-
-- Ingresos: $ 4.000.000.
-- Gastos realizados: $ 1.350.000.
-- Saldo consolidado: $ 2.650.000, que incluye $ 300.000 en Ahorros.
-
-La transferencia a Ahorros no se suma a los gastos, porque mueve dinero entre cuentas propias. La gráfica muestra el recorrido del escenario y no consulta información bancaria. Las cuentas, metas y compromisos visibles sirven para juzgar la distribución y la claridad de la pantalla.
-
-### Movimientos
-
-1. Entra en **Movimientos** desde la navegación.
-2. En Buscar movimiento escribe `arriendo` y pulsa **Filtrar**: debe quedar el gasto de arriendo.
-3. Pulsa **Limpiar** para recuperar los seis movimientos de ejemplo.
-4. Selecciona **Transferencias** en el tipo y pulsa **Filtrar**: debe quedar la reserva para emergencias.
-5. Prueba una búsqueda sin coincidencias para revisar el mensaje de estado vacío.
-
-La búsqueda también reconoce categoría y cuenta. El tipo y la búsqueda se combinan. El máximo de búsqueda es de 80 caracteres. Los filtros aparecen en la dirección del navegador; no introduzcas información personal en ellos.
-
-No encontrarás un botón para crear o guardar movimientos en esta fase. Los formularios financieros y su persistencia se desarrollarán desde la Fase 2.
-
-### Mi sueldo
-
-Compara el desglose de devengos, deducciones y neto. Revisa si te resulta clara la separación entre período del sueldo, fecha de recepción y mes presupuestado. Los importes de ejemplo no representan una liquidación laboral ni tasas legales.
-
-La idea propuesta es registrar el neto una sola vez, aunque se muestre su desglose. El registro real se desarrollará en la Fase 3.
-
-### Presupuesto
-
-Revisa la distribución por categoría, el gasto realizado y el margen del presupuesto. Ese margen no es lo mismo que el saldo bancario. Los compromisos futuros aparecen como previstos y sin pagar; todavía no se suman a los gastos realizados.
-
-Despliega la explicación **¿Cómo funcionarán las recurrencias?** para revisar la regla propuesta. Las categorías y límites visibles todavía no se pueden editar.
-
-### Ahorros
-
-Revisa las metas de fondo de emergencia y renovación del computador. Las barras muestran el progreso de ejemplo. Crear una meta no debería aumentar el saldo propio y reservar dinero no debería generar un gasto ficticio. El registro de metas y aportes llegará en la Fase 4.
-
-### Préstamos y deudas
-
-Compara la compra financiada por pagar con el préstamo otorgado por cobrar. Despliega los componentes de la cuota.
-
-Estos son **ejemplos independientes**: sus saldos y fechas no están integrados al resumen ni al historial de movimientos. La gestión real de préstamos, cuotas, capital, intereses y cargos se desarrollará en la Fase 4.
-
-### Revisar esta fase
-
-Utiliza la lista como guía para comprobar nombre, estilo, secciones, claridad del resumen, filtros y comodidad en tu pantalla. Marcar casillas no envía mensajes ni guarda una aprobación y puede reiniciarse al recargar o cerrar.
-
-Envía tus sugerencias o aprobación **por el chat**. No hace falta aprobar la fase antes de proponer ajustes.
-
-## 6. Qué funciona y qué sigue pendiente
-
-| Disponible para probar ahora | Pendiente de desarrollo |
-|---|---|
-| Navegación por siete secciones. | Crear, editar o anular movimientos reales. |
-| Filtros sobre registros ficticios. | Guardar cuentas, categorías y saldos propios. |
-| Vistas propuestas de sueldo y presupuesto. | Configurar sueldo, recurrencias y presupuestos reales. |
-| Ejemplos de metas y obligaciones. | Registrar aportes, cuotas, pagos y cobros. |
-| Guía temporal de revisión. | Persistencia, respaldos y restauración de datos financieros. |
-| Interfaz local con recursos incluidos. | Importación del notebook, exportaciones y reportes definitivos. |
-
-No hay conexión con bancos, ejecución de pagos, sincronización en nube ni acceso móvil configurado. No debes interpretar los importes de demostración como tu situación financiera.
-
-## 7. Preparar el entorno si falta o en otra instalación
-
-Este apartado es de recuperación o instalación nueva; no es un paso obligatorio en cada inicio. Desde PowerShell:
-
-```powershell
-Set-Location -LiteralPath 'D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales'
-py -3.12 --version
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m pip check
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py test preview
 .\Iniciar_Finanzas_DAGD.cmd
 ```
 
-`pip install` necesita Internet para descargar dependencias si no están disponibles en caché. No ejecutes la preparación sobre un servidor que esté utilizando ese entorno: detén primero la instancia que iniciaste. Si `py -3.12` no se reconoce, comprueba la instalación de Python 3.12 antes de continuar; no sustituyas versiones sin revisar su compatibilidad.
+El servidor escucha únicamente en este equipo. No necesitas GitHub ni Internet para registrar movimientos con el entorno ya instalado. Este iniciador de desarrollo local no es un despliegue público.
 
-No ejecutes `migrate`, `createsuperuser` ni instales servidores de bases de datos para esta fase. No necesitas modificar la política de ejecución de PowerShell para utilizar el `.cmd` o invocar directamente `python.exe`.
+## 3. Primera ejecución: crea tu usuario
 
-## 8. Problemas frecuentes
+La primera apertura muestra **Configurar mi usuario**. Elige un nombre y una contraseña propia de al menos diez caracteres que cumpla las validaciones indicadas. No hay contraseña predeterminada y no necesitas crear un superusuario ni usar la administración de Django.
 
-| Situación | Qué revisar |
-|---|---|
-| El navegador indica que no puede conectarse. | Confirma que la consola siga abierta y que el servidor haya iniciado. Usa exactamente `http://127.0.0.1:8765/`, con HTTP y el puerto 8765. |
-| El puerto ya está ocupado. | Comprueba si Finanzas DAGD ya carga en esa dirección. Si muestra otro programa, no lo detengas sin identificarlo; comunica el mensaje en el chat. |
-| No se encuentra `.venv\Scripts\python.exe`. | Comprueba la carpeta del proyecto y sigue el apartado 7 si el entorno está ausente. No borres carpetas para resolverlo sin identificar la causa. |
-| Aparece `No module named django`. | Asegúrate de usar el Python de `.venv` y de que estén instaladas las dependencias del apartado 7. |
-| La consola se cierra o muestra un error al iniciar. | Ejecuta el iniciador desde una ventana de PowerShell ya abierta para poder leer el mensaje. Comunica el texto del error. |
-| La página aparece sin estilos. | Inicia con el `.cmd` o con el comando completo que incluye `--insecure`. Después recarga el navegador. |
-| Una búsqueda no muestra nada. | Revisa tanto el texto como el tipo seleccionado, o pulsa Limpiar. |
-| No puedo editar importes o registrar mi sueldo. | Es el límite previsto de la vista previa, no un error de permisos ni falta de usuario. |
-| Las casillas no recuerdan mi revisión. | Son controles temporales; tus comentarios y aprobación se registran mediante el chat. |
-| Se modificó el proyecto pero sigo viendo la versión anterior. | El servidor se inicia con `--noreload`: después de cambios de código, detén y reinicia tu instancia; luego recarga la página. |
+Solo se permite este primer registro. Al terminar, entrarás al resumen. Las siguientes visitas pedirán **Iniciar sesión**. Usa **Cerrar sesión** al terminar en un equipo compartido y **Cambiar contraseña** para actualizarla.
 
-Los registros de la instancia iniciada por Codex se encuentran en `local/server.stdout.log` y `local/server.stderr.log`; no se suben a Git. El número de `local/server.pid` identifica el lanzador inicial y no debe usarse a ciegas para cerrar procesos. Cuando inicias desde tu consola, consulta su salida.
+Se crea una actividad inicial llamada **Personal / trabajo principal**. Cuentas, categorías y movimientos empiezan vacíos. Los ejemplos del notebook y de las pruebas no se importan automáticamente.
 
-## 9. Datos, privacidad y respaldos
+No existe recuperación por correo. Si olvidas la contraseña y tienes acceso autorizado a la carpeta local, detén el aplicativo y ejecuta:
 
-No se guardan movimientos, metas, cambios de importes ni casillas de revisión. Las búsquedas son parámetros de la dirección y pueden quedar en el historial del navegador o en la salida del servidor; utiliza solo términos de ejemplo.
+```powershell
+.\.venv\Scripts\python.exe manage.py changepassword TU_USUARIO
+```
 
-Esta entrega no genera un archivo de base de datos financiero. Por tanto, no hay un respaldo de cuentas reales que debas crear antes de probarla. Las copias y restauración se implementarán desde que exista persistencia, en la Fase 2.
+Introduce tú mismo la nueva contraseña cuando lo solicite la consola; no la escribas en comandos, documentos ni en el chat. No borres la base para recuperar el acceso.
 
-El entorno `.venv`, los registros `local/`, las futuras bases y respaldos están excluidos de Git. No copies información privada del notebook a los archivos de demostración ni a GitHub. Los archivos fuente se conservan mediante commits locales; una publicación remota requiere tu orden o aprobación explícita.
+## 4. Preparar actividades, cuentas y categorías
 
-## 10. Accesibilidad y personalización
+En **Actividades y cuentas**:
 
-Puedes navegar con Tab y activar enlaces y botones mediante teclado. El enlace Saltar al contenido permite evitar recorrer toda la navegación. En pantallas pequeñas, las opciones del menú y las tablas se desplazan horizontalmente dentro de su zona.
+- **Actividad:** identifica para qué ámbito es el dinero. Puedes crear un emprendimiento y un trabajo secundario, además de tu actividad personal.
+- **Cuenta:** identifica dónde está el dinero: banco, billetera, efectivo o ahorros. Una misma cuenta puede servir a varias actividades; no la dupliques por ese motivo.
+- **Categoría:** clasifica un ingreso o gasto, por ejemplo trabajo, arriendo o transporte. Su tipo debe coincidir con el movimiento. Es opcional en el registro.
 
-Para pedir un cambio, indica **sección, cambio deseado y resultado esperado**. Por ejemplo: «En Resumen quiero ver primero el dinero disponible después de separar mis ahorros». Puedes sugerir otro tema visual, tamaño de letra, orden de secciones, nombres o reglas.
+Al crear una cuenta, puedes indicar un saldo inicial y la actividad a la que pertenece. Si introduces un saldo positivo, se crea un movimiento **Saldo inicial** con fecha de hoy. Si es cero o lo dejas vacío, no crea ningún movimiento. Si el dinero inicial pertenece a varias actividades, registra saldos iniciales separados en **Nuevo movimiento**. No vuelvas a registrar como ingresos el dinero que ya incluía ese saldo.
 
-Cada fase se revisará ejecutando el aplicativo. Su aprobación se registra expresamente en el chat; no equivale a autorizar que se suba a GitHub.
+Puedes editar nombres. El saldo inicial no se modifica desde la edición de cuenta: corrige su movimiento con un motivo. Una categoría ya utilizada no puede cambiar a un tipo incompatible con sus movimientos. No se eliminan cuentas o actividades desde esta interfaz.
 
-## 11. Mantenimiento de este manual
+## 5. Registrar ingresos y gastos
 
-En cada incremento que modifique el uso se actualizarán las instrucciones pertinentes y se registrará el cambio en `dev_Process.md` y `CHANGELOG.md`. Cuando se incorpore autenticación, este manual explicará la creación del primer usuario y su acceso; cuando exista persistencia, incluirá ubicación y tratamiento de los datos y procedimientos probados de respaldo/restauración.
+En **Movimientos → Nuevo movimiento**:
 
-Las funciones futuras permanecerán identificadas como pendientes hasta que se implementen y verifiquen. En la Fase 5 se realizará la revisión integral del manual; eso no aplaza sus actualizaciones durante el desarrollo.
+1. Selecciona **Ingreso** o **Gasto**.
+2. Revisa fecha, concepto e importe en pesos colombianos (COP).
+3. Selecciona la actividad y la cuenta de origen.
+4. Elige una categoría compatible si deseas usarla.
+5. Deja los destinos vacíos y pulsa **Guardar**.
 
-## 12. Ampliaciones propuestas, todavía no disponibles
+Escribe importes positivos, sin separadores de miles, por ejemplo `25000.50`; se admiten hasta dos decimales. El tipo determina si suma o resta. Los importes se guardan como centavos enteros, evitando redondeos binarios en los cálculos del aplicativo.
 
-El plan posterior a la publicación de Fase 1 contempla actividades separadas para el sueldo y las finanzas personales, emprendimientos y trabajos secundarios; presupuestos de proyectos o compras soñadas; y una calculadora de cuotas e intereses. La integración bancaria ha sido cancelada y no se desarrollará. Ninguna de esas funciones está habilitada aún: requiere aprobación del plan y desarrollo en sus fases. Revisar esta fase se mantendrá durante el proyecto. Las skills instaladas ayudan al desarrollo; no debes instalarlas para utilizar el aplicativo.
+El salario recibido es por ahora un ingreso de la actividad personal. Una venta del emprendimiento es un ingreso de su propia actividad; un gasto del emprendimiento debe llevar esa misma actividad. Puedes registrar movimientos con fecha futura; el resumen incluye todo el historial vigente, no solo el mes actual.
+
+## 6. Transferencias y aportes
+
+Usa **Transferencia** para mover dinero propio entre cuentas o actividades. Selecciona cuenta y actividad de origen, además de cuenta y actividad de destino. Deja la categoría vacía.
+
+Puedes aportar dinero personal a tu emprendimiento incluso usando la misma cuenta física: conserva la cuenta y cambia la actividad de destino. Para retirar fondos, invierte origen y destino. Una transferencia entre actividades propias cambia la asignación del dinero, pero no aumenta los ingresos ni gastos externos del consolidado. El origen y el destino completos no pueden ser idénticos.
+
+El reparto de un gasto entre varias actividades se registra manualmente en movimientos separados, cuidando que la suma sea el importe real. No hay reparto automático ni contabilidad empresarial en esta fase.
+
+## 7. Entender el resumen y los filtros
+
+**Resumen** muestra ingresos, gastos y saldo por cuenta para todas las actividades o la seleccionada. Los saldos iniciales y transferencias no aparecen como ingresos externos. El saldo calculado incluye los saldos iniciales y los movimientos vigentes de todo el historial. Un saldo negativo se conserva y se muestra: revisa registros faltantes o errores.
+
+En **Movimientos**, filtra por concepto, actividad, tipo, fechas o inclusión de anulados; **Limpiar** restablece la selección. Las transferencias aparecen al filtrar tanto su actividad de origen como la de destino. Hay paginación de treinta movimientos.
+
+Los filtros de fecha y concepto corresponden al listado de movimientos. Los totales del resumen se filtran por actividad y están rotulados como todo el historial. Ningún saldo representa una consulta al banco.
+
+## 8. Corregir, anular y consultar historial
+
+**Corregir** abre un movimiento vigente. Cambia los campos necesarios e indica el motivo. **Anular** solicita motivo y confirmación; retira su efecto de los saldos, conservando el registro. No hay eliminación definitiva desde la interfaz ni reactivación de anulados en esta fase.
+
+Si otra ventana ya cambió el registro, recarga y revisa antes de volver a editar. Reenviar el mismo formulario de creación no debe duplicar el movimiento. Verifica el listado cuando un navegador o una interrupción deje dudas sobre el resultado.
+
+**Historial** conserva registro, corrección, anulación, edición de catálogos y restauración. Despliega cada evento para ver antes/después. Esta primera vista técnica muestra `cents` en centavos (100 equivalen a 1 COP), identificadores internos y `revision` como número de edición. No constituye una bitácora inalterable frente a quien tenga acceso directo al archivo del PC.
+
+## 9. Crear respaldos
+
+En **Respaldos**, pulsa **Crear y descargar respaldo**. Además de la descarga, se crea una copia en `backups/`. También puedes ejecutar:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py respaldo_finanzas
+```
+
+La copia JSON incluye actividades, cuentas, categorías, movimientos e historial financiero. No contiene contraseñas, usuarios, sesiones ni claves del sistema. El respaldo básico admite hasta 5 MiB o 10.000 registros. Conserva copias fuera del mismo disco y comprueba su recuperación con datos de ensayo antes de depender de ellas.
+
+## 10. Restaurar una copia propia
+
+La restauración **reemplaza los registros financieros actuales** por los del archivo elegido. Conserva tu usuario y contraseña actuales y los eventos ya existentes del historial; añade un evento de restauración y recupera los eventos faltantes de la copia. Antes de reemplazar datos, genera otra copia en `backups/`.
+
+1. Detén el aplicativo con Ctrl+C y cierra otras instancias que usen la misma base.
+2. Confirma la ruta de la copia propia que quieres recuperar.
+3. Desde PowerShell en la carpeta del proyecto, ejecuta:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py restaurar_finanzas 'C:\RUTA\finanzas-respaldo.json' --confirmar
+```
+
+4. Lee el resultado: muestra la ruta del respaldo previo.
+5. Inicia nuevamente y revisa cuentas, movimientos y saldos.
+
+El comando rechaza formatos incompatibles, archivos dañados, campos inesperados y referencias inválidas. Si la validación financiera falla, revierte los cambios de la base. La huella SHA-256 detecta alteraciones accidentales; no acredita quién creó el archivo. Restaura únicamente copias propias de confianza, sin editarlas manualmente.
+
+En una instalación nueva, crea primero tu usuario local antes de restaurar la copia financiera. La copia JSON no recupera una contraseña olvidada. No se ofrece carga de archivos desde el navegador.
+
+## 11. Archivos privados y cuidado de la instalación
+
+`data/finanzas.sqlite3` guarda los datos persistentes y el acceso; `local/secret.key` mantiene el secreto de esta instalación; `backups/` contiene copias financieras. Están excluidos de Git, al igual que el notebook y las referencias privadas. No los publiques ni los adjuntes al repositorio.
+
+El aplicativo protege el acceso a las pantallas mediante contraseña, pero **no cifra los archivos locales ni los respaldos**. Conserva el acceso de Windows protegido. Para copiar una instalación completa manualmente, detén el servidor primero y conserva la carpeta privada con sus permisos; copiar una base SQLite mientras está en uso puede producir una copia incompleta.
+
+No borres `data/`, `local/secret.key` ni la base para resolver errores. Una reinstalación de dependencias no exige eliminar datos.
+
+## 12. Revisión y solución de problemas
+
+- **No abre el navegador:** entra en http://127.0.0.1:8765/ y revisa la consola.
+- **Aparece la Fase 1 o una versión anterior:** detén la instancia anterior y vuelve a iniciar. La demostración está en `/demo/`; tu registro está en `/app/`.
+- **Error al preparar la base:** guarda el mensaje de la consola y revisa espacio/permisos; no borres archivos financieros.
+- **Sesión caducada o rechazo de formulario:** recarga, inicia sesión y revisa si el movimiento ya se registró antes de reenviar.
+- **Falta una cuenta o actividad:** créala en **Actividades y cuentas** y vuelve al formulario.
+- **Dudas de saldos:** comprueba actividad, fechas, anulaciones y posibles saldos iniciales duplicados.
+
+En **Revisar esta fase**, marca temporalmente lo comprobado y envía tus observaciones por el chat. Las casillas no guardan una aprobación. El avance a Fase 3 y la publicación de implementación nueva requieren tu autorización explícita. Todos los commits nuevos se redactan en español.

@@ -26,7 +26,7 @@ Fase 1 publicada en `dev1` por orden del usuario, hasta `7153eb6`, versión `0.1
 
 Una **actividad** identifica a qué ámbito pertenece el ingreso o gasto; una **cuenta** identifica dónde está el dinero. Una cuenta bancaria podría servir a varias actividades sin duplicarla artificialmente. Habrá vista por actividad y consolidado, con detalle del origen. Los movimientos internos entre cuentas o actividades propias deberán enlazarse para no contarlos como ingresos externos o gastos nuevos del consolidado.
 
-En Fase 2 se definirán las reglas para aportes personales, retiros del emprendimiento y movimientos compartidos antes de implementar sus cálculos. Se propone comenzar con una actividad por movimiento; el reparto de un gasto entre varias actividades quedará sujeto a necesidad y aprobación. No se promete contabilidad empresarial, facturación electrónica ni liquidación tributaria.
+En Fase 2 los aportes personales y retiros del emprendimiento usan transferencias enlazadas. Cada origen y destino corresponde a una actividad; el reparto automático de un gasto entre varias actividades quedará sujeto a necesidad y aprobación. No se promete contabilidad empresarial, facturación electrónica ni liquidación tributaria.
 
 ## Presupuesto, ahorro y simulación son conceptos diferentes
 
@@ -49,9 +49,11 @@ La calculadora no puede garantizar reproducir cualquier contrato bancario. Se do
 
 La integración bancaria queda cancelada. El estudio previo en `docs/INTEGRACIONES_BANCARIAS.md` se conserva como antecedente; no representa un servicio disponible ni trabajo pendiente.
 
-## Decisiones de inicio de Fase 2
+## Decisiones de Fase 2 y estado de entrega
 
 - Alcance aprobado por el usuario. Se inicia con acceso local protegido y datos persistentes; todavía no hay aprobación de la entrega resultante.
-- Confirmar en la definición de Fase 2 los nombres de las actividades y cómo se manejarán aportes/retiros. No hace falta conocerlos para aprobar el plan general.
-- Definir protección de acceso local y representación exacta de importes antes de guardar datos personales.
+- Actividad inicial renombrable Personal / trabajo principal; otras actividades creadas por el usuario. Aportes y retiros propios se registran como transferencias entre actividades, incluso dentro de una misma cuenta. Un gasto compartido puede separarse manualmente; sin reparto automático.
+- Implementados primer usuario local, sesiones/CSRF y centavos enteros; datos privados en SQLite, sin cifrado del archivo. Especificación y criterios en SPEC_FASE2.md; manual actualizado para el primer acceso.
 - Mantener los colores y la navegación como punto de partida; los cambios UI se presentarán ejecutándose para aceptar sugerencias.
+
+Entrega ejecutable de Fase 2 preparada localmente como 0.2.0-alpha.1. Pendientes: revisión del usuario en su PC y autorización de push de esta implementación. No se inicia Fase 3.

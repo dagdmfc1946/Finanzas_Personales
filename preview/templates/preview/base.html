@@ -9,6 +9,7 @@
   <title>{{ title }} · Finanzas DAGD</title>
   <link rel="icon" href="{% static 'preview/mark.svg' %}" type="image/svg+xml">
   <link rel="stylesheet" href="{% static 'preview/app.css' %}">
+  {% block extra_css %}{% endblock %}
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -21,8 +22,8 @@
     <p class="nav-caption">TU ESPACIO FINANCIERO</p>
     <nav>
       {% for slug, label, number in navigation %}
-      <a class="nav-link {% if section == slug %}active{% endif %}" href="{% if slug == 'resumen' %}{% url 'home' %}{% else %}{% url 'section' slug %}{% endif %}" {% if section == slug %}aria-current="page"{% endif %}>
-        <span class="nav-number" aria-hidden="true">{{ number }}</span>{{ label }}
+      <a class="nav-link {% if section == slug %}active{% endif %}" href="{% if financial %}{% url 'ledger:section' slug %}{% elif slug == 'resumen' %}{% url 'demo' %}{% else %}{% url 'section' slug %}{% endif %}" {% if section == slug %}aria-current="page"{% endif %}>
+        {% if not financial %}<span class="nav-number" aria-hidden="true">{{ number }}</span>{% endif %}{{ label }}
       </a>
       {% endfor %}
     </nav>
@@ -30,10 +31,13 @@
   </aside>
   <main id="contenido" tabindex="-1">
     <div class="topline"><span>PERSONAL / <strong>{{ title }}</strong></span><span class="profile" aria-label="Espacio personal de DAGD">DAGD</span></div>
-    <div class="demo-notice" role="note"><strong>Vista previa · Fase 1</strong><span>Datos ficticios · puedes explorar; todavía no se guardan movimientos.</span></div>
-    <header class="page-header"><div><p class="eyebrow">TU DINERO, CON CLARIDAD</p><h1>{{ title }}</h1><p class="subtitle">{% block subtitle %}{% endblock %}</p></div><span class="period">Octubre 2026 <small>Escenario de ejemplo</small></span></header>
+    {% if financial %}<div class="demo-notice" role="note"><strong>Fase 2 · Registro local</strong><span>Tus datos se guardan en este PC. Usuario: {{ request.user.username }}</span></div>
+    <div class="session-actions"><a href="{% url 'password-change' %}">Cambiar contraseña</a><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button type="submit" class="button secondary">Cerrar sesión</button></form></div>
+    {% else %}<div class="demo-notice" role="note"><strong>Vista previa · Fase 1</strong><span>Datos ficticios · puedes explorar; todavía no se guardan movimientos.</span><a href="{% url 'home' %}">Abrir mi registro local</a></div>{% endif %}
+    {% for message in messages %}<p class="notice" role="status">{{ message }}</p>{% endfor %}
+    <header class="page-header"><div><p class="eyebrow">TU DINERO, CON CLARIDAD</p><h1>{{ title }}</h1><p class="subtitle">{% block subtitle %}{% endblock %}</p></div><span class="period">{% if financial %}COP <small>Todo el historial vigente</small>{% else %}Octubre 2026 <small>Escenario de ejemplo</small>{% endif %}</span></header>
     {% block content %}{% endblock %}
-    <footer>Finanzas DAGD · diseñado para tu día a día <a href="{% url 'section' 'revision' %}">Revisar y personalizar esta fase <span aria-hidden="true">↗</span></a></footer>
+    <footer>Finanzas DAGD · diseñado para tu día a día <a href="{% if financial %}{% url 'ledger:section' 'revision' %}{% else %}{% url 'section' 'revision' %}{% endif %}">Revisar y personalizar esta fase <span aria-hidden="true">↗</span></a></footer>
   </main>
 </div>
 </body>

@@ -24,9 +24,20 @@ Las tareas técnicas terminadas no marcan por sí mismas la fase como aprobada. 
 ## Siguiente decisión
 
 - [x] Aprobar la revisión de info_Fases.md posterior a publicar Fase 1.
-  - Aceptación: confirmar el alcance por actividades, presupuestos por proyecto/compra, simulador y carácter opcional de las APIs.
+  - Aceptación: confirmar el alcance por actividades, presupuestos por proyecto/compra y simulador, con la integración bancaria cancelada.
   - Verificación: instrucción explícita del usuario en el chat antes de iniciar Fase 2.
 
 La revisión visual recibida y la orden de publicar Fase 1 no aprueban automáticamente el nuevo alcance de Fase 2.
 
 El usuario aprobó el alcance, canceló la integración bancaria y autorizó iniciar Fase 2. Las tareas de ejecución se detallan en SPEC_FASE2.md.
+
+## Fase 2: entrega local
+
+- [x] Acceso local y persistencia: primer usuario, sesiones/CSRF y migraciones; ver pruebas AccessTests y de arranque.
+- [x] Catálogos y movimientos por actividad con centavos exactos; ver MoneyTests y LedgerViewsTests.
+- [x] Transferencias, filtros y resumen consolidado sin duplicación; correcciones/anulación con historial y versiones.
+- [x] Respaldo y restauración básica, copia previa y validación; ver BackupTests y comandos documentados.
+- [x] Primer uso, estados vacíos, manual y revisión visual en navegador con base sintética aislada.
+- [ ] Revisión del usuario en su pantalla y observaciones de personalización.
+- [ ] Aprobación explícita de la entrega y autorización para subir la nueva implementación.
+- [ ] Inicio de Fase 3 autorizado.

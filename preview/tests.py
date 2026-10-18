@@ -7,7 +7,7 @@ from django.test import SimpleTestCase, override_settings
 @override_settings(ALLOWED_HOSTS=["testserver", "localhost", "127.0.0.1"])
 class PreviewTests(SimpleTestCase):
     def test_sections_are_available_and_explicitly_demo(self):
-        for route in ("", "movimientos/", "sueldo/", "presupuesto/", "ahorros/", "obligaciones/", "revision/"):
+        for route in ("demo/", "movimientos/", "sueldo/", "presupuesto/", "ahorros/", "obligaciones/", "revision/"):
             with self.subTest(route=route):
                 response = self.client.get("/" + route)
                 self.assertEqual(response.status_code, 200)
@@ -16,7 +16,7 @@ class PreviewTests(SimpleTestCase):
                 self.assertContains(response, settings.APP_VERSION)
 
     def test_preview_cannot_accept_financial_writes(self):
-        for route in ("/", "/movimientos/", "/sueldo/", "/obligaciones/"):
+        for route in ("/demo/", "/movimientos/", "/sueldo/", "/obligaciones/"):
             with self.subTest(route=route):
                 self.assertEqual(self.client.post(route, {"importe": "100"}).status_code, 405)
 
@@ -38,7 +38,7 @@ class PreviewTests(SimpleTestCase):
         response = self.client.get("/movimientos/", {"tipo": "transferencia"})
         self.assertContains(response, "Reserva para emergencias")
         self.assertNotContains(response, "Arriendo de octubre")
-        summary = self.client.get("/")
+        summary = self.client.get("/demo/")
         self.assertEqual(summary.context["expenses"], 1350000)
         self.assertEqual(summary.context["balance"], 2650000)
 
@@ -48,13 +48,13 @@ class PreviewTests(SimpleTestCase):
         self.assertContains(response, "&lt;script&gt;")
 
     def test_security_headers_and_local_hosts(self):
-        response = self.client.get("/")
+        response = self.client.get("/demo/")
         self.assertEqual(response.headers["X-Frame-Options"], "DENY")
         self.assertIn("default-src 'none'", response.headers["Content-Security-Policy"])
-        self.assertEqual(self.client.get("/", HTTP_HOST="externo.invalid").status_code, 400)
+        self.assertEqual(self.client.get("/demo/", HTTP_HOST="externo.invalid").status_code, 400)
 
     def test_version_comes_from_single_file(self):
         self.assertEqual(settings.APP_VERSION, (Path(settings.BASE_DIR) / "VERSION").read_text().strip())
 
-    def test_preview_has_no_database_file_to_create_on_startup(self):
-        self.assertEqual(settings.DATABASES["default"]["NAME"], ":memory:")
+    def test_persistent_database_is_in_private_data_directory(self):
+        self.assertEqual(settings.DATA_FILE, settings.BASE_DIR / "data" / "finanzas.sqlite3")

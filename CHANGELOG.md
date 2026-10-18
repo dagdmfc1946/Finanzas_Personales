@@ -2,15 +2,29 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
-## [Sin publicar]
+## [0.2.0-alpha.1] - 2026-10-17
 
-### Planeación y herramientas
+Entrega de Fase 2 local, pendiente de revisión visual del usuario y autorización de publicación. Incremento MENOR por nuevas capacidades en desarrollo inicial; no es una versión estable.
 
-- Plan propuesto revisado: separación por actividades desde Fase 2, presupuestos por proyecto/compra, simulador de financiación y consulta bancaria opcional. Pendiente de aprobación; sin implementar Fase 2.
-- Skills de UI instaladas y verificadas en el entorno personal; fuentes e instrucciones en docs/SKILLS_UI.md.
-- Reglas duraderas del usuario en AGENTS.md y estudio preliminar de saldos en docs/INTEGRACIONES_BANCARIAS.md.
+### Añadido
 
-- Nuevas propuestas posteriores a la publicación de Fase 1 se revisarán antes de iniciar la Fase 2.
+- Primer usuario local, inicio/cierre de sesión y cambio de contraseña; protección de formularios con CSRF y consultas por propietario.
+- Base SQLite persistente y secreto estable, excluidos de Git junto con los respaldos.
+- Actividades, cuentas y categorías; saldos iniciales, ingresos, gastos y transferencias por actividad. Centavos enteros y resumen consolidado sin duplicar transferencias.
+- Formularios, búsqueda/filtros y paginación; corrección con control de edición, anulación con motivo e historial conservado.
+- Respaldo JSON descargable y comandos para crear/restaurar copias con validación, transacción y copia previa; sin exportar credenciales.
+- Pantallas de primer uso y estados vacíos, mayor legibilidad y guía Revisar Fase 2. La demostración ficticia permanece separada en /demo/.
+
+### Cambiado
+
+- El iniciador aplica migraciones antes del arranque y reconoce la aplicación también en configuración o acceso.
+- Manual actualizado para crear usuario, separar actividades, operar movimientos y recuperar respaldos.
+- Plan aprobado por el usuario; integración bancaria cancelada. Commits nuevos en español.
+- La revisión documental pendiente se publicó en dev1 mediante ea0af24 por orden expresa. La nueva implementación permanece local.
+
+### Herramientas
+
+- Agent Skills y refinamiento de interfaz con Impeccable; sin nuevas dependencias del aplicativo. Skills UI previamente instaladas documentadas en docs/SKILLS_UI.md.
 
 ## [0.1.0-alpha.2] - 2026-10-17
 

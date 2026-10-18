@@ -67,3 +67,47 @@ Se confirmó origin/dev1 en 7153eb6. Después se instalaron desde commits fijos 
 ## Autorización de inicio de Fase 2
 
 El usuario aprobó el alcance revisado, ordenó publicar lo pendiente y canceló la integración bancaria. Solicitó que todos los commits sean en español; se aplica desde esta instrucción y se renombra el commit local aún no publicado, sin reescribir commits ya publicados. Los nuevos incrementos de implementación se conservarán locales hasta su autorización.
+
+## Entrega local de Fase 2 — 2026-10-17
+
+### Autorización y Git
+
+Se publicó la revisión documental autorizada en origin/dev1 mediante `ea0af24`, con mensaje en español. Sustituye al commit local todavía no publicado de la revisión anterior; no se reescribió historia remota. La integración bancaria está cancelada. Los incrementos de implementación posteriores quedan en commits locales en español hasta una nueva autorización para publicarlos.
+
+### Implementación y decisiones
+
+Versión `0.2.0-alpha.1`, incremento MENOR por nuevas capacidades en desarrollo inicial. Definición concreta en SPEC_FASE2.md. Se reutiliza el entorno y las dependencias de Fase 1; no se instala otro paquete del aplicativo.
+
+SQLite persistente en data/finanzas.sqlite3, secreto estable en local/secret.key y respaldos en backups/, todos excluidos de Git. Primer usuario creado por el propio usuario; sin credenciales predeterminadas, administración pública ni recuperación por correo. Sesiones, validadores de contraseña y CSRF de Django. El iniciador aplica migraciones antes de arrancar y reconoce la cabecera del aplicativo al redirigir a configuración o acceso.
+
+Se implementan actividades, cuentas y categorías propias; ingresos, gastos, saldos iniciales y transferencias enlazadas. Importes en centavos enteros y validación de dos decimales. Una cuenta puede tener fondos asignados a varias actividades. Aportes y retiros internos usan transferencia; no incrementan ingresos o gastos consolidados. Resumen de todo el historial vigente con filtro de actividad; fechas y concepto filtran el listado, no los totales generales. Los saldos negativos se muestran sin ocultar movimientos.
+
+Corrección con revisión optimista y motivo; anulación sin eliminación física, con confirmación e historial. Catálogos no se eliminan desde la interfaz; el cambio de tipo de una categoría utilizada se bloquea si deja movimientos incompatibles. El identificador de envío evita duplicar movimientos al reenviar el formulario.
+
+Respaldo JSON de entidades financieras mediante descarga POST o comando, formato permitido explícito, límite de 5 MiB/10.000 registros y SHA-256 para detectar daños. Restauración con validación, copia previa dentro de la transacción y reversión ante errores; no importa contraseñas ni sesiones. Se conserva el historial existente y se incorporan eventos faltantes. Solo copias propias de confianza: el hash no autentica su origen. Los archivos locales no están cifrados.
+
+### Skills y fuentes
+
+Se aplicó using-agent-skills y los flujos de especificación, Git/versionado, implementación incremental, pruebas, seguridad y revisión de código. Para la interfaz se aplicó Impeccable en modo Operate, preservando la identidad oscura/turquesa revisada y los controles conocidos. Se mantuvo la guía Revisar esta fase. La skill Taste orientada a páginas públicas no se aplica a este panel; no se añade un rediseño de marketing.
+
+Impeccable context se ejecutó una vez al comenzar el trabajo UI. Detect se ejecutó una vez sobre las plantillas y CSS modificados: resultado JSON vacío; advirtió que no resuelve enlaces CSS expresados con etiquetas static de Django, por lo que su comprobación de colores es incompleta. Se inspeccionó el renderizado real; este resultado no equivale a una auditoría integral de accesibilidad.
+
+Se contrastaron autenticación, formularios y transacciones con documentación oficial de Django 5.2: https://docs.djangoproject.com/en/5.2/topics/auth/default/ , https://docs.djangoproject.com/en/5.2/topics/forms/modelforms/ y https://docs.djangoproject.com/en/5.2/topics/db/transactions/ .
+
+### Verificación
+
+Primero se ejecutaron pruebas del servicio sin implementar los modelos: fallaron por su ausencia. Los seis casos contables iniciales pasaron tras implementarlos. Las pruebas HTTP se ejecutaron antes de conectar las rutas: fallaron por respuestas 404 y por conservar el inicio de demostración; después pasaron con el flujo de acceso y las rutas nuevas. La prueba histórica de base en memoria se actualizó a la nueva ubicación privada de persistencia; las pruebas de demostración siguen comprobando que esa vista no acepta escrituras.
+
+La batería completa previa a la revisión final pasó 41 pruebas. Incluyó primer registro único, inicio/cierre de sesión, propiedad cruzada, CSRF, precisión, transferencias, edición obsoleta, doble envío, anulaciones, filtros, copias dañadas y recuperación por comando con confirmación. Revisión final: se añadió un caso de rechazo de revisión inválida en respaldos; el resultado final se registra al cerrar la entrega.
+
+manage.py check sin incidencias; makemigrations --check --dry-run sin cambios pendientes; pip check sin incompatibilidades. No se afirma que pip check sea una auditoría de vulnerabilidades. Se invirtió temporalmente el signo del destino de una transferencia; las pruebas detectaron la regresión y se restauró el archivo exacto antes de repetir los casos contables. Registro privado local/mutation-fase2.log. Pruebas financieras en base temporal, sin alterar movimientos personales.
+
+Navegador real mediante CUA: sesión sintética en puerto 8766 y base separada local/revision-fase2.sqlite3. Se comprobó resumen, se registró un gasto ficticio con centavos y se observó su efecto en gastos, saldo total y saldo por cuenta. Se detectó una fecha inicial vacía y se corrigió con prueba de regresión; se verificó nuevamente la fecha de hoy y el formulario. Se mejoró el espaciado de las instrucciones de contraseña. Captura de resumen sintético fuera de Git: C:/Users/Diego/Documents/ChatGPT/Finanzas Personales/fase2_resumen_ensayo.png.
+
+La instalación personal del puerto 8765 se migró y se abrió en Configurar mi usuario. No se crearon usuarios ni movimientos personales, ni se importó el notebook. La revisión visual se realizó en el tamaño de escritorio disponible; no se repitió una auditoría completa de anchos móviles, rendimiento o accesibilidad. El usuario debe elegir sus credenciales y revisar en su pantalla.
+
+### Estado
+
+Entrega local de Fase 2 disponible para revisión. Manual, README, tareas, fases y changelog actualizados. No se considera aprobada por pasar las pruebas; no se inicia Fase 3 y no se publica implementación nueva automáticamente.
+
+Cierre de verificación: la batería final pasó **42 pruebas**, sin cambios de migración pendientes ni incompatibilidades de dependencias. La copia de ensayo se mantuvo separada y su servidor se cerró. La instancia personal se recargó con la versión final y permanece en el primer acceso para que el usuario cree sus credenciales. Revisión propia de corrección, propiedad de datos, validación de archivos, transacciones, navegación, legibilidad y paginación: apta para revisión local, sin equivaler a una entrega pública estable. Los registros locales y la captura sintética no se incluyen en Git.

@@ -5,6 +5,26 @@ import iniciar
 
 
 class LauncherTests(unittest.TestCase):
+    def setUp(self):
+        self.migrations = patch('iniciar.subprocess.run', return_value=Mock(returncode=0)).start()
+        self.addCleanup(patch.stopall)
+
+    @patch('iniciar.port_in_use', return_value=False)
+    @patch('iniciar.is_ready', return_value=False)
+    @patch('iniciar.subprocess.Popen')
+    def test_migration_failure_prevents_server_start(self, process, ready, busy):
+        self.migrations.return_value.returncode = 1
+        self.assertEqual(iniciar.main(), 1)
+        process.assert_not_called()
+
+    @patch('iniciar.urlopen')
+    def test_readiness_recognizes_setup_or_login_without_reading_private_page(self, request):
+        response = request.return_value.__enter__.return_value
+        response.headers = {'X-Finanzas-DAGD': 'local'}
+        self.assertTrue(iniciar.is_ready())
+        response.headers = {}
+        self.assertFalse(iniciar.is_ready())
+
     @patch('iniciar.webbrowser.open', return_value=True)
     @patch('iniciar.subprocess.Popen')
     @patch('iniciar.is_ready', return_value=True)

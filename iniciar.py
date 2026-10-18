@@ -1,4 +1,4 @@
-"""Inicia la vista previa y abre una pestaña cuando el servidor está listo."""
+"""Prepara la base local, inicia Finanzas DAGD y abre el navegador."""
 from pathlib import Path
 import socket
 import subprocess
@@ -15,8 +15,7 @@ ROOT = Path(__file__).resolve().parent
 def is_ready():
     try:
         with urlopen(URL, timeout=1) as response:
-            page = response.read(131072).decode('utf-8')
-        return '<title>Resumen · Finanzas DAGD</title>' in page
+            return response.headers.get('X-Finanzas-DAGD') == 'local'
     except (OSError, URLError, UnicodeError):
         return False
 
@@ -55,6 +54,10 @@ def main():
         return 1
     server = None
     try:
+        migration = subprocess.run([sys.executable, str(ROOT / 'manage.py'), 'migrate', '--noinput'], cwd=ROOT)
+        if migration.returncode:
+            print('No se pudo preparar la base de datos. Revisa el error antes de continuar.')
+            return 1
         server = subprocess.Popen([
             sys.executable, str(ROOT / 'manage.py'), 'runserver',
             '127.0.0.1:8765', '--insecure', '--noreload',

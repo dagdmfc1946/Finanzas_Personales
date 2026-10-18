@@ -4,4 +4,4 @@ El plan vigente tiene su descripción en [info_Fases.md](../info_Fases.md). La F
 
 La revisión posterior del plan incorpora separación por actividades en la base de movimientos, presupuestos por proyecto/compra y simulador de financiación. La integración bancaria fue cancelada. El alcance restante fue aprobado y se inicia Fase 2 mediante incrementos verificables, manteniendo la aprobación visual de la entrega.
 
-Las reglas del proyecto se conservan en [AGENTS.md](../AGENTS.md). Skills y pautas de uso: [SKILLS_UI.md](../docs/SKILLS_UI.md). Las tareas históricas de Fase 1 están en [todo.md](todo.md); la tarea siguiente es recibir la aprobación del nuevo alcance y detallar incrementos verificables de Fase 2.
+Las reglas del proyecto se conservan en [AGENTS.md](../AGENTS.md). Skills y pautas de uso: [SKILLS_UI.md](../docs/SKILLS_UI.md). Las tareas históricas de Fase 1 están en [todo.md](todo.md); el alcance ya fue aprobado. La implementación local de Fase 2 y su especificación se encuentran en SPEC_FASE2.md; resta la revisión del usuario sobre la entrega ejecutable, sin avanzar a Fase 3 ni publicar código automáticamente.

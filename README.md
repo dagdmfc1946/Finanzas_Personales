@@ -1,34 +1,43 @@
 # Finanzas DAGD
 
-Aplicativo de finanzas personales para ejecutar localmente en Windows. Fase 1: vista previa navegable con datos ficticios, pendiente de revisión del usuario. No registra ni importa aún datos financieros.
+Aplicativo de finanzas personales para ejecutar localmente en Windows. Fase 2 disponible localmente para revisión: actividades, cuentas, ingresos, gastos, transferencias, correcciones y respaldos. La integración bancaria está cancelada.
 
-## Abrir la entrega preparada
+## Ejecutar
 
-1. Ejecutar `Iniciar_Finanzas_DAGD.cmd` en esta carpeta. Si inicia un servidor nuevo, mantener la consola abierta.
-2. Se abre una pestaña automáticamente cuando el servidor responde. Una instancia existente de Finanzas DAGD se reutiliza; dirección alternativa: http://127.0.0.1:8765/.
-3. Recorrer las secciones y la página **Revisar esta fase**. Enviar sugerencias o aprobación por el chat.
-4. Para detener el servidor, pulsar Ctrl+C en su ventana.
+1. Lee [MANUAL_USUARIO.md](MANUAL_USUARIO.md).
+2. Ejecuta `Iniciar_Finanzas_DAGD.cmd`; prepara las tablas y abre el navegador.
+3. En el primer inicio crea tu usuario local. No hay credenciales predeterminadas ni necesitas un superusuario. Los registros empiezan vacíos.
+4. Abre http://127.0.0.1:8765/ si no se abre automáticamente. Conserva la consola del iniciador; Ctrl+C detiene su instancia.
 
-Si ya existe un servidor de Finanzas DAGD en ese puerto, basta con abrir la dirección. No ejecutar otro servidor en el mismo puerto ni detener procesos ajenos.
+Tras actualizar, reinicia el servidor para cargar los cambios. La demostración ficticia anterior está en `/demo/` y no guarda datos personales.
 
-## Preparar el entorno en otra instalación
+## Preparar otra instalación
 
-Requisitos: Python 3.12 y acceso a PyPI para instalar dependencias una vez. Desde PowerShell, en la raíz del repositorio:
+Python 3.12 y acceso a PyPI una vez para instalar dependencias. En la raíz del repositorio:
 
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe manage.py check
-.\.venv\Scripts\python.exe manage.py test preview
-.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8765 --insecure --noreload
+.\Iniciar_Finanzas_DAGD.cmd
 ```
 
-El servidor de desarrollo y el parámetro `--insecure` sirven esta demostración y sus estáticos con DEBUG desactivado; el enlace permanece en la interfaz de loopback. No se requiere `migrate` ni crear una base de datos para la Fase 1. Tras instalar las dependencias, la vista previa funciona sin conexión a Internet y no carga fuentes ni bibliotecas desde servicios externos.
+El servidor de desarrollo escucha solo en loopback y sirve los estáticos locales con `--insecure` y DEBUG desactivado. No es un despliegue público. Después de preparar el entorno, no necesita conexión a Internet para registrar movimientos.
+
+## Verificar
+
+```powershell
+.\.venv\Scripts\python.exe manage.py test
+.\.venv\Scripts\python.exe manage.py check
+.\.venv\Scripts\python.exe manage.py makemigrations --check --dry-run
+.\.venv\Scripts\python.exe -m pip check
+```
+
+Las pruebas financieras usan una base aislada; no escriben en tus movimientos personales. Los respaldos y la restauración se explican en el manual.
 
 ## Documentación y reglas
 
-- [Fases](info_Fases.md), [especificación de Fase 1](SPEC_FASE1.md), [tareas](tasks/todo.md).
-- [Proceso](dev_Process.md), [cambios](CHANGELOG.md), [manual de usuario](MANUAL_USUARIO.md).
-- [Instalación REA](Analisis_REA/INSTALACION_REA.md) y [análisis público de Moneri](Analisis_REA/ANALISIS_REA_MONERI.md).
-- Número de versión en `VERSION`, sin duplicarlo en código. Cada fase requiere revisión ejecutable y aprobación del usuario. Subir a GitHub únicamente por orden o aprobación explícita.
-- `.venv/`, bases, respaldos, secretos, registros locales y datos reales quedan fuera de Git.
+- [Fases](info_Fases.md), [especificación de Fase 2](SPEC_FASE2.md), [tareas](tasks/todo.md), [especificación histórica de Fase 1](SPEC_FASE1.md).
+- [Proceso](dev_Process.md), [cambios](CHANGELOG.md), [manual](MANUAL_USUARIO.md), [reglas](AGENTS.md).
+- [Instalación REA](Analisis_REA/INSTALACION_REA.md), [análisis público de Moneri](Analisis_REA/ANALISIS_REA_MONERI.md), [skills UI](docs/SKILLS_UI.md).
+- Versión única en `VERSION` según SemVer. Commits nuevos en español. Cada fase requiere revisión ejecutable; publicar únicamente con autorización explícita.
+- `.venv/`, `data/`, `local/`, `backups/`, bases, secretos y datos reales quedan fuera de Git. Los archivos financieros locales no están cifrados por el aplicativo.

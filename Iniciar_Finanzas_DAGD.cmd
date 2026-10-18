@@ -1,7 +1,7 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-title Finanzas DAGD - Vista previa local
+title Finanzas DAGD - Registro local
 if not exist ".venv\Scripts\python.exe" (
   echo No se encontro el entorno de Python del proyecto.
   echo Sigue la preparacion del entorno indicada en README.md.
@@ -9,7 +9,7 @@ if not exist ".venv\Scripts\python.exe" (
   exit /b 1
 )
 echo.
-echo Finanzas DAGD - Fase 1 - Datos ficticios
+echo Finanzas DAGD - Fase 2 - Registro local
 echo Se abrira una pestana en el navegador cuando el servidor este listo.
 echo Para detener el aplicativo, presiona Ctrl+C en esta ventana.
 echo.

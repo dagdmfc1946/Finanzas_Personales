@@ -11,4 +11,5 @@ class PreviewHeadersMiddleware:
             "font-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
         )
         response["Cache-Control"] = "no-store"
+        response["X-Finanzas-DAGD"] = "local"
         return response
