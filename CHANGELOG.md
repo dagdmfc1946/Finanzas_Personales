@@ -4,7 +4,7 @@ Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del núm
 
 ## [0.2.0-alpha.10] - 2026-10-18
 
-Corrección local pendiente de autorización para publicar.
+Publicación en dev1 autorizada por el usuario al solicitar iniciar Fase 3.
 
 ### Corregido
 

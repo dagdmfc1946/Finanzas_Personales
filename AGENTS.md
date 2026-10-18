@@ -1,7 +1,7 @@
 # Instrucciones del proyecto Finanzas DAGD
 
 - Usar Agent Skills durante todo el desarrollo: consultar using-agent-skills y aplicar los flujos relevantes. Skills UI instaladas y límites en docs/SKILLS_UI.md.
-- Respetar la especificación vigente y el plan de info_Fases.md. El usuario aprobó el alcance revisado y autorizó iniciar Fase 2. No avanzar a Fase 3 sin su revisión de la entrega ejecutable.
+- Respetar la especificación vigente y el plan de info_Fases.md. El usuario autorizó la transición a Fase 3 y publicar la corrección pendiente de Fase 2. Desarrollar Fase 3 por incrementos ejecutables; no avanzar a Fase 4 ni publicar nueva implementación sin autorización.
 - Cada fase necesita una entrega ejecutable y revisión del usuario. Conservar Revisar esta fase hasta culminar el desarrollo; las casillas no otorgan aprobación.
 - Trabajar en dev1. Todos los nuevos mensajes de commit deben estar en español. Guardar commits locales para trazabilidad. No hacer push, merge o publicación sin orden o aprobación explícita para ese alcance.
 - VERSION es la fuente única del número ejecutable; aplicar SemVer y actualizar CHANGELOG.md. Actualizar MANUAL_USUARIO.md y dev_Process.md con cada cambio de uso o comportamiento.

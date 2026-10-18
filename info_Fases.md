@@ -57,3 +57,7 @@ La integración bancaria queda cancelada. El estudio previo en `docs/INTEGRACION
 - Mantener los colores y la navegación como punto de partida; los cambios UI se presentarán ejecutándose para aceptar sugerencias.
 
 Entrega ejecutable de Fase 2 preparada localmente como 0.2.0-alpha.1. Pendientes: revisión del usuario en su PC y autorización de push de esta implementación. No se inicia Fase 3.
+
+## Estado actualizado — inicio autorizado de Fase 3
+
+El usuario autorizó subir la corrección 0.2.0-alpha.10 y comenzar Fase 3. Las restricciones históricas de inicio anteriores quedan superadas por esa instrucción. El plan de cinco fases y la exclusión bancaria siguen vigentes. Primer incremento: sueldo neto/detallado, meses trabajado/presupuestado y cobros reales vinculados sin duplicar movimientos. Siguientes incrementos: presupuestos por mes/proyecto/compra y recurrencias, con previsto/comprometido/realizado. Especificación en SPEC_FASE3.md. Nuevos cambios de implementación permanecen locales hasta orden de publicación; no se inicia Fase 4 automáticamente.
