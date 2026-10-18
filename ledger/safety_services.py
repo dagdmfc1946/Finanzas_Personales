@@ -46,3 +46,23 @@ def reset_finances(user, reason):
     Activity.objects.create(owner=user, name="Personal / trabajo principal")
     AuditEvent.objects.create(owner=user, action="reinicio personal", reason=reason, after={"estado": "Finanzas vacías; acceso y perfil conservados"})
     return previous
+
+
+@transaction.atomic
+def remove_user(actor, pk, reason):
+    from django.contrib.auth import get_user_model
+    from .models import Installation
+    if not actor.is_staff or not reason.strip():
+        raise ValidationError("Solo el administrador puede eliminar usuarios, con un motivo.")
+    person = get_user_model().objects.select_for_update().filter(pk=pk).first()
+    if person is None:
+        raise ValidationError("El usuario ya no existe. Recarga la lista.")
+    if person.pk == actor.pk or person.is_staff or person.is_superuser or Installation.objects.filter(user=person).exists():
+        raise ValidationError("El administrador inicial y las cuentas administrativas están protegidos contra eliminación.")
+    previous, _ = write_backup(person)
+    username = person.username
+    for model in (SalaryReceipt, Salary, Entry, Category, Account, Activity, AuditEvent):
+        model.objects.filter(owner=person).delete()
+    person.delete()
+    AuditEvent.objects.create(owner=actor, action="eliminar usuario", entity=str(pk), before={"usuario": username}, reason=reason)
+    return previous

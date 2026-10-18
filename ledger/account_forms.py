@@ -24,11 +24,13 @@ class ProfileForm(CurrentPasswordMixin, forms.ModelForm):
         super().__init__(*args, instance=actor, **kwargs)
 
 
-ROLES = [("normal", "Usuario normal"), ("admin", "Administrador")]
+class RegistrationForm(UserCreationForm):
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = ["username", "first_name", "last_name"]
 
 
 class UserCreateForm(CurrentPasswordMixin, UserCreationForm):
-    role = forms.ChoiceField(label="Rol", choices=ROLES, initial="normal")
     current_password = forms.CharField(label="Tu contraseña de administrador", widget=forms.PasswordInput)
 
     class Meta(UserCreationForm.Meta):
@@ -40,11 +42,14 @@ class UserCreateForm(CurrentPasswordMixin, UserCreationForm):
         super().__init__(*args, **kwargs)
 
 
-class UserAccessForm(CurrentPasswordMixin, forms.Form):
-    role = forms.ChoiceField(label="Rol", choices=ROLES)
-    is_active = forms.BooleanField(label="Acceso activo", required=False)
+class UserAccessForm(CurrentPasswordMixin, forms.ModelForm):
     current_password = forms.CharField(label="Tu contraseña de administrador", widget=forms.PasswordInput)
-    confirm = forms.BooleanField(label="Confirmo el cambio de acceso de este usuario")
+    confirm = forms.BooleanField(label="Confirmo editar los datos y el acceso de este usuario")
+
+    class Meta:
+        model = get_user_model()
+        fields = ["username", "first_name", "last_name", "is_active"]
+        labels = {"is_active": "Acceso activo"}
 
     def __init__(self, *args, actor, **kwargs):
         self.actor = actor

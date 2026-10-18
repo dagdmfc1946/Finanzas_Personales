@@ -123,7 +123,7 @@ class UserSafetyTests(TestCase):
         self.assertEqual(csrf.post("/app/reiniciar/",self.confirmation("REINICIAR usuario_ensayo")).status_code,403)
         with self.assertRaises(CommandError): call_command("respaldo_finanzas")
         self.client.force_login(self.admin)
-        response=self.client.post(f"/app/usuarios/{self.user.pk}/",{"role":"normal","current_password":"Ensayo-local!837","confirm":"on"})
+        response=self.client.post(f"/app/usuarios/{self.user.pk}/",{"username":self.user.username,"first_name":"","last_name":"","current_password":"Ensayo-local!837","confirm":"on"})
         self.assertEqual(response.status_code,302)
         self.user.refresh_from_db()
         self.assertFalse(self.user.is_active)

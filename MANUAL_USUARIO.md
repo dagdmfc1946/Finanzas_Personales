@@ -2,7 +2,7 @@
 
 👋 Esta guía te acompaña desde el primer inicio hasta el registro de tu sueldo. Lee primero **4. Preparar actividades, cuentas y categorías** y **5. Registrar ingresos y gastos** si ya tienes acceso.
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Guía para `0.3.0-alpha.4`, entrega local de Fase 3 en revisión.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Guía para `0.3.0-alpha.5`, entrega local de Fase 3 en revisión.
 
 ## 1. 🧭 Qué puedes usar ahora
 
@@ -42,7 +42,7 @@ Después de instalar las dependencias no necesitas Internet para registrar tus d
 
 Solo la primera apertura muestra **Configurar mi usuario**. Ese primer usuario será administrador. Si ya usabas esta instalación, tu usuario inicial pasa a administrador conservando contraseña y datos. Escoge nombre y contraseña propia de al menos diez caracteres y sigue las indicaciones del formulario. No existe usuario o contraseña predeterminados ni necesitas un superusuario técnico de Django.
 
-Si ya ves **Iniciar sesión**, introduce el usuario que creaste; no crees otro. Abre el **icono de usuario de la esquina superior izquierda** para Ver perfil, Editar perfil, Cambiar contraseña o Cerrar sesión. El administrador también verá Administrar usuarios. Consulta la sección 16 para crear accesos adicionales.
+Si ya ves **Iniciar sesión**, introduce tu usuario existente. Si necesitas otro acceso independiente, pulsa **Crear usuario**: completa nombre de acceso, nombres/apellidos opcionales y contraseña dos veces. Se crea como usuario normal y entra en su espacio vacío; no se copian cuentas ajenas. Si es la primera apertura de toda la instalación, Crear usuario te llevará a la configuración del único administrador inicial. Abre el **icono de usuario de la esquina superior izquierda** para Ver perfil, Editar perfil, Cambiar contraseña o Cerrar sesión. El administrador también verá Administrar usuarios. Consulta la sección 16 para crear accesos adicionales.
 
 La instalación empieza sin movimientos y crea la actividad **Personal / trabajo principal**. No se cargan automáticamente los datos del notebook ni los ejemplos de esta guía.
 
@@ -225,7 +225,7 @@ No borres la base ni la clave para arreglar un error. Antes de copiar manualment
 
 ## 12. 📖 Consultar documentación en el aplicativo
 
-Los enlaces **CHANGELOG.md** y **MANUAL_USUARIO.md** de la barra lateral abren pestañas nuevas. No pierdes la pantalla original. Pueden leerse antes de iniciar sesión.
+La barra lateral tiene desplazamiento vertical: coloca el cursor sobre ella y usa la rueda, arrastra su barra o enfócala con Tab y usa las flechas para llegar a las opciones inferiores. Al abrir el menú de usuario, sus opciones quedan dentro del mismo panel y puedes seguir bajando hasta la documentación. Los enlaces **CHANGELOG.md** y **MANUAL_USUARIO.md** de la barra lateral abren pestañas nuevas. No pierdes la pantalla original. Pueden leerse antes de iniciar sesión.
 
 En **En este documento**, pulsa un título para saltar a él. Puedes abrir/cerrar capítulos, **Expandir todo**, **Contraer todo** o buscar títulos y contenido sin distinguir tildes ni mayúsculas. **Limpiar filtro** recupera la lectura. Los controles son temporales y funcionan localmente con JavaScript; sin él puedes leer todo y usar la búsqueda del navegador.
 
@@ -336,8 +336,9 @@ Pulsa el icono con las iniciales del usuario, arriba a la izquierda. Desde ese m
 | Registrar, consultar, corregir, anular y eliminar | Solo sus finanzas | Solo sus finanzas |
 | Respaldar y reiniciar | Solo sus finanzas | Solo sus finanzas |
 | Perfil y contraseña | Solo propios | Solo propios |
-| Crear usuarios, asignar rol, activar/desactivar | No | Sí, confirmando su contraseña |
-| Ver o reiniciar finanzas ajenas desde su sesión | No | No |
+| Crear usuarios normales, editar datos y activar/desactivar | Registro propio desde acceso | Sí, confirmando su contraseña |
+| Eliminar usuarios normales y sus datos | No | Sí, con confirmación y copia previa |
+| Ver o reiniciar finanzas ajenas desde su sesión | No | No; eliminar un usuario completo es una operación administrativa distinta |
 
 Los roles protegen las pantallas del aplicativo. Quien tenga acceso directo a la carpeta y herramientas del PC puede acceder a los archivos; no son cuentas de Windows separadas ni datos cifrados.
 
@@ -345,14 +346,26 @@ Los roles protegen las pantallas del aplicativo. Quien tenga acceso directo a la
 
 1. Entra como administrador y abre **icono de usuario → Administrar usuarios → Crear usuario**.
 2. Escribe un nombre de acceso único; nombres y apellidos son opcionales.
-3. Introduce la contraseña inicial de la nueva persona dos veces y elige **Usuario normal** o **Administrador**. Evita dar rol administrador si solo necesita llevar sus cuentas.
+3. Introduce la contraseña inicial de la nueva persona dos veces. Se crea siempre como **Usuario normal**: el administrador se crea únicamente en la configuración inicial, sin selector de rol posterior.
 4. En **Tu contraseña de administrador**, introduce tu clave actual para autorizar el alta. Es distinta de las dos contraseñas nuevas anteriores.
 5. Guarda. El nuevo usuario empieza con actividad personal y sin movimientos; no se copian tus cuentas.
 6. Para registrar sus cuentas, cierra tu sesión y entra con ese usuario, con su autorización. Cada persona usa sus propias credenciales. No existe un selector que abra finanzas ajenas desde la sesión del administrador.
 
-No hay registro público adicional. El administrador puede usar **Gestionar acceso** para cambiar el rol o desmarcar **Acceso activo**. Desactivar conserva los datos e impide entrar; las sesiones ya abiertas pierden acceso al hacer una nueva solicitud. Para reactivar, marca Acceso activo y confirma. El administrador no puede desactivarse ni quitarse su propio rol. Puede crear otro administrador y gestionar los demás; las cuentas técnicas superusuario quedan fuera de esta pantalla.
+También existe **Crear usuario** en la pantalla de acceso para que una persona registre su propio espacio. Ese registro siempre es normal, sin permisos de administración. Si ya tienes sesión abierta, ciérrala para registrar otro acceso desde allí; el administrador puede usar directamente Crear usuario en su lista.
 
-No se borran cuentas de acceso desde esta interfaz: se desactivan. No se muestran ni se cambian contraseñas ajenas desde Administrar usuarios. La recuperación técnica por consola de la sección 3 sigue disponible a quien tenga acceso autorizado al PC.
+### Editar o eliminar desde Administrar usuarios
+
+Pulsa **Editar** en la fila correspondiente. Puedes cambiar nombre de acceso, nombres, apellidos y Acceso activo, confirmando tu contraseña de administrador y la casilla. Los roles no se editan. Al cambiar el nombre de acceso, avisa a esa persona para su siguiente inicio de sesión.
+
+Desmarcar **Acceso activo** impide entrar y conserva los datos; las sesiones abiertas pierden acceso en la siguiente solicitud. Para reactivar, marca la casilla y guarda. El administrador inicial no puede desactivarse ni eliminarse. También puedes editar sus datos desde su fila, sin cambiar su rol.
+
+Solo el administrador ve **Eliminar** en las filas de usuarios normales. La confirmación identifica al destinatario y advierte que se elimina su acceso y TODOS sus registros financieros e historial. No basta con abrir la pantalla: debes escribir motivo, tu contraseña de administrador, la frase `ELIMINAR USUARIO NOMBRE` que se indica y marcar la confirmación. Se guarda primero una copia financiera del destinatario en `backups/usuario-ID/`; si falla, no se borra nada. No se puede eliminar al administrador inicial ni a otras cuentas administrativas técnicas.
+
+Esta operación es distinta de **Reiniciar mis datos**: elimina una cuenta de usuario completa, solo desde administración. No habilita consultar sus finanzas ni reiniciarlas desde tu sesión. Conserva a los demás usuarios y registra el evento en el historial del administrador.
+
+⚠️ La copia guarda finanzas, pero **no contraseña ni perfil de acceso**. Para recuperar a un usuario eliminado, crea un nuevo usuario normal con una contraseña nueva y restaura la copia financiera indicando ese nombre con `--usuario`, según la sección 10. No recupera su clave anterior ni revierte selectivamente un solo registro. Conserva la ruta mostrada al eliminar, ya que la carpeta de copia identifica el ID anterior.
+
+No se muestran ni cambian contraseñas ajenas desde la lista. La recuperación técnica por consola de la sección 3 sigue disponible a quien tenga acceso autorizado al PC.
 
 ## 17. 🗑️ Eliminar registros o empezar de cero
 

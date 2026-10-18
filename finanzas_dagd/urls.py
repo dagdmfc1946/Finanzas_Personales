@@ -7,6 +7,7 @@ from preview.documents import document
 urlpatterns = [
     path("", views.start, name="home"),
     path("configurar/", views.setup, name="setup"),
+    path("registro/", account_views.register, name="register"),
     path("acceso/", auth.LoginView.as_view(template_name="ledger/access.html", extra_context={"title": "Iniciar sesión"}), name="login"),
     path("salir/", auth.LogoutView.as_view(), name="logout"),
     path("clave/", account_views.password_change, name="password-change"),

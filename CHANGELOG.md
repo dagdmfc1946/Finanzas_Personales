@@ -2,6 +2,22 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. 📌 Abre una versión para ver sus novedades; usa el filtro para buscar una función. ✨ Añadido = función nueva; 🛠️ Corregido = ajuste; 📖 Documentación = guía de uso. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.3.0-alpha.5] - 2026-10-18
+
+🏠 Entrega local para revisión; no publicada.
+
+### ✨ Añadido
+- Crear usuario desde Iniciar sesión. Las altas públicas y administrativas son siempre usuarios normales; el administrador solo se crea en la configuración inicial.
+- Editar nombre de acceso, nombres, apellidos y estado desde Administrar usuarios, con contraseña y confirmación del administrador.
+- Eliminar usuarios normales únicamente desde administración, con copia financiera previa, contraseña, motivo y frase explícita. Administrador inicial protegido; recuperación requiere recrear el acceso y restaurar sus finanzas.
+
+### 🛠️ Corregido
+- Barra lateral con desplazamiento vertical y menú de usuario dentro del panel; permite alcanzar historial de cambios y manual en ventanas de poca altura.
+- Se retira la asignación de roles posteriores para respetar el administrador único inicial. Se mantiene el aislamiento de finanzas y el reinicio exclusivo del usuario conectado.
+
+### 📖 Documentación
+- Registro, permisos y diferencias entre desactivar, eliminar usuario y reiniciar mis datos explicados en el manual.
+
 ## [0.3.0-alpha.4] - 2026-10-18
 
 🏠 Entrega local para revisión; pendiente de autorización de publicación.

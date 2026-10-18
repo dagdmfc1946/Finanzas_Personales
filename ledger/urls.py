@@ -8,6 +8,7 @@ urlpatterns = [
     path("perfil/editar/", account_views.profile_edit, name="profile-edit"),
     path("usuarios/", account_views.users, name="users"),
     path("usuarios/nuevo/", account_views.user_create, name="user-new"),
+    path("usuarios/<int:pk>/eliminar/", account_views.user_delete, name="user-delete"),
     path("usuarios/<int:pk>/", account_views.user_access, name="user-access"),
     path("reiniciar/", account_views.reset, name="reset"),
     path("eliminar/<str:kind>/<uuid:pk>/", account_views.delete, name="delete"),

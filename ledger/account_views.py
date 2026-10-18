@@ -1,6 +1,6 @@
 from functools import wraps
 from django.contrib import messages
-from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.contrib.auth import get_user_model, update_session_auth_hash, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ValidationError, PermissionDenied
@@ -9,9 +9,9 @@ from django.http import Http404
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods, require_safe
-from .account_forms import ProfileForm, UserCreateForm, UserAccessForm, DestructiveForm
-from .models import Activity, AuditEvent
-from .safety_services import DELETABLE, remove_record, reset_finances
+from .account_forms import ProfileForm, UserCreateForm, UserAccessForm, DestructiveForm, RegistrationForm
+from .models import Activity, AuditEvent, Installation
+from .safety_services import DELETABLE, remove_record, reset_finances, remove_user
 from .views import context
 
 
@@ -75,37 +75,77 @@ def user_create(request):
         try:
             with transaction.atomic():
                 person = form.save(commit=False)
-                person.is_staff = form.cleaned_data["role"] == "admin"
+                person.is_staff = False
                 person.is_superuser = False
                 person.save()
                 Activity.objects.create(owner=person, name="Personal / trabajo principal")
-                AuditEvent.objects.create(owner=request.user, action="alta de usuario", entity=str(person.pk), after={"usuario": person.username, "rol": form.cleaned_data["role"]})
+                AuditEvent.objects.create(owner=request.user, action="alta de usuario", entity=str(person.pk), after={"usuario": person.username, "rol": "normal"})
             messages.success(request, "Usuario creado con finanzas vacías. Para llevar sus cuentas, cierra tu sesión y entra con ese usuario.")
             return redirect("ledger:users")
         except IntegrityError:
             form.add_error("username", "Ese nombre ya está registrado. Elige otro.")
-    return render(request, "ledger/account.html", account_context("Crear usuario", form=form, notice="Las dos contraseñas nuevas son para el usuario creado. La contraseña de administrador es la tuya y autoriza el alta."), status=400 if request.method == "POST" else 200)
+    return render(request, "ledger/account.html", account_context("Crear usuario", form=form, notice="Las dos contraseñas nuevas son para el usuario creado. La contraseña de administrador es la tuya y autoriza el alta. Siempre se crea un usuario normal."), status=400 if request.method == "POST" else 200)
+
+
+@require_http_methods(["GET", "POST"])
+def register(request):
+    if not Installation.objects.exists():
+        return redirect("setup")
+    if request.user.is_authenticated:
+        return redirect("ledger:profile")
+    form = RegistrationForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        try:
+            with transaction.atomic():
+                person = form.save(commit=False)
+                person.is_staff = False
+                person.is_superuser = False
+                person.save()
+                Activity.objects.create(owner=person, name="Personal / trabajo principal")
+                AuditEvent.objects.create(owner=person, action="registro de usuario", after={"rol": "normal"})
+            login(request, person)
+            return redirect("ledger:home")
+        except IntegrityError:
+            form.add_error("username", "Ese nombre ya está registrado. Elige otro.")
+    return render(request, "ledger/access.html", {"form": form, "title": "Crear usuario", "registration": True}, status=400 if request.method == "POST" else 200)
 
 
 @admin_required
 @require_http_methods(["GET", "POST"])
 def user_access(request, pk):
     person = get_object_or_404(get_user_model(), pk=pk)
-    form = UserAccessForm(request.POST or None, actor=request.user, initial={"role": "admin" if person.is_staff else "normal", "is_active": person.is_active})
+    before = {"usuario": person.username, "nombres": person.first_name, "apellidos": person.last_name, "activo": person.is_active}
+    form = UserAccessForm(request.POST or None, actor=request.user, instance=person)
     if request.method == "POST" and form.is_valid():
-        with transaction.atomic():
-            person = get_user_model().objects.select_for_update().get(pk=pk)
-            if person.pk == request.user.pk or person.is_superuser:
-                form.add_error(None, "No puedes cambiar tu propio rol/acceso ni gestionar una cuenta superusuario desde aquí.")
-            else:
-                before = {"activo": person.is_active, "administrador": person.is_staff}
-                person.is_staff = form.cleaned_data["role"] == "admin"
-                person.is_active = form.cleaned_data["is_active"]
-                person.save(update_fields=["is_staff", "is_active"])
-                AuditEvent.objects.create(owner=request.user, action="acceso de usuario", entity=str(person.pk), before=before, after={"activo": person.is_active, "administrador": person.is_staff})
-                messages.success(request, "Acceso actualizado. Sus finanzas se conservan.")
+        if person.is_superuser or (Installation.objects.filter(user_id=pk).exists() and not form.cleaned_data["is_active"]):
+            form.add_error(None, "El administrador inicial no puede desactivarse; las cuentas superusuario no se editan desde aquí.")
+        else:
+            try:
+                with transaction.atomic():
+                    form.save()
+                    AuditEvent.objects.create(owner=request.user, action="editar usuario", entity=str(pk), before=before, after={"usuario": person.username, "nombres": person.first_name, "apellidos": person.last_name, "activo": person.is_active})
+                messages.success(request, "Usuario actualizado. Su rol y sus finanzas se conservan.")
                 return redirect("ledger:users")
-    return render(request, "ledger/account.html", account_context("Acceso de " + person.username, form=form, notice="Desactivar impide entrar y conserva los registros. Esta pantalla no permite ver finanzas ni cambiar contraseñas de otros usuarios."), status=400 if request.method == "POST" else 200)
+            except IntegrityError:
+                form.add_error("username", "Ese nombre ya está registrado. Elige otro.")
+    return render(request, "ledger/account.html", account_context("Editar usuario: " + before["usuario"], form=form, notice="Edita nombre de acceso, nombres, apellidos y estado. Los usuarios nuevos siempre son normales; el administrador solo se crea la primera vez. Esta pantalla no muestra finanzas ni cambia contraseñas ajenas."), status=400 if request.method == "POST" else 200)
+
+
+@admin_required
+@require_http_methods(["GET", "POST"])
+def user_delete(request, pk):
+    person = get_object_or_404(get_user_model(), pk=pk)
+    form = DestructiveForm(request.POST or None, actor=request.user, phrase="ELIMINAR USUARIO " + person.username)
+    form.fields["current_password"].label = "Tu contraseña de administrador"
+    form.fields["confirm"].label = "Confirmo eliminar el acceso y los datos del usuario seleccionado"
+    if request.method == "POST" and form.is_valid():
+        try:
+            path = remove_user(request.user, pk, form.cleaned_data["reason"])
+            messages.success(request, f"Usuario eliminado. Copia financiera previa: {path.relative_to(path.parent.parent)}. Para recuperarla debes crear un usuario y restaurar esa copia; no incluye la contraseña.")
+            return redirect("ledger:users")
+        except (ValidationError, OSError, OperationalError) as error:
+            form.add_error(None, ValidationError(error.messages) if isinstance(error, ValidationError) else "No se completó la eliminación. Revisa el respaldo; los datos se conservan.")
+    return render(request, "ledger/account.html", account_context("Eliminar usuario: " + person.username, form=form, record=person, destructive=True, notice="Se eliminará el acceso de esta persona y TODOS sus datos financieros e historial. No afecta a los demás usuarios. El administrador inicial no puede eliminarse.", backup_notice="Se crea primero una copia financiera del usuario seleccionado, sin contraseña ni perfil. Si falla, no se elimina nada. Para recuperar necesitarás recrear su usuario con una nueva clave y restaurar la copia, como explica el manual."), status=400 if request.method == "POST" else 200)
 
 
 @login_required

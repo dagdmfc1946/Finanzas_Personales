@@ -6,7 +6,7 @@ Aplicativo de finanzas personales para ejecutar localmente en Windows. Fase 3 in
 
 1. Lee [MANUAL_USUARIO.md](MANUAL_USUARIO.md).
 2. Ejecuta `Iniciar_Finanzas_DAGD.cmd`; prepara las tablas y abre el navegador.
-3. En el primer inicio crea tu usuario local administrador. Después podrás crear usuarios adicionales desde el menú de perfil, con finanzas separadas. No hay credenciales predeterminadas ni necesitas un superusuario. Los registros empiezan vacíos.
+3. En el primer inicio crea tu usuario local administrador. Después podrás crear usuarios normales adicionales desde el menú de perfil; también está Crear usuario en el acceso. El administrador se crea solo la primera vez, con finanzas separadas por usuario. No hay credenciales predeterminadas ni necesitas un superusuario. Los registros empiezan vacíos.
 4. Abre http://127.0.0.1:8765/ si no se abre automáticamente. Conserva la consola del iniciador; Ctrl+C detiene su instancia.
 
 Tras actualizar, reinicia el servidor para cargar los cambios. La demostración ficticia anterior está en `/demo/` y no guarda datos personales.
