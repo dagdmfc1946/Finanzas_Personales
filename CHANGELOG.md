@@ -2,6 +2,15 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.10] - 2026-10-18
+
+Corrección local pendiente de autorización para publicar.
+
+### Corregido
+
+- Restaurado el ancho de la fila de botones al del buscador. La reducción solicitada corresponde a la altura: botones de 32 px en manual y CHANGELOG.
+- Se conserva el formato horizontal y la descripción del filtro a 11 px.
+
 ## [0.2.0-alpha.9] - 2026-10-18
 
 Publicación de este ajuste y de los cambios pendientes del lector en dev1 autorizada por el usuario.
