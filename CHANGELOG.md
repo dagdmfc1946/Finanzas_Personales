@@ -2,6 +2,17 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.5] - 2026-10-18
+
+Ajuste local pendiente de revisión y autorización para publicar.
+
+### Añadido
+
+- Versiones del historial y capítulos del manual plegables; grupos de subtítulos del índice también se pueden contraer.
+- Filtro por títulos y contenido, sin distinguir mayúsculas ni tildes, con contador de secciones, estado sin coincidencias y limpieza del filtro.
+- Acciones Expandir todo y Contraer todo; los enlaces del índice y los fragmentos directos abren la sección de destino.
+- Mejora progresiva mediante un script local, sin nuevas dependencias: si JavaScript está deshabilitado, el contenido completo permanece legible. CSP permite scripts propios únicamente en los lectores de documentación.
+
 ## [0.2.0-alpha.4] - 2026-10-18
 
 Publicación en dev1 autorizada por el usuario el 2026-10-18.

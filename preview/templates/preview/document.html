@@ -8,12 +8,20 @@
   <link rel="icon" href="{% static 'preview/mark.svg' %}" type="image/svg+xml">
   <link rel="stylesheet" href="{% static 'preview/app.css' %}">
   <link rel="stylesheet" href="{% static 'preview/document.css' %}">
+  <script src="{% static 'preview/document.js' %}" defer></script>
 </head>
 <body>
   <a class="skip" href="#documento">Saltar al documento</a>
   <main class="document-reader">
     <nav aria-label="Documentación"><a href="{% url 'home' %}">Volver a Finanzas DAGD</a></nav>
     <header><p>{{ filename }}</p><p>Documento actualizado con el proyecto.</p></header>
+    <section class="document-tools" aria-label="Filtrar y organizar documento" hidden>
+      <div class="document-search"><label for="document-filter">Filtrar títulos y contenido</label>
+        <input id="document-filter" type="search" maxlength="120" placeholder="Por ejemplo: respaldo, contraseña o una versión" autocomplete="off">
+      </div>
+      <div class="document-actions"><button id="document-clear" type="button">Limpiar filtro</button><button id="document-expand" type="button">Expandir todo</button><button id="document-collapse" type="button">Contraer todo</button></div>
+      <p id="document-results" role="status" aria-live="polite"></p>
+    </section>
     <div class="document-layout">
       {% if toc_html %}<aside class="document-index">
         <h2>En este documento</h2>

@@ -58,3 +58,23 @@ class DocumentTests(SimpleTestCase):
         self.assertContains(response, 'aria-label="Índice del documento"')
         self.assertNotContains(response, "<img")
         self.assertNotContains(response, "onerror")
+
+    def test_document_interaction_assets_and_controls_are_scoped(self):
+        for name in ("manual", "changelog"):
+            response = self.client.get(f"/documentacion/{name}/")
+            self.assertContains(response, 'src="/static/preview/document.js" defer')
+            self.assertContains(response, 'id="document-filter"')
+            self.assertContains(response, "Contraer todo")
+            self.assertContains(response, "Expandir todo")
+            self.assertContains(response, 'aria-live="polite"')
+            self.assertIn("script-src 'self'", response.headers["Content-Security-Policy"])
+            self.assertNotIn("unsafe-inline", response.headers["Content-Security-Policy"])
+        self.assertNotContains(self.client.get("/demo/"), "document.js")
+        self.assertNotIn("script-src", self.client.get("/demo/").headers["Content-Security-Policy"])
+
+    def test_complete_document_remains_available_without_javascript(self):
+        with patch("pathlib.Path.read_text", return_value="# Guía\n\n## Uno\n\nPrimer contenido\n\n## Dos\n\nSegundo contenido"):
+            response = self.client.get("/documentacion/manual/")
+        self.assertContains(response, "Primer contenido")
+        self.assertContains(response, "Segundo contenido")
+        self.assertContains(response, '<h2 id="doc-dos">Dos</h2>')

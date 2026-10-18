@@ -1,6 +1,6 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.4`, pendiente de revisión del usuario.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.5`, pendiente de revisión del usuario.
 
 ## 1. Qué puedes usar ahora
 
@@ -145,6 +145,12 @@ No borres `data/`, `local/secret.key` ni la base para resolver errores. Una rein
 En la parte inferior de la barra lateral, el enlace **CHANGELOG.md** abre el historial de cambios en una pestaña nueva. Justo debajo está **MANUAL_USUARIO.md**, que abre este manual en otra pestaña. La pantalla original conserva su formulario y filtros. Los lectores presentan títulos, listas, negritas, enlaces, tablas y bloques de código con formato. Consultan el archivo Markdown actual del proyecto cada vez que abres o recargas la página, sin modificarlo. El HTML se filtra antes de mostrarse; los ejemplos de código se conservan como texto dentro de sus bloques.
 
 En ambos lectores encontrarás **En este documento**, un índice con títulos y subtítulos. Pulsa una entrada para ir directamente a esa sección; el encabezado de destino queda resaltado. En escritorio el índice permanece a la izquierda mientras lees y puede desplazarse si es largo. En pantallas pequeñas se sitúa encima del contenido. La lectura utiliza más ancho de pantalla; los comandos largos conservan desplazamiento horizontal dentro de su bloque. El índice se actualiza automáticamente al cambiar los encabezados del archivo.
+
+Cada capítulo del manual y cada versión del historial se pueden abrir o cerrar pulsando su título. Al abrir el lector, la primera sección está desplegada y las demás contraídas; si entras por un enlace a una sección, esta se abre automáticamente. En el índice, las versiones o capítulos con subtítulos también pueden contraerse; **Ver esta sección** lleva a su contenido.
+
+Utiliza **Filtrar títulos y contenido** para buscar una palabra, frase o número de versión. La búsqueda ignora mayúsculas y tildes, muestra solo secciones coincidentes y las abre automáticamente, junto con sus entradas del índice. **Limpiar filtro** recupera todas las secciones y el estado anterior a la búsqueda. **Expandir todo** y **Contraer todo** afectan a las secciones visibles y a los grupos del índice. Si no hay coincidencias, cambia la consulta o limpia el filtro. Son controles temporales; no modifican los archivos ni guardan la búsqueda.
+
+Estos controles requieren JavaScript en el navegador y se ejecutan localmente, sin enviar la consulta a servicios externos. Sin JavaScript, el documento completo y sus enlaces siguen disponibles para lectura, y puedes usar la búsqueda del navegador.
 
 Ambos documentos pueden consultarse antes de crear el usuario: `/documentacion/manual/` y `/documentacion/changelog/`. Solo se sirven esos dos archivos públicos; no se exponen archivos financieros privados.
 

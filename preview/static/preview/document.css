@@ -32,3 +32,24 @@
 @media(max-width:1200px){.document-layout{grid-template-columns:240px minmax(0,1fr);gap:28px}}
 @media(max-width:900px){.document-layout{grid-template-columns:minmax(0,1fr);gap:28px}.document-index{position:static;max-height:280px;border-bottom:1px solid var(--line);padding-bottom:16px}}
 @media(max-width:600px){.document-reader{width:calc(100% - 32px);margin-top:24px;padding:0}.document-reader h1,.document-content h1{font-size:25px}.document-content h2{font-size:21px}.document-content pre{padding:14px}}
+
+.document-tools{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:14px 24px;margin:0 0 28px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+[hidden]{display:none!important}
+.document-search label{display:block;font-size:14px;margin-bottom:8px}
+.document-search input{width:100%;min-height:46px;padding:10px 12px;border:1px solid var(--line);border-radius:7px;background:var(--surface);color:var(--text);font-size:16px;caret-color:var(--accent)}
+.document-search input::placeholder{color:var(--muted)}
+.document-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
+.document-actions button{min-height:44px;padding:10px 14px;border:1px solid var(--line);border-radius:7px;background:var(--raised);color:var(--text);cursor:pointer}
+.document-actions button:hover{border-color:var(--accent)}
+#document-results{grid-column:1/-1;font-size:14px;color:var(--muted);margin:0}
+.document-content .document-section{margin:14px 0;padding:0;border:1px solid var(--line);border-radius:9px;background:transparent}
+.document-section>summary{cursor:pointer;min-height:52px;padding:16px 18px;color:var(--text)}
+.document-section>summary::marker,.document-index summary::marker{color:var(--accent)}
+.document-section>summary h2{display:inline;font-size:22px;line-height:1.5;margin:0;scroll-margin-top:24px}
+.document-section-body{padding:0 18px 12px}
+.document-content .document-section p{font-size:16px;line-height:1.8;color:var(--text);margin:16px 0}
+.document-index details{border:0;border-radius:0;margin:0;padding:0;background:transparent}
+.document-index summary{font-size:14px;line-height:1.5;padding:10px 4px;color:var(--muted);cursor:pointer;min-height:40px}
+.document-index details[open]>summary{color:var(--text)}
+.document-index .section-jump a{font-size:13px;color:var(--accent)}
+@media(max-width:1000px){.document-tools{grid-template-columns:minmax(0,1fr)}.document-actions{align-items:start}}
