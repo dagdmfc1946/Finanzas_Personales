@@ -27,7 +27,7 @@
       </a>
       {% endfor %}
     </nav>
-    <div class="sidebar-foot"><span class="local-dot" aria-hidden="true"></span> Ejecución local en tu PC<br><small>Versión {{ version }}<br>SemVer · fuente única: VERSION<br>Historial: CHANGELOG.md</small></div>
+    <div class="sidebar-foot"><span class="local-dot" aria-hidden="true"></span> Ejecución local en tu PC<br><small>Versión {{ version }}<br>SemVer · fuente única: VERSION<br>Historial: <a href="{% url 'document' 'changelog' %}" target="_blank" rel="noopener noreferrer" aria-label="Historial de cambios, abre en una pestaña nueva">CHANGELOG.md</a><br>Manual: <a href="{% url 'document' 'manual' %}" target="_blank" rel="noopener noreferrer" aria-label="Manual de usuario, abre en una pestaña nueva">MANUAL_USUARIO.md</a></small></div>
   </aside>
   <main id="contenido" tabindex="-1">
     <div class="topline"><span>PERSONAL / <strong>{{ title }}</strong></span><span class="profile" aria-label="Espacio personal de DAGD">DAGD</span></div>

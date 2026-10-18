@@ -2,6 +2,16 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.2] - 2026-10-17
+
+Ajuste local de Fase 2, sin autorización de publicación todavía.
+
+### Añadido
+
+- Enlaces a CHANGELOG.md y MANUAL_USUARIO.md al pie de la barra lateral, abriendo pestañas nuevas con el manual debajo del historial.
+- Lectores locales de los documentos originales, sin nuevas dependencias ni acceso arbitrario a archivos del PC. Contenido escapado y rutas de solo lectura.
+- Manual actualizado con el acceso a documentación y aclaración de los módulos de ahorro y obligaciones previstos para Fase 4.
+
 ## [0.2.0-alpha.1] - 2026-10-17
 
 Entrega de Fase 2 local, pendiente de revisión visual del usuario y autorización de publicación. Incremento MENOR por nuevas capacidades en desarrollo inicial; no es una versión estable.

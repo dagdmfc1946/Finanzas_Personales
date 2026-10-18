@@ -1,6 +1,6 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.1`, pendiente de revisión del usuario.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.2`, pendiente de revisión del usuario.
 
 ## 1. Qué puedes usar ahora
 
@@ -140,7 +140,15 @@ El aplicativo protege el acceso a las pantallas mediante contraseña, pero **no 
 
 No borres `data/`, `local/secret.key` ni la base para resolver errores. Una reinstalación de dependencias no exige eliminar datos.
 
-## 12. Revisión y solución de problemas
+## 12. Consultar documentación en el aplicativo
+
+En la parte inferior de la barra lateral, el enlace **CHANGELOG.md** abre el historial de cambios en una pestaña nueva. Justo debajo está **MANUAL_USUARIO.md**, que abre este manual en otra pestaña. La pantalla original conserva su formulario y filtros. Los lectores muestran el contenido original en Markdown y consultan el archivo actual del proyecto cada vez que abres o recargas la página.
+
+Ambos documentos pueden consultarse antes de crear el usuario: `/documentacion/manual/` y `/documentacion/changelog/`. Solo se sirven esos dos archivos públicos; no se exponen archivos financieros privados.
+
+Ahorros y Préstamos y deudas permanecen previstos para Fase 4. Sus pantallas de Fase 1 son demostraciones ficticias, accesibles mediante **Revisar esta fase → Consultar la vista previa ficticia de Fase 1**. El menú de registro real de Fase 2 muestra las funciones ya implementadas. Puedes usar cuentas de tipo Ahorros para registrar dinero guardado, pero las metas y los cálculos de obligaciones siguen pendientes.
+
+## 13. Revisión y solución de problemas
 
 - **No abre el navegador:** entra en http://127.0.0.1:8765/ y revisa la consola.
 - **Aparece la Fase 1 o una versión anterior:** detén la instancia anterior y vuelve a iniciar. La demostración está en `/demo/`; tu registro está en `/app/`.
