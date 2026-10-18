@@ -2,6 +2,20 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.3] - 2026-10-18
+
+Publicación de los cambios pendientes de Fase 2 en dev1 autorizada por el usuario. La entrega continúa pendiente de su revisión funcional; no se inicia Fase 3.
+
+### Corregido
+
+- Los lectores del manual e historial convierten Markdown a HTML con títulos jerárquicos, listas, negritas, enlaces, tablas y bloques de código, en lugar de mostrar la sintaxis como texto.
+- Estilos de lectura para encabezados, código y tablas; se conserva la apertura en pestañas independientes y la fuente original de cada documento.
+- Saneamiento del HTML antes de renderizarlo: se eliminan scripts, atributos de eventos y enlaces con esquemas peligrosos; los ejemplos de HTML dentro de bloques de código siguen escapados.
+
+### Dependencias
+
+- Markdown 3.11.1 y nh3 0.3.7 instalados únicamente en .venv y fijados en requirements.txt. No se modificaron instalaciones globales.
+
 ## [0.2.0-alpha.2] - 2026-10-17
 
 Ajuste local de Fase 2, sin autorización de publicación todavía.
