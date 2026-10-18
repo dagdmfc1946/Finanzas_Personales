@@ -2,6 +2,15 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.9] - 2026-10-18
+
+Publicación de este ajuste y de los cambios pendientes del lector en dev1 autorizada por el usuario.
+
+### Cambiado
+
+- Fila horizontal de los tres botones más estrecha que el buscador, alineada a su izquierda, en manual y CHANGELOG.
+- Se mantiene el tamaño reducido de la descripción y el funcionamiento del filtro y plegado.
+
 ## [0.2.0-alpha.8] - 2026-10-18
 
 Ajuste local pendiente de autorización para publicar.
