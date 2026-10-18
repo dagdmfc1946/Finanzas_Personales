@@ -16,7 +16,7 @@ LIMIT = 5 * 1024 * 1024
 TABLES = {
     "activities": (Activity, ("name",)),
     "accounts": (Account, ("name", "kind")),
-    "categories": (Category, ("name", "kind")),
+    "categories": (Category, ("name", "kind", "group")),
     "entries": (Entry, ENTRY_FIELDS),
     "salaries": (Salary, SALARY_FIELDS),
     "salary_receipts": (SalaryReceipt, ("salary_id","entry_id")),
@@ -34,7 +34,7 @@ def export_backup(user):
     for key, (model, fields) in TABLES.items():
         objects[key] = [{"id": str(item.pk), "fields": {field: getattr(item, field) for field in fields}}
                         for item in model.objects.filter(owner=user)]
-    payload = {"application": "Finanzas DAGD", "format": 2, "created": timezone.now().isoformat(), "software_version": settings.APP_VERSION, "objects": objects}
+    payload = {"application": "Finanzas DAGD", "format": 3, "created": timezone.now().isoformat(), "software_version": settings.APP_VERSION, "objects": objects}
     payload["sha256"] = hashlib.sha256(canonical(payload)).hexdigest()
     raw = canonical(payload)
     if len(raw) > LIMIT or sum(len(rows) for rows in objects.values()) > 10000:
@@ -69,12 +69,12 @@ def validate_backup(raw):
         if set(payload) != {"application", "format", "created", "software_version", "objects", "sha256"}:
             raise ValueError("Formato desconocido")
         digest = payload.pop("sha256")
-        if payload["application"] != "Finanzas DAGD" or type(payload["format"]) is not int or payload["format"] not in (1,2):
+        if payload["application"] != "Finanzas DAGD" or type(payload["format"]) is not int or payload["format"] not in (1,2,3):
             raise ValueError("Aplicación o versión de formato incompatible")
         if not isinstance(digest, str) or hashlib.sha256(canonical(payload)).hexdigest() != digest:
             raise ValueError("La huella no coincide")
         objects = payload["objects"]
-        allowed=set(TABLES) if payload["format"]==2 else set(TABLES)-{"salaries","salary_receipts"}
+        allowed=set(TABLES) if payload["format"]>=2 else set(TABLES)-{"salaries","salary_receipts"}
         if not isinstance(objects, dict) or set(objects) != allowed:
             raise ValueError("Tablas inesperadas")
         if payload["format"]==1:
@@ -85,8 +85,11 @@ def validate_backup(raw):
                 raise ValueError("Lista inválida")
             ids = set()
             for row in rows:
-                if set(row) != {"id", "fields"} or set(row["fields"]) != set(fields):
+                expected_fields = set(fields) - ({"group"} if key == "categories" and payload["format"] < 3 else set())
+                if set(row) != {"id", "fields"} or set(row["fields"]) != expected_fields:
                     raise ValueError("Campos inesperados")
+                if key == "categories" and payload["format"] < 3:
+                    row["fields"]["group"] = ""
                 identifier = uuid.UUID(row["id"])
                 if identifier in ids:
                     raise ValueError("Identificadores repetidos")

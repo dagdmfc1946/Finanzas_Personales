@@ -1,36 +1,54 @@
 # Historial de cambios · Finanzas DAGD
 
-Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
+Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. 📌 Abre una versión para ver sus novedades; usa el filtro para buscar una función. ✨ Añadido = función nueva; 🛠️ Corregido = ajuste; 📖 Documentación = guía de uso. No se ha creado una etiqueta ni una publicación estable.
+
+## [0.3.0-alpha.3] - 2026-10-18
+
+🏠 Entrega local para revisión. No publicada en GitHub.
+
+### ✨ Añadido
+- Grupos opcionales de categorías: Gastos fijos, Gastos variables u otros nombres, con categorías individuales en Sin grupo. Puedes editar cada categoría para cambiarla de grupo.
+- Ayuda del formulario según tipo: categorías correspondientes para ingreso/gasto; sin categoría para saldo inicial/transferencia y destinos solo para transferencias.
+
+### 🛠️ Corregido
+- El rechazo por categoría incompatible indica el campo y cómo corregirlo. Registrar dinero previo requiere Saldo inicial sin categoría; recibir un sueldo nuevo requiere Ingreso.
+
+### 📖 Documentación
+- Manual reescrito con recorrido inicial, tablas de campos, resultados, pasos de sueldo y solución de errores; emojis para ubicar tareas.
+- Ejemplos ampliados con campos vacíos, secuencia, alternativas y comprobaciones para evitar duplicados.
+
+### 🔄 Compatibilidad
+- Migración conserva categorías existentes sin grupo. Respaldos nuevos de formato 3 incluyen grupos y leen formatos 1/2. Recuperar copias antiguas deja categorías Sin grupo; formato 1 también deja vacía la planificación de sueldo.
 
 ## [0.3.0-alpha.2] - 2026-10-18
 
 Entrega local pendiente de revisión y autorización de publicación.
 
-### Corregido
+### 🛠️ Corregido
 - Consultar mes utiliza ancho según su texto y altura de 46 px, alineado con los filtros; el CSS se actualiza por versión para evitar estilos anteriores en caché.
 
-### Añadido
+### ✨ Añadido
 - Ejemplos desplegables en cada sección de revisión, con un caso ficticio continuo, pasos y resultados esperados; guía de recorrido en Revisar esta fase y sección 15 del manual. No se insertan datos en la base personal.
 
 ## [0.3.0-alpha.1] - 2026-10-18
 
 Entrega local del incremento 3.1, pendiente de revisión y autorización de publicación. Fase 3 continúa en desarrollo.
 
-### Añadido
+### ✨ Añadido
 - Mi sueldo: previsión neta o cálculo manual de bruto, adicionales y deducciones; actividad, mes trabajado, fecha de cobro esperada y mes presupuestado independientes.
 - Cobros parciales mediante vínculos a ingresos existentes, sin duplicar movimientos; pendiente/exceso, correcciones, exclusión de previsiones y desvinculación con motivo.
 - Control de versión, pertenencia y trazabilidad. Correcciones/anulaciones de ingresos actualizan el cálculo de cobros.
 - Migración de tablas y respaldos de formato 2 con sueldos/vínculos. Lectura del formato 1: restaurarlo deja vacía la planificación que no contiene, con copia previa y reversión ante errores.
 - Manual y revisión de fase actualizados. Presupuestos y recurrencias permanecen pendientes en Fase 3.
 
-### Verificado
+### 🧪 Verificado
 - 61 pruebas Django y 2 JavaScript aprobadas; migraciones sin cambios pendientes y dependencias consistentes.
 
 ## [0.2.0-alpha.10] - 2026-10-18
 
 Publicación en dev1 autorizada por el usuario al solicitar iniciar Fase 3.
 
-### Corregido
+### 🛠️ Corregido
 
 - Restaurado el ancho de la fila de botones al del buscador. La reducción solicitada corresponde a la altura: botones de 32 px en manual y CHANGELOG.
 - Se conserva el formato horizontal y la descripción del filtro a 11 px.
@@ -48,7 +66,7 @@ Publicación de este ajuste y de los cambios pendientes del lector en dev1 autor
 
 Ajuste local pendiente de autorización para publicar.
 
-### Corregido
+### 🛠️ Corregido
 
 - Los tres botones del índice comparten una sola fila horizontal con el ancho total del buscador, según la aclaración del usuario, en manual e historial.
 - Se conserva el tamaño reducido de la descripción del filtro.
@@ -76,7 +94,7 @@ Ajuste local pendiente de autorización para publicar.
 
 Ajuste local pendiente de revisión y autorización para publicar.
 
-### Añadido
+### ✨ Añadido
 
 - Versiones del historial y capítulos del manual plegables; grupos de subtítulos del índice también se pueden contraer.
 - Filtro por títulos y contenido, sin distinguir mayúsculas ni tildes, con contador de secciones, estado sin coincidencias y limpieza del filtro.
@@ -87,7 +105,7 @@ Ajuste local pendiente de revisión y autorización para publicar.
 
 Publicación en dev1 autorizada por el usuario el 2026-10-18.
 
-### Añadido
+### ✨ Añadido
 
 - Índice lateral automático en el manual y el historial con enlaces a títulos y subtítulos, destinos únicos para encabezados repetidos y resaltado al navegar.
 - Mayor ancho de lectura en ambos documentos, con índice fijo y desplazable en escritorio; en pantallas pequeñas el índice se sitúa encima del contenido.
@@ -97,13 +115,13 @@ Publicación en dev1 autorizada por el usuario el 2026-10-18.
 
 Publicación de los cambios pendientes de Fase 2 en dev1 autorizada por el usuario. La entrega continúa pendiente de su revisión funcional; no se inicia Fase 3.
 
-### Corregido
+### 🛠️ Corregido
 
 - Los lectores del manual e historial convierten Markdown a HTML con títulos jerárquicos, listas, negritas, enlaces, tablas y bloques de código, en lugar de mostrar la sintaxis como texto.
 - Estilos de lectura para encabezados, código y tablas; se conserva la apertura en pestañas independientes y la fuente original de cada documento.
 - Saneamiento del HTML antes de renderizarlo: se eliminan scripts, atributos de eventos y enlaces con esquemas peligrosos; los ejemplos de HTML dentro de bloques de código siguen escapados.
 
-### Dependencias
+### 📦 Dependencias
 
 - Markdown 3.11.1 y nh3 0.3.7 instalados únicamente en .venv y fijados en requirements.txt. No se modificaron instalaciones globales.
 
@@ -111,7 +129,7 @@ Publicación de los cambios pendientes de Fase 2 en dev1 autorizada por el usuar
 
 Ajuste local de Fase 2, sin autorización de publicación todavía.
 
-### Añadido
+### ✨ Añadido
 
 - Enlaces a CHANGELOG.md y MANUAL_USUARIO.md al pie de la barra lateral, abriendo pestañas nuevas con el manual debajo del historial.
 - Lectores locales de los documentos originales, sin nuevas dependencias ni acceso arbitrario a archivos del PC. Contenido escapado y rutas de solo lectura.
@@ -121,7 +139,7 @@ Ajuste local de Fase 2, sin autorización de publicación todavía.
 
 Entrega de Fase 2 local, pendiente de revisión visual del usuario y autorización de publicación. Incremento MENOR por nuevas capacidades en desarrollo inicial; no es una versión estable.
 
-### Añadido
+### ✨ Añadido
 
 - Primer usuario local, inicio/cierre de sesión y cambio de contraseña; protección de formularios con CSRF y consultas por propietario.
 - Base SQLite persistente y secreto estable, excluidos de Git junto con los respaldos.
@@ -153,7 +171,7 @@ Publicación en dev1 autorizada por el usuario; no es una versión estable ni el
 - La referencia financiera de septiembre proporcionada por el usuario se conserva en local/, excluida de Git. Los ejemplos públicos siguen siendo ficticios.
 
 
-### Documentación
+### 📖 Documentación
 
 - Manual de usuario ampliado con primera ejecución, requisitos, ausencia de usuarios en Fase 1, solución de problemas y mantenimiento continuo. No cambia la versión ejecutable.
 
@@ -163,7 +181,7 @@ Publicación en dev1 autorizada por el usuario; no es una versión estable ni el
 
 Primera vista previa local; incluida posteriormente en la publicación autorizada de Fase 1.
 
-### Añadido
+### ✨ Añadido
 
 - Nombre Finanzas DAGD, navegación local y siete pantallas de demostración con datos ficticios.
 - Resumen, cuentas de ejemplo, movimientos con búsqueda/filtros y vistas propuestas de sueldo, presupuesto, ahorros y obligaciones.

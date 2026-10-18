@@ -10,7 +10,7 @@ class PreviewHeadersMiddleware:
             "default-src 'none'; style-src 'self'; img-src 'self'; "
             "font-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
         )
-        if request.resolver_match and request.resolver_match.url_name == "document":
+        if request.resolver_match and request.resolver_match.url_name in {"document", "entry-new", "entry-edit"}:
             response["Content-Security-Policy"] += "; script-src 'self'"
         response["Cache-Control"] = "no-store"
         response["X-Finanzas-DAGD"] = "local"

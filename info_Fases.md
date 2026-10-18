@@ -2,7 +2,7 @@
 
 ## Estado y acuerdos
 
-Fases 1 y 2 publicadas en `dev1`. El usuario autorizó iniciar Fase 3. Primer incremento local `0.3.0-alpha.1`: Mi sueldo y cobros vinculados. Presupuestos y recurrencias siguen pendientes dentro de Fase 3. Integración bancaria cancelada.
+Fases 1 y 2 publicadas en `dev1`. El usuario autorizó iniciar Fase 3. Primer incremento local con ajustes `0.3.0-alpha.3`: Mi sueldo y cobros vinculados. Presupuestos y recurrencias siguen pendientes dentro de Fase 3. Integración bancaria cancelada.
 
 - Nombre: Finanzas DAGD. Desarrollo local en `D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales`.
 - Toda fase tendrá una entrega ejecutable para revisión del usuario. Se conserva **Revisar esta fase** hasta culminar el desarrollo; su contenido reflejará la fase vigente. Sus casillas temporales no son aprobación.

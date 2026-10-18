@@ -44,15 +44,16 @@ class Account(Owned):
 
 
 class Category(Owned):
+    group = models.CharField("Grupo (opcional)", max_length=80, blank=True, default="")
     name = models.CharField("Nombre", max_length=80)
     kind = models.CharField("Tipo", max_length=10, choices=[("ingreso", "Ingreso"), ("gasto", "Gasto")])
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["group", "name"]
         constraints = [models.UniqueConstraint(fields=["owner", "name", "kind"], name="categoria_unica")]
 
     def __str__(self):
-        return f"{self.name} · {self.get_kind_display()}"
+        return f"{self.group + ' / ' if self.group else ''}{self.name} · {self.get_kind_display()}"
 
 
 class Entry(Owned):
@@ -96,7 +97,7 @@ class Entry(Owned):
         elif self.destination_account_id or self.destination_activity_id:
             raise ValidationError("Solo las transferencias tienen destino.")
         if related_values.get("category") and related_values["category"].kind != self.kind:
-            raise ValidationError("La categoría debe corresponder al tipo de ingreso o gasto.")
+            raise ValidationError({"category": "Saldo inicial y Transferencia se registran sin categoría. Selecciona la opción vacía (---------)." if self.kind in ("inicial", "transferencia") else "Elige una categoría de Ingreso para un ingreso o de Gasto para un gasto, o deja la categoría vacía."})
 
 
 class AuditEvent(Owned):

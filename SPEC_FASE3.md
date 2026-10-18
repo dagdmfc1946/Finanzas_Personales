@@ -31,3 +31,7 @@ Este primer incremento inicia Fase 3, sin afirmar que estén implementados todav
 ## Estado del primer incremento
 
 3.1 implementado localmente en `0.3.0-alpha.1`: 10 pruebas específicas; suite completa de 61 pruebas Django y 2 JavaScript aprobada. Migración aplicada con copia privada previa. Pendiente revisión personal del usuario; 3.2 y 3.3 aún no implementados.
+
+## Ajuste solicitado: categorías y ayuda de registro
+
+Grupos opcionales de un nivel mediante nombre en cada categoría, sin crear movimientos ni catálogos automáticos. Categorías existentes e individuales conservan grupo vacío. Nombres de categoría siguen siendo únicos por propietario/tipo. Listado por grupo y tipo visible en selectores. Ayuda progresiva local para categorías/destinos según tipo; sin JavaScript la validación del servidor explica qué corregir sin descartar silenciosamente los datos. Solo formularios de movimientos admiten el script propio. Respaldo formato 3 conserva grupos y lee formatos 1/2, asignando grupo vacío a categorías antiguas. Manual reescrito y ejemplos campo por campo. Sin avanzar presupuestos/recurrencias ni publicar sin autorización.

@@ -1,33 +1,34 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 3, primer incremento local `0.3.0-alpha.2`, pendiente de revisión del usuario.
+👋 Esta guía te acompaña desde el primer inicio hasta el registro de tu sueldo. Lee primero **4. Preparar actividades, cuentas y categorías** y **5. Registrar ingresos y gastos** si ya tienes acceso.
 
-## 1. Qué puedes usar ahora
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Guía para `0.3.0-alpha.3`, entrega local de Fase 3 en revisión.
 
-Registro persistente de actividades, cuentas, categorías, saldos iniciales, ingresos, gastos y transferencias; resumen por actividad o consolidado; filtros; correcciones y anulaciones con historial; creación y restauración básica de respaldos. Se conserva **Revisar esta fase**.
+## 1. 🧭 Qué puedes usar ahora
 
-Ya puedes planear el sueldo neto o detallado y vincular sus cobros en **Mi sueldo** (sección 14). Las recurrencias y los presupuestos por proyecto/compra siguen pendientes dentro de Fase 3; metas y calculadora de cuotas corresponden a Fase 4. La integración bancaria está cancelada. Las pantallas anteriores de esos módulos siguen disponibles como demostración ficticia, sin guardar operaciones.
+Puedes guardar cuentas, categorías agrupadas o individuales, ingresos, gastos, saldos iniciales y transferencias. También planear el sueldo, vincular sus cobros, corregir registros y crear respaldos.
 
-## 2. Ejecutar en este PC
+**Empieza aquí:** inicia sesión → prepara tus actividades y cuentas → crea categorías si las necesitas → registra movimientos → revisa el resumen. Después usa **Mi sueldo** para relacionar la previsión con un ingreso que ya registraste.
 
-Carpeta: `D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales`.
+⏳ Presupuestos y recurrencias continúan pendientes dentro de Fase 3. Metas de ahorro, préstamos, deudas y calculadora de cuotas corresponden a Fase 4. La vista `/demo/` contiene pantallas ficticias anteriores; no guarda operaciones. La integración bancaria está cancelada.
 
-1. Abre esa carpeta en el Explorador de Windows.
-2. Haz doble clic en `Iniciar_Finanzas_DAGD.cmd`.
-3. El iniciador prepara las tablas de la base local y abre una pestaña cuando el servidor está listo.
-4. Si el navegador no abre automáticamente, visita **http://127.0.0.1:8765/**.
-5. Conserva abierta la consola del iniciador. Para detener esa instancia, presiona **Ctrl+C** en ella.
+## 2. ▶️ Ejecutar en este PC
 
-Si ya existe una instancia identificada como Finanzas DAGD, el iniciador la reutiliza. Si el puerto pertenece a otro servicio, muestra un aviso y no lo cierra. Después de actualizar el código, detén la instancia anterior y vuelve a iniciar para cargar los cambios.
+1. Abre `D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales` en el Explorador.
+2. Haz doble clic en **Iniciar_Finanzas_DAGD.cmd**.
+3. Espera a que abra el navegador. Si no abre, entra en **http://127.0.0.1:8765/**.
+4. Mantén abierta la consola. Para detener el aplicativo, pulsa **Ctrl+C** en ella.
 
-Para iniciar desde PowerShell:
+El iniciador prepara las tablas y reutiliza una instancia propia si ya está abierta. Si otro servicio ocupa el puerto, avisa y no lo cierra. Tras actualizar el código, detén la instancia anterior y ejecuta el iniciador de nuevo.
+
+Desde PowerShell también puedes abrirlo así:
 
 ```powershell
 Set-Location 'D:\PROYECTOS\Repo_FinanzasPersonales\Finanzas_Personales'
 .\Iniciar_Finanzas_DAGD.cmd
 ```
 
-El entorno `.venv` ya está preparado en este PC con Python 3.12 y Django 5.2. En otra instalación con Python disponible:
+En este PC el entorno está preparado. Para otra instalación vacía, con Python 3.12 instalado, copia el código e instala las dependencias una vez:
 
 ```powershell
 py -3.12 -m venv .venv
@@ -35,174 +36,284 @@ py -3.12 -m venv .venv
 .\Iniciar_Finanzas_DAGD.cmd
 ```
 
-El servidor escucha únicamente en este equipo. No necesitas GitHub ni Internet para registrar movimientos con el entorno ya instalado. Este iniciador de desarrollo local no es un despliegue público.
+Después de instalar las dependencias no necesitas Internet para registrar tus datos. El servidor es local de desarrollo; no es un servicio publicado en Internet.
 
-## 3. Primera ejecución: crea tu usuario
+## 3. 🔐 Primera ejecución: crea tu usuario
 
-La primera apertura muestra **Configurar mi usuario**. Elige un nombre y una contraseña propia de al menos diez caracteres que cumpla las validaciones indicadas. No hay contraseña predeterminada y no necesitas crear un superusuario ni usar la administración de Django.
+Solo la primera apertura muestra **Configurar mi usuario**. Escoge nombre y contraseña propia de al menos diez caracteres y sigue las indicaciones del formulario. No existe usuario o contraseña predeterminados ni necesitas un superusuario.
 
-Solo se permite este primer registro. Al terminar, entrarás al resumen. Las siguientes visitas pedirán **Iniciar sesión**. Usa **Cerrar sesión** al terminar en un equipo compartido y **Cambiar contraseña** para actualizarla.
+Si ya ves **Iniciar sesión**, introduce el usuario que creaste; no crees otro. Para salir pulsa **Cerrar sesión**. Para actualizar tu clave usa **Cambiar contraseña**.
 
-Se crea una actividad inicial llamada **Personal / trabajo principal**. Cuentas, categorías y movimientos empiezan vacíos. Los ejemplos del notebook y de las pruebas no se importan automáticamente.
+La instalación empieza sin movimientos y crea la actividad **Personal / trabajo principal**. No se cargan automáticamente los datos del notebook ni los ejemplos de esta guía.
 
-No existe recuperación por correo. Si olvidas la contraseña y tienes acceso autorizado a la carpeta local, detén el aplicativo y ejecuta:
+Si olvidas la contraseña, no borres la base. Con acceso autorizado a la carpeta, detén el aplicativo y ejecuta:
 
 ```powershell
 .\.venv\Scripts\python.exe manage.py changepassword TU_USUARIO
 ```
 
-Introduce tú mismo la nueva contraseña cuando lo solicite la consola; no la escribas en comandos, documentos ni en el chat. No borres la base para recuperar el acceso.
+Escribe la nueva contraseña solo cuando la consola la pida. No hay recuperación por correo.
 
-## 4. Preparar actividades, cuentas y categorías
+## 4. 🗂️ Preparar actividades, cuentas y categorías
 
-En **Actividades y cuentas**:
+Entra en **Actividades y cuentas**. Estas tres cosas tienen funciones distintas:
 
-- **Actividad:** identifica para qué ámbito es el dinero. Puedes crear un emprendimiento y un trabajo secundario, además de tu actividad personal.
-- **Cuenta:** identifica dónde está el dinero: banco, billetera, efectivo o ahorros. Una misma cuenta puede servir a varias actividades; no la dupliques por ese motivo.
-- **Categoría:** clasifica un ingreso o gasto, por ejemplo trabajo, arriendo o transporte. Su tipo debe coincidir con el movimiento. Es opcional en el registro.
+| Elemento | Pregunta que responde | Ejemplo |
+|---|---|---|
+| Actividad | ¿A qué ámbito pertenece el dinero? | Personal, Emprendimiento |
+| Cuenta | ¿Dónde está el dinero? | Banco, Efectivo |
+| Categoría | ¿Qué clase de ingreso o gasto es? | Sueldo, Arriendo, Ventas_Emprendimiento |
+| Grupo de categorías | ¿Qué categorías quiero ver juntas? | Gastos fijos, Gastos variables |
 
-Al crear una cuenta, puedes indicar un saldo inicial y la actividad a la que pertenece. Si introduces un saldo positivo, se crea un movimiento **Saldo inicial** con fecha de hoy. Si es cero o lo dejas vacío, no crea ningún movimiento. Si el dinero inicial pertenece a varias actividades, registra saldos iniciales separados en **Nuevo movimiento**. No vuelvas a registrar como ingresos el dinero que ya incluía ese saldo.
+### Crear una actividad
 
-Puedes editar nombres. El saldo inicial no se modifica desde la edición de cuenta: corrige su movimiento con un motivo. Una categoría ya utilizada no puede cambiar a un tipo incompatible con sus movimientos. No se eliminan cuentas o actividades desde esta interfaz.
+Pulsa **Crear actividad**, escribe el nombre y **Guardar**. Usa la actividad personal para tu trabajo principal y crea otra para cada emprendimiento o trabajo secundario que quieras separar. Una misma cuenta puede contener dinero de varias actividades.
 
-## 5. Registrar ingresos y gastos
+### Crear una cuenta y su saldo inicial
 
-En **Movimientos → Nuevo movimiento**:
+Pulsa **Crear cuenta**. Completa nombre y tipo. Si ya tienes dinero en ella, introduce ese importe en **Saldo inicial COP** y elige la actividad a la que pertenece. Si empieza vacía, escribe cero o deja el importe vacío. Guarda.
 
-1. Selecciona **Ingreso** o **Gasto**.
-2. Revisa fecha, concepto e importe en pesos colombianos (COP).
-3. Selecciona la actividad y la cuenta de origen.
-4. Elige una categoría compatible si deseas usarla.
-5. Deja los destinos vacíos y pulsa **Guardar**.
+✅ Un saldo inicial positivo crea su movimiento automáticamente. **No lo registres otra vez en Movimientos.** Si olvidaste indicarlo al crear la cuenta, puedes registrar luego un movimiento de tipo Saldo inicial; consulta la sección 5.
 
-Escribe importes positivos, sin separadores de miles, por ejemplo `25000.50`; se admiten hasta dos decimales. El tipo determina si suma o resta. Los importes se guardan como centavos enteros, evitando redondeos binarios en los cálculos del aplicativo.
+### Crear categorías dentro de un grupo
 
-El salario recibido es por ahora un ingreso de la actividad personal. Una venta del emprendimiento es un ingreso de su propia actividad; un gasto del emprendimiento debe llevar esa misma actividad. Puedes registrar movimientos con fecha futura; el resumen incluye todo el historial vigente, no solo el mes actual.
+Pulsa **Crear categoría** y completa:
 
-## 6. Transferencias y aportes
+| Nombre | Tipo | Grupo opcional |
+|---|---|---|
+| Arriendo | Gasto | Gastos fijos |
+| Transporte | Gasto | Gastos fijos |
+| Salidas | Gasto | Gastos variables |
+| Ventas_Emprendimiento | Ingreso | Dejar vacío |
+| Sueldo | Ingreso | Dejar vacío |
 
-Usa **Transferencia** para mover dinero propio entre cuentas o actividades. Selecciona cuenta y actividad de origen, además de cuenta y actividad de destino. Deja la categoría vacía.
+Escribe el nombre del grupo o elige uno sugerido al escribir. Repite exactamente el mismo nombre para reunir categorías. Hay un solo nivel de agrupación. El grupo no tiene importe ni tipo propio: cada categoría sigue siendo de Ingreso o Gasto.
 
-Puedes aportar dinero personal a tu emprendimiento incluso usando la misma cuenta física: conserva la cuenta y cambia la actividad de destino. Para retirar fondos, invierte origen y destino. Una transferencia entre actividades propias cambia la asignación del dinero, pero no aumenta los ingresos ni gastos externos del consolidado. El origen y el destino completos no pueden ser idénticos.
+Las categorías con grupo vacío aparecen en **Sin grupo**. Las anteriores siguen allí hasta que las edites y les asignes un grupo. Puedes desplegar o contraer cada grupo. Para mover una categoría a otro grupo, pulsa **Editar**, cambia Grupo y guarda. Los movimientos conservan la misma categoría; sus importes no cambian.
 
-El reparto de un gasto entre varias actividades se registra manualmente en movimientos separados, cuidando que la suma sea el importe real. No hay reparto automático ni contabilidad empresarial en esta fase.
+El nombre de categoría debe ser único para el mismo tipo dentro de tu usuario, aunque cambies el grupo. Una categoría ya utilizada no puede cambiar a un tipo incompatible con sus movimientos.
 
-## 7. Entender el resumen y los filtros
+## 5. ✍️ Registrar ingresos y gastos
 
-**Resumen** muestra ingresos, gastos y saldo por cuenta para todas las actividades o la seleccionada. Los saldos iniciales y transferencias no aparecen como ingresos externos. El saldo calculado incluye los saldos iniciales y los movimientos vigentes de todo el historial. Un saldo negativo se conserva y se muestra: revisa registros faltantes o errores.
+Entra en **Movimientos → Nuevo movimiento**. **Elige primero el Tipo**:
 
-En **Movimientos**, filtra por concepto, actividad, tipo, fechas o inclusión de anulados; **Limpiar** restablece la selección. Las transferencias aparecen al filtrar tanto su actividad de origen como la de destino. Hay paginación de treinta movimientos.
+| Si quieres registrar… | Elige | Categoría | Destinos |
+|---|---|---|---|
+| Dinero que ya tenías al comenzar | Saldo inicial | Sin categoría | Vacíos |
+| Dinero que acabas de recibir | Ingreso | Opcional, de Ingreso | Vacíos |
+| Dinero que acabas de pagar | Gasto | Opcional, de Gasto | Vacíos |
+| Dinero que mueves entre cuentas o actividades propias | Transferencia | Sin categoría | Ambos obligatorios |
 
-Los filtros de fecha y concepto corresponden al listado de movimientos. Los totales del resumen se filtran por actividad y están rotulados como todo el historial. Ningún saldo representa una consulta al banco.
+El formulario activa los campos que corresponden y filtra las categorías por tipo. Si cambias el tipo, se limpia una categoría incompatible. Sin JavaScript, deja tú mismo los campos que no aplican vacíos; el servidor sigue validándolos.
 
-## 8. Corregir, anular y consultar historial
+### Ejemplo A: saldo inicial que aún no registraste
 
-**Corregir** abre un movimiento vigente. Cambia los campos necesarios e indica el motivo. **Anular** solicita motivo y confirmación; retira su efecto de los saldos, conservando el registro. No hay eliminación definitiva desde la interfaz ni reactivación de anulados en esta fase.
+Estos valores son ficticios. Utiliza este ejemplo solo si **no** diste saldo inicial al crear la cuenta:
 
-Si otra ventana ya cambió el registro, recarga y revisa antes de volver a editar. Reenviar el mismo formulario de creación no debe duplicar el movimiento. Verifica el listado cuando un navegador o una interrupción deje dudas sobre el resultado.
+| Campo | Qué escribir o seleccionar |
+|---|---|
+| Tipo | Saldo inicial |
+| Fecha | La fecha desde la que empiezas el registro |
+| Concepto | Saldo inicial de ejemplo |
+| Importe COP | `1000000` |
+| Actividad de origen | Personal / trabajo principal |
+| Cuenta de origen | Banco de ejemplo |
+| Categoría | Vacía; con JavaScript aparece desactivada |
+| Actividad y cuenta de destino | Vacías; aparecen desactivadas |
 
-**Historial** conserva registro, corrección, anulación, edición de catálogos y restauración. Despliega cada evento para ver antes/después. Esta primera vista técnica muestra `cents` en centavos (100 equivalen a 1 COP), identificadores internos y `revision` como número de edición. No constituye una bitácora inalterable frente a quien tenga acceso directo al archivo del PC.
+Pulsa **Guardar**. Vuelves a Movimientos y ves el registro. En Resumen, el saldo aumenta 1.000.000 COP, pero **Ingresos registrados** no aumenta.
 
-## 9. Crear respaldos
+⚠️ El error «La categoría debe corresponder al tipo de ingreso o gasto» de versiones anteriores aparecía si elegías Saldo inicial junto con Sueldo · Ingreso. El saldo inicial va **sin categoría**. Si se trata de un sueldo recibido ahora, elige **Ingreso**, no Saldo inicial.
 
-En **Respaldos**, pulsa **Crear y descargar respaldo**. Además de la descarga, se crea una copia en `backups/`. También puedes ejecutar:
+### Ejemplo B: sueldo recibido
+
+Selecciona **Ingreso**, una fecha real de cobro, concepto **Cobro de sueldo de ejemplo**, importe `2000000`, actividad personal y cuenta Banco de ejemplo. Selecciona la categoría Sueldo · Ingreso o déjala vacía. Los destinos van vacíos. Pulsa **Guardar**.
+
+✅ Ahora sí aumenta **Ingresos registrados**. No vuelvas a crear este ingreso al planear el sueldo: lo vincularás desde Mi sueldo.
+
+### Ejemplo C: gasto de mercado
+
+Selecciona **Gasto**, fecha de compra, concepto **Mercado de ejemplo**, importe `250000`, actividad personal y cuenta Banco de ejemplo. Elige Mercado · Gasto si la creaste; si no, deja categoría vacía. Destinos vacíos. Guarda.
+
+Introduce importes sin separadores de miles y con hasta dos decimales: `25000.50`. Siempre positivos. El tipo determina si entra o sale dinero. Si el formulario muestra un error, corrige el campo indicado: los datos introducidos se conservan y no se guarda un movimiento parcial. Antes de reenviar tras una interrupción, comprueba el listado.
+
+## 6. 🔄 Transferencias y aportes
+
+Ejemplo: retirar 100.000 COP del banco para tener efectivo.
+
+1. Comprueba que existan Banco de ejemplo y Efectivo de ejemplo.
+2. En Nuevo movimiento, elige **Transferencia**; fecha de retiro y concepto **Retiro de efectivo de ejemplo**.
+3. Importe: `100000`. Origen: actividad personal y Banco de ejemplo.
+4. Destino: actividad personal y Efectivo de ejemplo. Categoría desactivada/vacía.
+5. Guarda y consulta Resumen.
+
+✅ El banco disminuye 100.000 y el efectivo aumenta 100.000; el total no cambia y no aparece ingreso/gasto externo nuevo. El origen y destino completos deben ser diferentes.
+
+Para aportar dinero propio a tu emprendimiento, cambia la actividad de destino al emprendimiento. Puede usarse la misma cuenta si cambia la actividad. Es una transferencia interna, no una venta. Los gastos compartidos no se reparten automáticamente.
+
+## 7. 📊 Entender el resumen y los filtros
+
+**Resumen** muestra todo el historial vigente. Los filtros de fecha de Movimientos no cambian estos totales:
+
+- **Ingresos registrados:** ingresos reales, sin saldos iniciales ni transferencias.
+- **Gastos registrados:** gastos reales vigentes.
+- **Saldo calculado:** saldo inicial + ingresos − gastos; las transferencias internas redistribuyen el dinero.
+
+Selecciona una actividad y pulsa **Ver actividad** para ver su dinero asignado. **Consolidado** reúne todas. El saldo se calcula con tus registros; no es una consulta bancaria.
+
+En **Movimientos**, selecciona actividad, tipo, fechas o texto del concepto y pulsa **Aplicar filtros**. **Limpiar** recupera el listado completo. Activa **Incluir anulados** para ver los que ya no afectan saldos.
+
+## 8. 🛠️ Corregir, anular y consultar historial
+
+En la fila de un movimiento vigente:
+
+- **Corregir:** cambia el dato, explica el motivo y guarda. No crees otro movimiento para sustituirlo.
+- **Anular:** escribe un motivo, marca la confirmación y pulsa **Confirmar anulación**. Deja de afectar saldos, pero queda conservado.
+
+Si otra ventana modificó el registro, recarga antes de intentarlo de nuevo. No se borra el historial.
+
+En **Historial**, despliega un evento para ver Antes/Después y el motivo. La vista técnica usa `cents`: divide entre 100 para leer COP. Por ejemplo, `25000000` centavos son 250.000 COP. `revision` es el número de edición e identificadores largos relacionan los registros. La bitácora no es inalterable para alguien con acceso directo al archivo del PC.
+
+## 9. 💾 Crear respaldos
+
+Abre **Respaldos → Crear y descargar respaldo**. Se descarga un JSON y se guarda otra copia en `backups/`. Conserva una copia privada fuera del mismo disco.
+
+La copia actual es de **formato 3**: actividades, cuentas, categorías con sus grupos, movimientos, planes de sueldo, vínculos de cobro e historial. No contiene contraseñas, usuarios, sesiones ni claves. Límite básico: 5 MiB o 10.000 registros. No está cifrada.
+
+También puedes crearla desde PowerShell en la carpeta del proyecto:
 
 ```powershell
 .\.venv\Scripts\python.exe manage.py respaldo_finanzas
 ```
 
-La copia JSON de formato 2 incluye actividades, cuentas, categorías, movimientos, sueldos previstos, vínculos de cobros e historial financiero. Esta versión también lee las copias anteriores de formato 1, pero una versión antigua del aplicativo no podrá leer las nuevas copias de formato 2. No contiene contraseñas, usuarios, sesiones ni claves del sistema. El respaldo básico admite hasta 5 MiB o 10.000 registros. Conserva copias fuera del mismo disco y comprueba su recuperación con datos de ensayo antes de depender de ellas.
+## 10. ♻️ Restaurar una copia propia
 
-## 10. Restaurar una copia propia
+⚠️ Restaurar **reemplaza los registros financieros actuales**. Para aprender, utiliza otra instalación vacía de ensayo; no pruebes la restauración sobre tus cuentas personales. En esa instalación crea primero tu usuario. Sus credenciales se mantienen al restaurar.
 
-La restauración **reemplaza los registros financieros actuales** por los del archivo elegido. Conserva tu usuario y contraseña actuales y los eventos ya existentes del historial; añade un evento de restauración y recupera los eventos faltantes de la copia. Antes de reemplazar datos, genera otra copia en `backups/`.
-
-1. Detén el aplicativo con Ctrl+C y cierra otras instancias que usen la misma base.
-2. Confirma la ruta de la copia propia que quieres recuperar.
-3. Desde PowerShell en la carpeta del proyecto, ejecuta:
+1. Detén el aplicativo receptor y las demás instancias que usen esa misma base.
+2. Desde PowerShell en la carpeta receptora, cambia la ruta del ejemplo por tu archivo propio:
 
 ```powershell
 .\.venv\Scripts\python.exe manage.py restaurar_finanzas 'C:\RUTA\finanzas-respaldo.json' --confirmar
 ```
 
-4. Lee el resultado: muestra la ruta del respaldo previo.
-5. Inicia nuevamente y revisa cuentas, movimientos, saldos y Mi sueldo.
+3. Lee el resultado: indica dónde guardó la copia previa.
+4. Inicia otra vez y comprueba cuentas, movimientos, categorías y Mi sueldo.
 
-**Copias antiguas:** restaurar un respaldo de formato 1 también deja vacíos los planes de sueldo y sus vínculos, porque esos datos no existían en la copia. Los ingresos recuperados siguen siendo movimientos reales. La copia previa permite recuperar la planificación actual si elegiste el archivo equivocado.
+El comando crea una copia previa antes de reemplazar datos. Rechaza archivos dañados, campos inesperados y referencias inválidas; ante un error de validación revierte los cambios. Conserva credenciales y eventos existentes del historial, recupera eventos faltantes y añade el evento de restauración. La huella SHA-256 detecta daños accidentales; no certifica al autor. Usa copias propias sin editarlas manualmente. No hay carga desde el navegador.
 
-El comando rechaza formatos incompatibles, archivos dañados, campos inesperados y referencias inválidas. Si la validación financiera falla, revierte los cambios de la base. La huella SHA-256 detecta alteraciones accidentales; no acredita quién creó el archivo. Restaura únicamente copias propias de confianza, sin editarlas manualmente.
+| Copia que recuperas | Qué ocurre con los datos que esa copia no contiene |
+|---|---|
+| Formato 3 actual | Recupera grupos, sueldos y vínculos |
+| Formato 2 anterior | Recupera sueldos y vínculos; categorías quedan Sin grupo |
+| Formato 1 de Fase 2 | Categorías Sin grupo y planificación de sueldo vacía |
 
-En una instalación nueva, crea primero tu usuario local antes de restaurar la copia financiera. La copia JSON no recupera una contraseña olvidada. No se ofrece carga de archivos desde el navegador.
+Los ingresos de las copias antiguas siguen siendo movimientos. Una versión anterior del aplicativo puede no leer copias de formato 3. Una copia financiera no recupera contraseñas olvidadas.
 
-## 11. Archivos privados y cuidado de la instalación
+## 11. 🏠 Archivos privados y cuidado de la instalación
 
-`data/finanzas.sqlite3` guarda los datos persistentes y el acceso; `local/secret.key` mantiene el secreto de esta instalación; `backups/` contiene copias financieras. Están excluidos de Git, al igual que el notebook y las referencias privadas. No los publiques ni los adjuntes al repositorio.
+| Carpeta o archivo privado | Para qué sirve |
+|---|---|
+| `data/finanzas.sqlite3` | Datos y acceso de tu instalación |
+| `local/secret.key` | Secreto propio de esta instalación |
+| `backups/` | Copias financieras y previas a cambios |
 
-El aplicativo protege el acceso a las pantallas mediante contraseña, pero **no cifra los archivos locales ni los respaldos**. Conserva el acceso de Windows protegido. Para copiar una instalación completa manualmente, detén el servidor primero y conserva la carpeta privada con sus permisos; copiar una base SQLite mientras está en uso puede producir una copia incompleta.
+Están excluidos de Git. No los publiques. La contraseña protege la interfaz; los archivos y respaldos **no están cifrados**. Protege el acceso a Windows.
 
-No borres `data/`, `local/secret.key` ni la base para resolver errores. Una reinstalación de dependencias no exige eliminar datos.
+No borres la base ni la clave para arreglar un error. Antes de copiar manualmente una instalación, detén el servidor: copiar SQLite en uso puede producir una copia incompleta. En este equipo se guardan copias consistentes privadas antes de aplicar nuevas migraciones de esta entrega.
 
-## 12. Consultar documentación en el aplicativo
+## 12. 📖 Consultar documentación en el aplicativo
 
-En la parte inferior de la barra lateral, el enlace **CHANGELOG.md** abre el historial de cambios en una pestaña nueva. Justo debajo está **MANUAL_USUARIO.md**, que abre este manual en otra pestaña. La pantalla original conserva su formulario y filtros. Los lectores presentan títulos, listas, negritas, enlaces, tablas y bloques de código con formato. Consultan el archivo Markdown actual del proyecto cada vez que abres o recargas la página, sin modificarlo. El HTML se filtra antes de mostrarse; los ejemplos de código se conservan como texto dentro de sus bloques.
+Los enlaces **CHANGELOG.md** y **MANUAL_USUARIO.md** de la barra lateral abren pestañas nuevas. No pierdes la pantalla original. Pueden leerse antes de iniciar sesión.
 
-En ambos lectores encontrarás **En este documento**, un índice con títulos y subtítulos. Pulsa una entrada para ir directamente a esa sección; el encabezado de destino queda resaltado. En escritorio el índice permanece a la izquierda mientras lees y puede desplazarse si es largo. En pantallas pequeñas se sitúa encima del contenido. La lectura utiliza más ancho de pantalla; los comandos largos conservan desplazamiento horizontal dentro de su bloque. El índice se actualiza automáticamente al cambiar los encabezados del archivo.
+En **En este documento**, pulsa un título para saltar a él. Puedes abrir/cerrar capítulos, **Expandir todo**, **Contraer todo** o buscar títulos y contenido sin distinguir tildes ni mayúsculas. **Limpiar filtro** recupera la lectura. Los controles son temporales y funcionan localmente con JavaScript; sin él puedes leer todo y usar la búsqueda del navegador.
 
-Cada capítulo del manual y cada versión del historial se pueden abrir o cerrar pulsando su título. Al abrir el lector, la primera sección está desplegada y las demás contraídas; si entras por un enlace a una sección, esta se abre automáticamente. En el índice, las versiones o capítulos con subtítulos también pueden contraerse; **Ver esta sección** lleva a su contenido.
+El historial usa: ✨ Añadido para funciones nuevas, 🛠️ Corregido para ajustes, 📦 Dependencias y 🧪 Verificado. Las versiones más recientes están arriba. Un estado «local» significa que aún está pendiente de revisión/publicación.
 
-El buscador y los botones **Limpiar filtro**, **Expandir todo** y **Contraer todo** están dentro del panel izquierdo **En este documento**, encima de los títulos. Los tres botones se distribuyen en una única fila horizontal que ocupa el ancho del buscador, con una altura compacta de 32 px; la descripción del filtro conserva su tamaño de letra reducido. Al recorrer un índice largo, se desplaza la lista de títulos mientras los controles permanecen disponibles. En pantallas pequeñas el panel completo se coloca encima del contenido.
+La documentación se lee del Markdown guardado del proyecto; no se conecta a procesadores externos. El lector conserva formato y filtra HTML. Los tres botones del índice siguen en una fila compacta, con altura de 32 px.
 
-Utiliza **Filtrar títulos y contenido** para buscar una palabra, frase o número de versión. La búsqueda ignora mayúsculas y tildes, muestra solo secciones coincidentes y las abre automáticamente, junto con sus entradas del índice. **Limpiar filtro** recupera todas las secciones y el estado anterior a la búsqueda. **Expandir todo** y **Contraer todo** afectan a las secciones visibles y a los grupos del índice. Si no hay coincidencias, cambia la consulta o limpia el filtro. Son controles temporales; no modifican los archivos ni guardan la búsqueda.
+## 13. 🆘 Revisión y solución de problemas
 
-Estos controles requieren JavaScript en el navegador y se ejecutan localmente, sin enviar la consulta a servicios externos. Sin JavaScript, el documento completo y sus enlaces siguen disponibles para lectura, y puedes usar la búsqueda del navegador.
+| Qué ves | Qué hacer |
+|---|---|
+| No abre navegador | Visita http://127.0.0.1:8765/ y revisa la consola |
+| Versión anterior | Detén la instancia anterior y ejecuta de nuevo el iniciador |
+| No deja guardar saldo inicial | No elijas categoría Sueldo; usa Saldo inicial sin categoría ni destinos |
+| No deja guardar ingreso/gasto | Revisa tipo de categoría, cuenta, actividad e importe positivo |
+| No aparece una categoría | El tipo debe coincidir; créala en Actividades y cuentas o deja el campo vacío |
+| No deja transferir | Completa ambos destinos y diferencia origen/destino |
+| Sesión caducada | Recarga, inicia sesión y comprueba si ya se guardó antes de reenviar |
+| Error al preparar base | Conserva el mensaje y comprueba permisos/espacio; no borres archivos |
 
-Ambos documentos pueden consultarse antes de crear el usuario: `/documentacion/manual/` y `/documentacion/changelog/`. Solo se sirven esos dos archivos públicos; no se exponen archivos financieros privados.
+En **Revisar esta fase** tienes el recorrido y las casillas temporales. Envíame tus observaciones después de probar. Marcar casillas no guarda una aprobación. Fase 4 y nuevas publicaciones requieren tu autorización; commits en español.
 
-Ahorros y Préstamos y deudas permanecen previstos para Fase 4. Sus pantallas de Fase 1 son demostraciones ficticias, accesibles mediante **Revisar esta fase → Consultar la vista previa ficticia de Fase 1**. El menú de registro real muestra las funciones ya implementadas. Puedes usar cuentas de tipo Ahorros para registrar dinero guardado, pero las metas y los cálculos de obligaciones siguen pendientes.
+## 14. 💰 Mi sueldo: previsión y cobros
 
-Si actualizas una copia anterior del proyecto, instala las dependencias fijadas y reinicia el aplicativo:
+Un **plan de sueldo** describe lo que esperas recibir. Un **movimiento de ingreso** registra el dinero recibido. Se relacionan sin sumar el dinero dos veces.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-```
+### Paso 1: planear
 
-El lector utiliza Python-Markdown y nh3 dentro del entorno `.venv`. No carga procesadores externos ni necesita Internet para mostrar los documentos una vez instaladas las dependencias. La Fase 3 ya fue autorizada y se entrega por incrementos revisables.
+En **Mi sueldo → Planear sueldo** completa:
 
-## 13. Revisión y solución de problemas
+| Campo | Ejemplo ficticio | Significado |
+|---|---|---|
+| Concepto | Sueldo de ejemplo | Cómo identificarás el plan |
+| Actividad | Personal / trabajo principal | A qué trabajo pertenece |
+| Modalidad | Neto | Conoces lo que recibirás |
+| Mes trabajado | Agosto de 2026 | Cuándo trabajaste |
+| Fecha prevista de cobro | 05/09/2026 | Cuándo esperas recibirlo |
+| Mes presupuestado | Septiembre de 2026 | A qué mes destinas el sueldo |
+| Sueldo neto | `2000000` | Importe previsto |
+| Bruto / adicionales / deducciones | Bruto vacío; ajustes vacíos o cero | No aplican en modalidad Neto |
+| Incluir en previsión | Marcado | Incluye el plan en previsto/pendiente |
 
-- **No abre el navegador:** entra en http://127.0.0.1:8765/ y revisa la consola.
-- **Aparece la Fase 1 o una versión anterior:** detén la instancia anterior y vuelve a iniciar. La demostración está en `/demo/`; tu registro está en `/app/`.
-- **Error al preparar la base:** guarda el mensaje de la consola y revisa espacio/permisos; no borres archivos financieros.
-- **Sesión caducada o rechazo de formulario:** recarga, inicia sesión y revisa si el movimiento ya se registró antes de reenviar.
-- **Falta una cuenta o actividad:** créala en **Actividades y cuentas** y vuelve al formulario.
-- **Dudas de saldos:** comprueba actividad, fechas, anulaciones y posibles saldos iniciales duplicados.
+Guarda y consulta **septiembre de 2026**. Antes de vincular cobros: previsto 2.000.000, recibido cero y pendiente 2.000.000 COP. Guardar el plan no modifica tus saldos.
 
-En **Revisar esta fase**, marca temporalmente lo comprobado y envía tus observaciones por el chat. Las casillas no guardan una aprobación. La Fase 3 está en desarrollo. Avanzar a Fase 4 o publicar nueva implementación requiere tu autorización explícita. Todos los commits nuevos se redactan en español.
+Si prefieres **Bruto y deducciones**, deja el neto vacío y escribe bruto `2200000`, adicionales `100000`, deducciones `300000`. Calcula el mismo neto de 2.000.000 COP. Es un cálculo manual, no liquidación tributaria ni nómina legal.
 
-## 14. Mi sueldo: previsión y cobros
+### Paso 2: registrar el dinero recibido
 
-Abre **Mi sueldo → Planear sueldo**. Elige título y actividad; distingue **mes trabajado**, **fecha prevista de cobro** y **mes presupuestado**. Por ejemplo, un trabajo de agosto puede cobrarse en septiembre y destinarse al presupuesto de octubre. El filtro consulta el mes presupuestado, no la fecha real del movimiento.
+Si aún no registraste el cobro, ve a Movimientos y crea el **Ingreso** de la sección 5, ejemplo B. Si ya existe, no lo vuelvas a registrar. Usa su fecha y cuenta reales; la fecha puede diferir de la del plan.
 
-- **Neto conocido:** introduce solo el importe neto; deja bruto vacío y adicionales/deducciones en cero o vacíos.
-- **Bruto y deducciones:** deja el neto vacío e indica bruto, adicionales y deducciones. El sistema calcula bruto + adicionales − deducciones. El resultado debe ser positivo. Son importes manuales; no liquida impuestos ni nómina legal.
-- **Incluir en previsiones:** desmárcalo para excluir el plan del previsto y pendiente. Los cobros reales vinculados se conservan y siguen visibles.
+### Paso 3: vincular y verificar
 
-Guardar un plan **no registra ingresos ni aumenta saldos**. Cuando recibas dinero, regístralo una sola vez como ingreso en **Movimientos**, con su fecha, cuenta y actividad reales. Después pulsa **Vincular ingreso existente** en el plan y selecciona ese ingreso. Debe pertenecer a la misma actividad, estar vigente y no tener otro vínculo. Si la lista está vacía, comprueba estos requisitos. Puedes asociar varios cobros parciales.
+Regresa a Mi sueldo, consulta septiembre y pulsa **Vincular ingreso existente** en el plan. Elige Cobro de sueldo de ejemplo y guarda. Solo aparecen ingresos propios vigentes, de la misma actividad y aún sin vínculo.
 
-La pantalla muestra previsto activo, cobros vinculados y pendiente previsto. Si recibiste más que el neto planeado, señala el exceso y el pendiente queda en cero. Estos cálculos describen los planes del mes elegido; no representan el saldo bancario ni un presupuesto mensual completo.
+✅ Recibido 2.000.000, pendiente cero. El saldo de cuentas no cambia al vincular. Si la lista está vacía, revisa que el ingreso exista, no esté anulado, tenga la misma actividad y no pertenezca a otro plan.
 
-**Corregir plan** exige un motivo; si otra ventana lo modificó, recarga antes de guardar. Para cambiar de actividad, desvincula primero los cobros incompatibles. No existe borrado de planes; utiliza la casilla de previsión para conservar la trazabilidad.
+### Cobros parciales, correcciones y desvinculación
 
-Corregir el importe de un ingreso vinculado actualiza lo recibido. Anularlo lo excluye del cálculo, conservando su vínculo e historial. Para cambiar su tipo o actividad, primero **Desvincular**, con motivo y confirmación. Desvincular conserva el ingreso y su efecto en el saldo; no equivale a anularlo.
+Para probar cobros parciales, usa **en lugar** del ingreso único dos ingresos de 1.200.000 y 800.000 COP. Vincula el primero: queda pendiente 800.000. Vincula el segundo: queda cero. No uses ambas alternativas a la vez.
 
-El iniciador aplica la migración de tablas al actualizar. En este equipo se guardó una copia SQLite privada previa al primer cambio de Fase 3 en `backups/`. Los nuevos respaldos financieros incluyen planes y vínculos. No se importan automáticamente tus ejemplos personales. Para revisar este incremento usa las casillas de **Revisar esta fase**; presupuestos y recurrencias se entregarán después dentro de esta fase.
+Corregir el importe del ingreso actualiza lo recibido. Anularlo lo excluye del cálculo y conserva el vínculo. Si recibes más de lo planeado, se muestra el exceso y el pendiente queda cero.
 
-## 15. Ejemplos para comprender y revisar el flujo
+**Desvincular** pide motivo y confirmación; conserva el ingreso y su saldo. Para cambiar tipo o actividad de un ingreso vinculado, desvincúlalo primero. **Corregir plan** exige motivo y revisión vigente; para cambiar su actividad, no debe conservar cobros incompatibles. No se borran planes. Desmarcar **Incluir en previsión** excluye previsto/pendiente y conserva los cobros reales visibles.
 
-En **Revisar esta fase**, abre **Ver ejemplo de Revisar esta fase** para ver el recorrido. Cada sección real tiene un bloque **Ver ejemplo de…**, contraído inicialmente, con pasos y resultados de un mismo caso ficticio. Se leen sin crear cuentas ni movimientos. No son datos precargados ni modifican tu registro. Los formularios reales sí guardan lo que confirmes; si tienes datos personales, usa el caso como lectura o ensaya en otra instalación vacía, no lo mezcles con tus cuentas.
+Los totales del módulo pertenecen al mes presupuestado elegido y no representan saldo bancario ni presupuesto mensual completo.
 
-Orden sugerido: Actividades y cuentas → Movimientos → Mi sueldo → Resumen → Historial → Respaldos → Revisar esta fase. El caso parte de un banco con saldo inicial de 1.000.000 COP, sueldo recibido de 2.000.000, ingreso secundario de 300.000 y mercado de 250.000. Transfiere 100.000 al efectivo sin cambiar el total. Resultado consolidado: 3.050.000 COP; banco 2.950.000 y efectivo 100.000. La actividad personal conserva 2.750.000 y el emprendimiento 300.000.
+## 15. 🧩 Ejemplo completo y orden de revisión
 
-El plan de sueldo usa trabajo de agosto de 2026, cobro previsto el 5 de septiembre y presupuesto de septiembre; selecciona septiembre de 2026 en Mi sueldo. Vincular el ingreso ya registrado deja pendiente cero y no cambia el saldo. El ejemplo de detalle produce el mismo neto: bruto 2.200.000 + adicionales 100.000 − deducciones 300.000. Las alternativas de cobro parcial y corrección indican cómo volver al caso base para que los resultados sigan siendo comparables.
+Cada sección tiene **Ver ejemplo de…**. Pulsa el título para abrir pasos y resultados. Son ejemplos de lectura, **no datos precargados**. Si ya tienes datos personales, no introduzcas el caso completo allí: léelo como guía o usa otra instalación vacía para practicar.
 
-Cada sección explica qué verificar, incluidos motivos de corrección/anulación, centavos del historial y respaldo/restauración en ensayo. El acceso se prueba cerrando sesión y volviendo a entrar con tus credenciales. No es necesario cambiar tu contraseña. Las funciones pendientes se identifican expresamente.
+### Recorrido de un caso que empieza vacío
+
+1. **Actividades y cuentas:** usa la actividad personal y crea Emprendimiento de ejemplo. Crea Banco de ejemplo con 1.000.000 COP iniciales personales; crea Efectivo de ejemplo sin saldo. Crea categorías opcionales. No dupliques el saldo inicial.
+2. **Movimientos:** registra ingreso personal 2.000.000 COP, ingreso de venta del emprendimiento 300.000 COP y gasto personal de mercado 250.000 COP. Todo en el banco. Después transfiere 100.000 del banco al efectivo, dentro de la actividad personal. Fecha de ejemplo de los cobros: 08/09/2026; mercado: 09/09; transferencia: 10/09.
+3. **Mi sueldo:** completa el plan de la sección 14 y vincula el ingreso personal existente. No crees otro ingreso.
+4. **Resumen:** compara los resultados de la tabla siguiente; filtra cada actividad y vuelve a Consolidado.
+5. **Historial:** corrige Mercado a 260.000 con motivo «Corregir importe de ensayo», revisa antes/después y devuélvelo a 250.000 con otro motivo. El saldo baja 10.000 y después vuelve. Para anulación usa un gasto adicional de ensayo de 10.000 y anúlalo; regresa al saldo anterior.
+6. **Respaldos:** descarga una copia al terminar. Solo ensaya la recuperación en otra instalación vacía, como indica la sección 10.
+7. **Revisar esta fase:** cierra sesión y vuelve a entrar con tu usuario, comprueba legibilidad/filtros y marca temporalmente lo revisado. Comparte tus observaciones.
+
+| Verificación al completar el caso base | Resultado COP |
+|---|---:|
+| Ingresos externos | 2.300.000 |
+| Gastos | 250.000 |
+| Saldo total | 3.050.000 |
+| Banco | 2.950.000 |
+| Efectivo | 100.000 |
+| Saldo asignado personal | 2.750.000 |
+| Saldo asignado emprendimiento | 300.000 |
+| Sueldo previsto / cobrado / pendiente | 2.000.000 / 2.000.000 / 0 |
+
+Si tus resultados difieren, comprueba que no duplicaste el saldo inicial o el sueldo, que el gasto volvió a 250.000 y que la transferencia no se registró como gasto/ingreso. Estas cifras solo corresponden al caso base, no a tus cuentas reales.

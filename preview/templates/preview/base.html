@@ -40,5 +40,6 @@
     <footer>Finanzas DAGD · diseñado para tu día a día <a href="{% if financial %}{% url 'ledger:section' 'revision' %}{% else %}{% url 'section' 'revision' %}{% endif %}">Revisar y personalizar esta fase <span aria-hidden="true">↗</span></a></footer>
   </main>
 </div>
+{% block extra_js %}{% endblock %}
 </body>
 </html>

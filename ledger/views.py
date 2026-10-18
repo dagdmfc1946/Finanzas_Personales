@@ -94,10 +94,13 @@ def catalog(request, kind, pk=None):
         try:
             with transaction.atomic():
                 before = {"name": model.objects.get(pk=pk).name} if pk else {}
+                if kind == "categoria" and pk:
+                    old = model.objects.get(pk=pk)
+                    before.update(kind=old.kind, group=old.group)
                 item = form.save(commit=False)
                 item.full_clean()
                 item.save()
-                AuditEvent.objects.create(owner=request.user, action="catálogo", entity=str(item.pk), before=before, after={"tipo": kind, "nombre": item.name})
+                AuditEvent.objects.create(owner=request.user, action="catálogo", entity=str(item.pk), before=before, after={"tipo": kind, "nombre": item.name, **({"clase": item.kind, "grupo": item.group} if kind == "categoria" else {})})
                 if kind == "cuenta" and not pk and form.cleaned_data.get("initial_amount"):
                     save_entry(Entry(owner=request.user, kind="inicial", cents=int(form.cleaned_data["initial_amount"] * 100),
                         activity=form.cleaned_data["initial_activity"], account=item, date=timezone.localdate(), description="Saldo inicial de " + item.name), request.user)
@@ -107,7 +110,7 @@ def catalog(request, kind, pk=None):
             form.add_error(None, ValidationError(error.messages))
         except IntegrityError:
             form.add_error(None, "Ya existe un registro con esos datos. Revisa el nombre y el tipo.")
-    return render(request, "ledger/form.html", context("organizacion", ("Editar " if pk else "Crear ") + kind, form=form), status=400 if request.method == "POST" else 200)
+    return render(request, "ledger/form.html", context("organizacion", ("Editar " if pk else "Crear ") + {"actividad": "actividad", "cuenta": "cuenta", "categoria": "categoría"}[kind], form=form, category_groups=Category.objects.filter(owner=request.user).exclude(group="").order_by("group").values_list("group", flat=True).distinct()), status=400 if request.method == "POST" else 200)
 
 
 @login_required
@@ -124,7 +127,7 @@ def entry_edit(request, pk=None):
             form.add_error(None, ValidationError(error.messages))
         except IntegrityError:
             form.add_error(None, "Ese formulario ya se registró. Revisa el historial antes de intentar nuevamente.")
-    return render(request, "ledger/form.html", context("movimientos", "Corregir movimiento" if pk else "Nuevo movimiento", form=form), status=400 if request.method == "POST" else 200)
+    return render(request, "ledger/form.html", context("movimientos", "Corregir movimiento" if pk else "Nuevo movimiento", form=form, entry_form=True), status=400 if request.method == "POST" else 200)
 
 
 @login_required

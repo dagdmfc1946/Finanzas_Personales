@@ -38,10 +38,20 @@ class AccountForm(OwnedForm):
         return cleaned
 
 
+class CategorySelect(forms.Select):
+    def create_option(self, name, value, label, selected, index, subindex=None, attrs=None):
+        option = super().create_option(name, value, label, selected, index, subindex, attrs)
+        if hasattr(value, "instance"):
+            option["attrs"]["data-kind"] = value.instance.kind
+        return option
+
+
 class CategoryForm(OwnedForm):
     class Meta:
         model = Category
-        fields = ["name", "kind"]
+        fields = ["name", "kind", "group"]
+        help_texts = {"group": "Opcional. Escribe o elige Gastos fijos, Gastos variables u otro nombre. Déjalo vacío para una categoría individual. Solo un nivel."}
+        widgets = {"group": forms.TextInput(attrs={"list": "category-groups"})}
 
     def clean(self):
         cleaned = super().clean()
@@ -60,7 +70,8 @@ class EntryForm(OwnedForm):
         model = Entry
         fields = ["kind", "date", "description", "activity", "account", "category", "destination_activity", "destination_account"]
         labels = {"activity": "Actividad de origen", "account": "Cuenta de origen", "category": "Categoría (ingreso/gasto)", "destination_activity": "Actividad de destino (solo transferencia)", "destination_account": "Cuenta de destino (solo transferencia)"}
-        widgets = {"date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d")}
+        widgets = {"date": forms.DateInput(attrs={"type": "date"}, format="%Y-%m-%d"), "category": CategorySelect()}
+        help_texts = {"kind": "Ingreso: dinero que recibes ahora. Gasto: dinero que pagas. Saldo inicial: dinero que ya tenías antes del registro. Transferencia: mover dinero propio.", "category": "Opcional y solo para Ingreso o Gasto. Saldo inicial y Transferencia van sin categoría.", "destination_activity": "Solo Transferencia. En los demás tipos, deja vacío.", "destination_account": "Solo Transferencia. El origen y destino deben ser diferentes."}
 
     def __init__(self, *args, user, **kwargs):
         super().__init__(*args, user=user, **kwargs)
