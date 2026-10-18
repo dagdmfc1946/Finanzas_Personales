@@ -4,6 +4,12 @@ Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del núm
 
 ## [Sin publicar]
 
+### Planeación y herramientas
+
+- Plan propuesto revisado: separación por actividades desde Fase 2, presupuestos por proyecto/compra, simulador de financiación y consulta bancaria opcional. Pendiente de aprobación; sin implementar Fase 2.
+- Skills de UI instaladas y verificadas en el entorno personal; fuentes e instrucciones en docs/SKILLS_UI.md.
+- Reglas duraderas del usuario en AGENTS.md y estudio preliminar de saldos en docs/INTEGRACIONES_BANCARIAS.md.
+
 - Nuevas propuestas posteriores a la publicación de Fase 1 se revisarán antes de iniciar la Fase 2.
 
 ## [0.1.0-alpha.2] - 2026-10-17

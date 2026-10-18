@@ -15,8 +15,18 @@
 - [x] Comprobar navegador, presentación adaptable y arranque en Windows.
   - Aceptación: pantalla visible, recursos locales correctos y sin errores de consola; revisar anchos acordados.
   - Verificación: evidencia registrada en `dev_Process.md`.
-- [ ] Obtener revisión del usuario y registrar sus sugerencias.
+- [x] Obtener revisión del usuario y registrar sus sugerencias.
   - Aceptación: aprobación explícita de esta fase o lista de ajustes.
   - Verificación: conversación y actualización de `dev_Process.md`.
 
 Las tareas técnicas terminadas no marcan por sí mismas la fase como aprobada. La persistencia y los formularios financieros son trabajo de Fase 2.
+
+## Siguiente decisión
+
+- [x] Aprobar la revisión de info_Fases.md posterior a publicar Fase 1.
+  - Aceptación: confirmar el alcance por actividades, presupuestos por proyecto/compra, simulador y carácter opcional de las APIs.
+  - Verificación: instrucción explícita del usuario en el chat antes de iniciar Fase 2.
+
+La revisión visual recibida y la orden de publicar Fase 1 no aprueban automáticamente el nuevo alcance de Fase 2.
+
+El usuario aprobó el alcance, canceló la integración bancaria y autorizó iniciar Fase 2. Las tareas de ejecución se detallan en SPEC_FASE2.md.

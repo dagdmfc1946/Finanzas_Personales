@@ -59,3 +59,11 @@ Por solicitud del usuario, se amplía MANUAL_USUARIO.md como documentación de u
 ## Publicación autorizada de la Fase 1 y mejora de inicio
 
 El usuario pidió publicar toda la Fase 1, abrir automáticamente el navegador y conservar Revisar esta fase durante el desarrollo. Se añade iniciar.py: confirma identidad del servidor, espera su disponibilidad, abre una pestaña y reutiliza una instancia existente. Cuatro pruebas del iniciador cubren reutilización, espera, fallo de arranque y puerto ocupado por otro servicio. La versión cambia a 0.1.0-alpha.2. Se mantiene la muestra pública ficticia; la referencia exacta de septiembre se documenta exclusivamente en local/REFERENCIA_SEPTIEMBRE.md, ignorada por Git. No se implementan aún las nuevas capacidades propuestas para Fase 2 y posteriores.
+
+## Revisión del plan posterior a publicar Fase 1
+
+Se confirmó origin/dev1 en 7153eb6. Después se instalaron desde commits fijos las skills solicitadas y la variante de Taste para proyectos existentes; se documentaron fuentes, verificación, motor de Impeccable y advertencia de limpieza en docs/SKILLS_UI.md. Se investigaron fuentes oficiales para consulta opcional de saldo; no se confirmó habilitación personal actual de ninguna API y no se accedió a cuentas. El nuevo info_Fases.md incorpora actividades separadas, presupuestos por proyecto/compra y calculadora de financiación, manteniendo cinco fases y Revisar esta fase. Se añade AGENTS.md para conservar las instrucciones del usuario en futuras sesiones. Esta propuesta queda local y pendiente de aprobación; no se inicia Fase 2 ni se publica automáticamente esta revisión.
+
+## Autorización de inicio de Fase 2
+
+El usuario aprobó el alcance revisado, ordenó publicar lo pendiente y canceló la integración bancaria. Solicitó que todos los commits sean en español; se aplica desde esta instrucción y se renombra el commit local aún no publicado, sin reescribir commits ya publicados. Los nuevos incrementos de implementación se conservarán locales hasta su autorización.

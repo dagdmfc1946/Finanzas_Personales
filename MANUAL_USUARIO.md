@@ -209,3 +209,7 @@ Cada fase se revisará ejecutando el aplicativo. Su aprobación se registra expr
 En cada incremento que modifique el uso se actualizarán las instrucciones pertinentes y se registrará el cambio en `dev_Process.md` y `CHANGELOG.md`. Cuando se incorpore autenticación, este manual explicará la creación del primer usuario y su acceso; cuando exista persistencia, incluirá ubicación y tratamiento de los datos y procedimientos probados de respaldo/restauración.
 
 Las funciones futuras permanecerán identificadas como pendientes hasta que se implementen y verifiquen. En la Fase 5 se realizará la revisión integral del manual; eso no aplaza sus actualizaciones durante el desarrollo.
+
+## 12. Ampliaciones propuestas, todavía no disponibles
+
+El plan posterior a la publicación de Fase 1 contempla actividades separadas para el sueldo y las finanzas personales, emprendimientos y trabajos secundarios; presupuestos de proyectos o compras soñadas; y una calculadora de cuotas e intereses. La integración bancaria ha sido cancelada y no se desarrollará. Ninguna de esas funciones está habilitada aún: requiere aprobación del plan y desarrollo en sus fases. Revisar esta fase se mantendrá durante el proyecto. Las skills instaladas ayudan al desarrollo; no debes instalarlas para utilizar el aplicativo.
