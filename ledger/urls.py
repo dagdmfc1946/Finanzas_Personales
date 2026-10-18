@@ -1,9 +1,16 @@
 from django.urls import path
-from . import views, salary_views
+from . import views, salary_views, account_views
 
 app_name = "ledger"
 urlpatterns = [
     path("", views.section, name="home"),
+    path("perfil/", account_views.profile, name="profile"),
+    path("perfil/editar/", account_views.profile_edit, name="profile-edit"),
+    path("usuarios/", account_views.users, name="users"),
+    path("usuarios/nuevo/", account_views.user_create, name="user-new"),
+    path("usuarios/<int:pk>/", account_views.user_access, name="user-access"),
+    path("reiniciar/", account_views.reset, name="reset"),
+    path("eliminar/<str:kind>/<uuid:pk>/", account_views.delete, name="delete"),
     path("sueldo/", salary_views.page, name="salary"),
     path("sueldo/nuevo/", salary_views.edit, name="salary-new"),
     path("sueldo/<uuid:pk>/", salary_views.edit, name="salary-edit"),

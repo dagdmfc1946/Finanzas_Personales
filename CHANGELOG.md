@@ -2,6 +2,24 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. 📌 Abre una versión para ver sus novedades; usa el filtro para buscar una función. ✨ Añadido = función nueva; 🛠️ Corregido = ajuste; 📖 Documentación = guía de uso. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.3.0-alpha.4] - 2026-10-18
+
+🏠 Entrega local para revisión; pendiente de autorización de publicación.
+
+### ✨ Añadido
+- Menú de usuario arriba a la izquierda: perfil, edición, contraseña, salida y reinicio personal; gestión de accesos visible para administradores.
+- Administradores y usuarios normales con finanzas aisladas. El titular inicial pasa a administrador sin cambiar su clave. Altas, roles y activación/desactivación por administrador, sin acceso desde su sesión a finanzas ajenas.
+- Eliminar movimientos, planes y catálogos no utilizados con contraseña, motivo, texto de confirmación y copia previa. Eliminar un plan conserva los ingresos.
+- Reiniciar mis datos vacía únicamente las finanzas del usuario conectado, conservando su acceso y los demás usuarios; copia previa y recuperación documentada.
+
+### 🔒 Protección
+- Confirmaciones por POST/CSRF, verificación de pertenencia y revisión, bloqueo de catálogos referenciados y cancelación si falla el respaldo.
+- Copias nuevas en carpetas por usuario. Comandos requieren --usuario si hay varias cuentas; ninguna restauración elige implícitamente a otro usuario.
+- Administrador no puede quitarse el acceso a sí mismo ni modificar contraseñas ajenas mediante la gestión de accesos.
+
+### 📖 Documentación
+- Matriz de permisos en SPEC_USUARIOS_PERMISOS.md y secciones 16/17 del manual con pasos, límites, eliminación/reinicio y recuperación.
+
 ## [0.3.0-alpha.3] - 2026-10-18
 
 🏠 Entrega local para revisión. No publicada en GitHub.

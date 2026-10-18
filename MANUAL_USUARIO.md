@@ -2,7 +2,7 @@
 
 👋 Esta guía te acompaña desde el primer inicio hasta el registro de tu sueldo. Lee primero **4. Preparar actividades, cuentas y categorías** y **5. Registrar ingresos y gastos** si ya tienes acceso.
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Guía para `0.3.0-alpha.3`, entrega local de Fase 3 en revisión.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Guía para `0.3.0-alpha.4`, entrega local de Fase 3 en revisión.
 
 ## 1. 🧭 Qué puedes usar ahora
 
@@ -40,9 +40,9 @@ Después de instalar las dependencias no necesitas Internet para registrar tus d
 
 ## 3. 🔐 Primera ejecución: crea tu usuario
 
-Solo la primera apertura muestra **Configurar mi usuario**. Escoge nombre y contraseña propia de al menos diez caracteres y sigue las indicaciones del formulario. No existe usuario o contraseña predeterminados ni necesitas un superusuario.
+Solo la primera apertura muestra **Configurar mi usuario**. Ese primer usuario será administrador. Si ya usabas esta instalación, tu usuario inicial pasa a administrador conservando contraseña y datos. Escoge nombre y contraseña propia de al menos diez caracteres y sigue las indicaciones del formulario. No existe usuario o contraseña predeterminados ni necesitas un superusuario técnico de Django.
 
-Si ya ves **Iniciar sesión**, introduce el usuario que creaste; no crees otro. Para salir pulsa **Cerrar sesión**. Para actualizar tu clave usa **Cambiar contraseña**.
+Si ya ves **Iniciar sesión**, introduce el usuario que creaste; no crees otro. Abre el **icono de usuario de la esquina superior izquierda** para Ver perfil, Editar perfil, Cambiar contraseña o Cerrar sesión. El administrador también verá Administrar usuarios. Consulta la sección 16 para crear accesos adicionales.
 
 La instalación empieza sin movimientos y crea la actividad **Personal / trabajo principal**. No se cargan automáticamente los datos del notebook ni los ejemplos de esta guía.
 
@@ -170,20 +170,20 @@ En la fila de un movimiento vigente:
 - **Corregir:** cambia el dato, explica el motivo y guarda. No crees otro movimiento para sustituirlo.
 - **Anular:** escribe un motivo, marca la confirmación y pulsa **Confirmar anulación**. Deja de afectar saldos, pero queda conservado.
 
-Si otra ventana modificó el registro, recarga antes de intentarlo de nuevo. No se borra el historial.
+Si otra ventana modificó el registro, recarga antes de intentarlo de nuevo. Las correcciones y anulaciones conservan el historial. Eliminar conserva un evento de eliminación; Reiniciar mis datos reemplaza tu historial por un evento de reinicio y conserva la copia previa. Consulta la sección 17.
 
 En **Historial**, despliega un evento para ver Antes/Después y el motivo. La vista técnica usa `cents`: divide entre 100 para leer COP. Por ejemplo, `25000000` centavos son 250.000 COP. `revision` es el número de edición e identificadores largos relacionan los registros. La bitácora no es inalterable para alguien con acceso directo al archivo del PC.
 
 ## 9. 💾 Crear respaldos
 
-Abre **Respaldos → Crear y descargar respaldo**. Se descarga un JSON y se guarda otra copia en `backups/`. Conserva una copia privada fuera del mismo disco.
+Abre **Respaldos → Crear y descargar respaldo**. Se descarga un JSON y se guarda otra copia en `backups/usuario-ID/`, correspondiente al usuario conectado. Las copias anteriores pueden seguir en `backups/`. Conserva una copia privada fuera del mismo disco.
 
 La copia actual es de **formato 3**: actividades, cuentas, categorías con sus grupos, movimientos, planes de sueldo, vínculos de cobro e historial. No contiene contraseñas, usuarios, sesiones ni claves. Límite básico: 5 MiB o 10.000 registros. No está cifrada.
 
 También puedes crearla desde PowerShell en la carpeta del proyecto:
 
 ```powershell
-.\.venv\Scripts\python.exe manage.py respaldo_finanzas
+.\.venv\Scripts\python.exe manage.py respaldo_finanzas --usuario TU_USUARIO
 ```
 
 ## 10. ♻️ Restaurar una copia propia
@@ -194,11 +194,12 @@ También puedes crearla desde PowerShell en la carpeta del proyecto:
 2. Desde PowerShell en la carpeta receptora, cambia la ruta del ejemplo por tu archivo propio:
 
 ```powershell
-.\.venv\Scripts\python.exe manage.py restaurar_finanzas 'C:\RUTA\finanzas-respaldo.json' --confirmar
+.\.venv\Scripts\python.exe manage.py restaurar_finanzas 'C:\RUTA\finanzas-respaldo.json' --usuario TU_USUARIO --confirmar
 ```
 
-3. Lee el resultado: indica dónde guardó la copia previa.
-4. Inicia otra vez y comprueba cuentas, movimientos, categorías y Mi sueldo.
+3. Sustituye `TU_USUARIO` por el nombre de acceso de la persona cuyos datos recuperarás. Si hay varios usuarios, el comando exige este argumento y no elige al administrador automáticamente.
+4. Lee el resultado: indica dónde guardó la copia previa.
+5. Inicia otra vez y comprueba cuentas, movimientos, categorías y Mi sueldo.
 
 El comando crea una copia previa antes de reemplazar datos. Rechaza archivos dañados, campos inesperados y referencias inválidas; ante un error de validación revierte los cambios. Conserva credenciales y eventos existentes del historial, recupera eventos faltantes y añade el evento de restauración. La huella SHA-256 detecta daños accidentales; no certifica al autor. Usa copias propias sin editarlas manualmente. No hay carga desde el navegador.
 
@@ -287,7 +288,7 @@ Para probar cobros parciales, usa **en lugar** del ingreso único dos ingresos d
 
 Corregir el importe del ingreso actualiza lo recibido. Anularlo lo excluye del cálculo y conserva el vínculo. Si recibes más de lo planeado, se muestra el exceso y el pendiente queda cero.
 
-**Desvincular** pide motivo y confirmación; conserva el ingreso y su saldo. Para cambiar tipo o actividad de un ingreso vinculado, desvincúlalo primero. **Corregir plan** exige motivo y revisión vigente; para cambiar su actividad, no debe conservar cobros incompatibles. No se borran planes. Desmarcar **Incluir en previsión** excluye previsto/pendiente y conserva los cobros reales visibles.
+**Desvincular** pide motivo y confirmación; conserva el ingreso y su saldo. Para cambiar tipo o actividad de un ingreso vinculado, desvincúlalo primero. **Corregir plan** exige motivo y revisión vigente; para cambiar su actividad, no debe conservar cobros incompatibles. Puedes eliminar planes desde **Eliminar plan**, con contraseña, motivo y copia previa; los ingresos se conservan. Desmarcar **Incluir en previsión** excluye previsto/pendiente y conserva los cobros reales visibles.
 
 Los totales del módulo pertenecen al mes presupuestado elegido y no representan saldo bancario ni presupuesto mensual completo.
 
@@ -317,3 +318,81 @@ Cada sección tiene **Ver ejemplo de…**. Pulsa el título para abrir pasos y r
 | Sueldo previsto / cobrado / pendiente | 2.000.000 / 2.000.000 / 0 |
 
 Si tus resultados difieren, comprueba que no duplicaste el saldo inicial o el sueldo, que el gasto volvió a 250.000 y que la transferencia no se registró como gasto/ingreso. Estas cifras solo corresponden al caso base, no a tus cuentas reales.
+
+## 16. 👤 Perfil, usuarios y permisos
+
+Pulsa el icono con las iniciales del usuario, arriba a la izquierda. Desde ese menú encontrarás todo lo relacionado con el acceso; los botones sueltos de contraseña y salida ya no aparecen sobre el contenido.
+
+### Ver y editar tu perfil
+
+**Ver perfil** muestra nombre de acceso, nombres/apellidos y rol. **Editar perfil** permite cambiar esos datos confirmando tu contraseña actual. Si cambias el nombre de acceso, úsalo la próxima vez que inicies sesión. No puedes cambiar tu propio rol desde el perfil. No hay foto, correo de recuperación ni servicios externos asociados.
+
+**Cambiar contraseña** solicita contraseña actual y la nueva dos veces, con las validaciones de Django. Conserva esta sesión y obliga a las otras sesiones de ese usuario a entrar de nuevo. No escribas contraseñas en el chat o en documentos.
+
+### Qué puede hacer cada rol
+
+| Operación | Usuario normal | Administrador |
+|---|---|---|
+| Registrar, consultar, corregir, anular y eliminar | Solo sus finanzas | Solo sus finanzas |
+| Respaldar y reiniciar | Solo sus finanzas | Solo sus finanzas |
+| Perfil y contraseña | Solo propios | Solo propios |
+| Crear usuarios, asignar rol, activar/desactivar | No | Sí, confirmando su contraseña |
+| Ver o reiniciar finanzas ajenas desde su sesión | No | No |
+
+Los roles protegen las pantallas del aplicativo. Quien tenga acceso directo a la carpeta y herramientas del PC puede acceder a los archivos; no son cuentas de Windows separadas ni datos cifrados.
+
+### Crear otro usuario
+
+1. Entra como administrador y abre **icono de usuario → Administrar usuarios → Crear usuario**.
+2. Escribe un nombre de acceso único; nombres y apellidos son opcionales.
+3. Introduce la contraseña inicial de la nueva persona dos veces y elige **Usuario normal** o **Administrador**. Evita dar rol administrador si solo necesita llevar sus cuentas.
+4. En **Tu contraseña de administrador**, introduce tu clave actual para autorizar el alta. Es distinta de las dos contraseñas nuevas anteriores.
+5. Guarda. El nuevo usuario empieza con actividad personal y sin movimientos; no se copian tus cuentas.
+6. Para registrar sus cuentas, cierra tu sesión y entra con ese usuario, con su autorización. Cada persona usa sus propias credenciales. No existe un selector que abra finanzas ajenas desde la sesión del administrador.
+
+No hay registro público adicional. El administrador puede usar **Gestionar acceso** para cambiar el rol o desmarcar **Acceso activo**. Desactivar conserva los datos e impide entrar; las sesiones ya abiertas pierden acceso al hacer una nueva solicitud. Para reactivar, marca Acceso activo y confirma. El administrador no puede desactivarse ni quitarse su propio rol. Puede crear otro administrador y gestionar los demás; las cuentas técnicas superusuario quedan fuera de esta pantalla.
+
+No se borran cuentas de acceso desde esta interfaz: se desactivan. No se muestran ni se cambian contraseñas ajenas desde Administrar usuarios. La recuperación técnica por consola de la sección 3 sigue disponible a quien tenga acceso autorizado al PC.
+
+## 17. 🗑️ Eliminar registros o empezar de cero
+
+**Corregir** cambia un registro; **Anular** conserva el movimiento sin efecto en saldos; **Eliminar** lo retira del listado y conserva un evento y una copia recuperable. Usa lo que corresponda a tu intención.
+
+### Eliminar un elemento
+
+En Movimientos, Actividades y cuentas o Mi sueldo, pulsa **Eliminar** / **Eliminar plan** en el elemento concreto. Se abre una confirmación; abrirla no borra nada.
+
+1. Revisa el nombre del registro y el efecto indicado.
+2. Escribe un motivo y tu contraseña actual.
+3. Escribe exactamente `ELIMINAR`, marca la casilla y pulsa **Confirmar operación**. Para cancelar, vuelve sin confirmar.
+4. El aplicativo guarda primero una copia de tus finanzas en `backups/usuario-ID/`. Si no puede crearla, no elimina nada. Al terminar indica la ruta relativa de la copia y actualiza los saldos.
+
+| Qué eliminas | Efecto |
+|---|---|
+| Movimiento vigente o anulado | Se retira del registro y sus vínculos de cobro; el saldo cambia si estaba vigente. El plan de sueldo permanece |
+| Plan de sueldo | Desaparece el plan y sus vínculos; los ingresos reales permanecen |
+| Cuenta, actividad o categoría | Solo si no tiene movimientos o planes asociados; de lo contrario se bloquea |
+
+Si una cuenta tiene un saldo inicial asociado, primero corrige/elimina ese movimiento. Una categoría utilizada requiere reasignar o quitar su categoría en los movimientos; no se eliminan en cascada tus gastos al eliminar una categoría. Los grupos se quitan editando las categorías y dejando Grupo vacío; no tienen un registro independiente que borrar. Los eventos individuales del historial no tienen botón de eliminación.
+
+### Reiniciar únicamente tus finanzas
+
+Abre **icono de usuario → Reiniciar mis datos** o el botón del mismo nombre en **Respaldos**.
+
+La pantalla identifica al usuario conectado. Se eliminan únicamente sus movimientos, cuentas, categorías, planes de sueldo, vínculos e historial. Se crea una actividad personal vacía y un evento de reinicio. **Tu usuario, contraseña, perfil, rol, copias y todos los datos de otras personas se conservan.** No se borra el archivo SQLite ni se reinicia toda la instalación.
+
+Escribe motivo, contraseña y la frase que muestra la pantalla: `REINICIAR TU_USUARIO` con tu nombre real de acceso en lugar del ejemplo. Marca la confirmación y pulsa Confirmar operación. Si hay errores o falla la copia previa, el reinicio se cancela.
+
+El botón funciona para normales y administradores, siempre sobre sí mismos. No existe reinicio global ni opción para que un administrador reinicie a otra persona desde su sesión.
+
+### Recuperar después de eliminar o reiniciar
+
+La copia previa contiene el estado financiero anterior, sin contraseñas ni perfiles. No hay deshacer de un solo elemento: restaurar una copia **reemplaza todas tus finanzas** por ese estado, conservando tu acceso. Antes de restaurar se crea otra copia del estado actual.
+
+Detén el aplicativo y sigue la sección 10 indicando el archivo previo y el usuario correcto:
+
+```powershell
+.\.venv\Scripts\python.exe manage.py restaurar_finanzas 'C:\RUTA\COPIA_PREVIA.json' --usuario TU_USUARIO --confirmar
+```
+
+Esto no modifica las finanzas de los demás usuarios. Las copias no son un borrado de privacidad: conservan los datos anteriores en disco. Protege esa carpeta como el resto de tus archivos financieros.

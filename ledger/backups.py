@@ -44,7 +44,7 @@ def export_backup(user):
 
 def write_backup(user):
     raw = export_backup(user)
-    folder = Path(settings.BACKUP_DIR)
+    folder = Path(settings.BACKUP_DIR) / f"usuario-{user.pk}"
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"finanzas-{timezone.now():%Y%m%d-%H%M%S}-{uuid.uuid4().hex[:8]}.json"
     with path.open("xb") as stream:

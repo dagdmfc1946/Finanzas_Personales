@@ -16,6 +16,7 @@ class AccessTests(TestCase):
         response = self.client.post("/configurar/", {"username": "prueba", "password1": "Ensayo-local!972", "password2": "Ensayo-local!972"})
         self.assertRedirects(response, "/app/")
         self.assertEqual(Installation.objects.count(), 1)
+        self.assertTrue(get_user_model().objects.get(username="prueba").is_staff)
         self.assertEqual(Entry.objects.count(), 0)
         self.assertEqual(Activity.objects.count(), 1)
         self.client.logout()
@@ -106,4 +107,4 @@ class LedgerViewsTests(TestCase):
             response = self.client.post("/app/respaldo/descargar/")
             self.assertEqual(response.status_code, 200)
             self.assertIn("attachment", response.headers["Content-Disposition"])
-            self.assertEqual(len(list(Path(folder).glob("*.json"))), 1)
+            self.assertEqual(len(list((Path(folder) / f"usuario-{self.user.pk}").glob("*.json"))), 1)

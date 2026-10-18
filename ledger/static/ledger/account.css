@@ -1,0 +1,11 @@
+.user-menu{position:relative;border:0;padding:0;margin:0 0 14px;font-size:14px}
+.user-menu>summary{display:flex;gap:12px;align-items:center;min-height:48px;cursor:pointer;list-style:none;padding:4px 10px;color:var(--text)}
+.user-menu>summary::-webkit-details-marker{display:none}
+.user-menu summary .profile{flex-shrink:0;font-size:13px}
+.user-menu summary strong{font-size:14px;overflow-wrap:anywhere}
+.user-menu summary small{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.user-menu-links{position:absolute;z-index:20;left:0;top:100%;width:260px;max-width:calc(100vw - 32px);background:var(--panel,#101e2b);border:1px solid var(--line);border-radius:10px;padding:10px;box-shadow:0 12px 28px #0005}
+.user-menu-links>a{display:flex;align-items:center;min-height:44px;padding:8px 10px;font-size:14px}
+.user-menu-links form{margin:8px 0 0}.user-menu-links button{width:100%;min-height:44px}
+.danger-button{background:#f5b5a5;color:#321109;border-color:#f5b5a5}.danger-button:hover{background:#ffd0c4}
+@media(max-width:700px){.user-menu{margin-bottom:10px}.user-menu-links{width:280px}}

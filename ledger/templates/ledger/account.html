@@ -1,0 +1,20 @@
+{% extends 'preview/base.html' %}{% load static %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'ledger/ledger.css' %}?v={{ version }}">{% endblock %}
+{% block subtitle %}Tu acceso, tus datos y los permisos de cada usuario.{% endblock %}
+{% block content %}
+{% if mode == 'profile' %}
+<section class="panel form-panel"><h2>{{ request.user.get_full_name|default:request.user.username }}</h2><p>Usuario: <strong>{{ request.user.username }}</strong></p><p>Rol: {% if request.user.is_staff %}Administrador{% else %}Usuario normal{% endif %}</p><div class="form-actions"><a class="button" href="{% url 'ledger:profile-edit' %}">Editar perfil</a><a class="button secondary" href="{% url 'password-change' %}">Cambiar contraseña</a></div><p>Tu sesión solo accede a tus finanzas. Para registrar cuentas de otra persona, cierra sesión y entra con su usuario autorizado.</p><a class="expense" href="{% url 'ledger:reset' %}">Reiniciar mis datos financieros</a></section>
+{% elif mode == 'users' %}
+<section class="panel"><div class="panel-heading"><h2>Accesos de esta instalación</h2><a class="button" href="{% url 'ledger:user-new' %}">Crear usuario</a></div><p>Administrador: gestiona accesos y sus propias finanzas. Usuario normal: gestiona su perfil y sus propias finanzas. Ningún rol puede ver o reiniciar desde su sesión las finanzas ajenas. No hay borrado de cuentas de acceso: puedes desactivarlas y conservar sus datos.</p>{% for person in people %}<div class="account-row"><div><strong>{{ person.username }}</strong><small>{% if person.is_staff %}Administrador{% else %}Usuario normal{% endif %} · {% if person.is_active %}Activo{% else %}Desactivado{% endif %}</small></div>{% if person.pk == request.user.pk %}<span>Tu acceso · editar desde Mi perfil</span>{% elif person.is_superuser %}<span>Superusuario · gestión técnica externa</span>{% else %}<a href="{% url 'ledger:user-access' person.pk %}">Gestionar acceso</a>{% endif %}</div>{% endfor %}</section>
+{% else %}
+<section class="panel form-panel">
+{% if record %}<h2>Registro seleccionado</h2><p><strong>{% firstof record.description record.title record.name %}</strong></p>{% endif %}
+{% if notice %}<p class="{% if destructive %}expense{% endif %}">{{ notice }}</p>{% endif %}
+{% if destructive %}<p>Se crea una copia de tus finanzas antes de eliminar. Si no puede guardarse, la operación se cancela. Para recuperar: manual, sección 17. El historial conserva un evento de la operación.</p>{% endif %}
+<form method="post" class="entry-form">{% csrf_token %}
+{% if form.non_field_errors %}<div class="form-error" role="alert">{{ form.non_field_errors }}</div>{% endif %}
+{% for field in form %}{% if field.is_hidden %}{{ field }}{{ field.errors }}{% else %}<div class="field">{{ field.label_tag }}{{ field }}{% if field.help_text %}<small id="{{ field.auto_id }}_helptext">{{ field.help_text }}</small>{% endif %}{{ field.errors }}</div>{% endif %}{% endfor %}
+<div class="form-actions"><button type="submit" class="button{% if destructive %} danger-button{% endif %}">{% if destructive %}Confirmar operación{% else %}Guardar{% endif %}</button><a href="{% url 'ledger:profile' %}">Cancelar y volver a Mi perfil</a></div>
+</form></section>
+{% endif %}
+{% endblock %}

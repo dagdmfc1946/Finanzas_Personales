@@ -38,7 +38,9 @@ def setup(request):
     if request.method == "POST" and form.is_valid():
         try:
             with transaction.atomic():
-                user = form.save()
+                user = form.save(commit=False)
+                user.is_staff = True
+                user.save()
                 Installation.objects.create(pk=1, user=user)
                 Activity.objects.create(owner=user, name="Personal / trabajo principal")
             login(request, user)

@@ -51,3 +51,10 @@ El usuario aprobó el alcance, canceló la integración bancaria y autorizó ini
 - [ ] Revisión de la Fase 3 completa y autorización para Fase 4.
 
 La orden de publicar el ajuste previo no publica automáticamente la implementación nueva de Fase 3.
+
+## Ajustes de revisión de Fase 3
+
+- [x] Grupos de categorías y registro guiado; manual reescrito.
+- [x] Perfil, roles y múltiples usuarios con aislamiento financiero.
+- [x] Eliminar registros y reiniciar únicamente finanzas propias, con confirmación y copia recuperable; pruebas y manual.
+- [ ] Revisión del usuario de estos ajustes y autorización de publicación.
