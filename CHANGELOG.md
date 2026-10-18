@@ -2,6 +2,16 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.3.0-alpha.2] - 2026-10-18
+
+Entrega local pendiente de revisión y autorización de publicación.
+
+### Corregido
+- Consultar mes utiliza ancho según su texto y altura de 46 px, alineado con los filtros; el CSS se actualiza por versión para evitar estilos anteriores en caché.
+
+### Añadido
+- Ejemplos desplegables en cada sección de revisión, con un caso ficticio continuo, pasos y resultados esperados; guía de recorrido en Revisar esta fase y sección 15 del manual. No se insertan datos en la base personal.
+
 ## [0.3.0-alpha.1] - 2026-10-18
 
 Entrega local del incremento 3.1, pendiente de revisión y autorización de publicación. Fase 3 continúa en desarrollo.

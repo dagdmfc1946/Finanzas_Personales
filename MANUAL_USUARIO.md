@@ -1,6 +1,6 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 3, primer incremento local `0.3.0-alpha.1`, pendiente de revisión del usuario.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 3, primer incremento local `0.3.0-alpha.2`, pendiente de revisión del usuario.
 
 ## 1. Qué puedes usar ahora
 
@@ -196,3 +196,13 @@ La pantalla muestra previsto activo, cobros vinculados y pendiente previsto. Si 
 Corregir el importe de un ingreso vinculado actualiza lo recibido. Anularlo lo excluye del cálculo, conservando su vínculo e historial. Para cambiar su tipo o actividad, primero **Desvincular**, con motivo y confirmación. Desvincular conserva el ingreso y su efecto en el saldo; no equivale a anularlo.
 
 El iniciador aplica la migración de tablas al actualizar. En este equipo se guardó una copia SQLite privada previa al primer cambio de Fase 3 en `backups/`. Los nuevos respaldos financieros incluyen planes y vínculos. No se importan automáticamente tus ejemplos personales. Para revisar este incremento usa las casillas de **Revisar esta fase**; presupuestos y recurrencias se entregarán después dentro de esta fase.
+
+## 15. Ejemplos para comprender y revisar el flujo
+
+En **Revisar esta fase**, abre **Ver ejemplo de Revisar esta fase** para ver el recorrido. Cada sección real tiene un bloque **Ver ejemplo de…**, contraído inicialmente, con pasos y resultados de un mismo caso ficticio. Se leen sin crear cuentas ni movimientos. No son datos precargados ni modifican tu registro. Los formularios reales sí guardan lo que confirmes; si tienes datos personales, usa el caso como lectura o ensaya en otra instalación vacía, no lo mezcles con tus cuentas.
+
+Orden sugerido: Actividades y cuentas → Movimientos → Mi sueldo → Resumen → Historial → Respaldos → Revisar esta fase. El caso parte de un banco con saldo inicial de 1.000.000 COP, sueldo recibido de 2.000.000, ingreso secundario de 300.000 y mercado de 250.000. Transfiere 100.000 al efectivo sin cambiar el total. Resultado consolidado: 3.050.000 COP; banco 2.950.000 y efectivo 100.000. La actividad personal conserva 2.750.000 y el emprendimiento 300.000.
+
+El plan de sueldo usa trabajo de agosto de 2026, cobro previsto el 5 de septiembre y presupuesto de septiembre; selecciona septiembre de 2026 en Mi sueldo. Vincular el ingreso ya registrado deja pendiente cero y no cambia el saldo. El ejemplo de detalle produce el mismo neto: bruto 2.200.000 + adicionales 100.000 − deducciones 300.000. Las alternativas de cobro parcial y corrección indican cómo volver al caso base para que los resultados sigan siendo comparables.
+
+Cada sección explica qué verificar, incluidos motivos de corrección/anulación, centavos del historial y respaldo/restauración en ensayo. El acceso se prueba cerrando sesión y volviendo a entrar con tus credenciales. No es necesario cambiar tu contraseña. Las funciones pendientes se identifican expresamente.

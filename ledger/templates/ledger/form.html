@@ -1,5 +1,5 @@
 {% extends 'preview/base.html' %}{% load static ledger_money %}
-{% block extra_css %}<link rel="stylesheet" href="{% static 'ledger/ledger.css' %}">{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'ledger/ledger.css' %}?v={{ version }}">{% endblock %}
 {% block subtitle %}Registra el origen del dinero con claridad. Los importes se guardan en COP.{% endblock %}
 {% block content %}<section class="panel form-panel">
 {% if entry %}<p><strong>{{ entry.description }}</strong> · {{ entry.cents|pesos }} · {{ entry.date|date:'d/m/Y' }}</p><p>La anulación retira su efecto de los saldos, conservando el movimiento y sus antecedentes.</p>{% endif %}
