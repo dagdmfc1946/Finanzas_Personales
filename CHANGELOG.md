@@ -2,6 +2,16 @@
 
 Versión del software: SemVer 2.0.0 (MAYOR.MENOR.PARCHE). Fuente única del número ejecutable: `VERSION`. Este archivo documenta sus cambios. No se ha creado una etiqueta ni una publicación estable.
 
+## [0.2.0-alpha.4] - 2026-10-18
+
+Ajuste local posterior a la publicación anterior; pendiente de autorización para subir.
+
+### Añadido
+
+- Índice lateral automático en el manual y el historial con enlaces a títulos y subtítulos, destinos únicos para encabezados repetidos y resaltado al navegar.
+- Mayor ancho de lectura en ambos documentos, con índice fijo y desplazable en escritorio; en pantallas pequeñas el índice se sitúa encima del contenido.
+- Anclas e índice filtrados con las mismas restricciones de HTML seguro. Sin nuevas dependencias ni JavaScript.
+
 ## [0.2.0-alpha.3] - 2026-10-18
 
 Publicación de los cambios pendientes de Fase 2 en dev1 autorizada por el usuario. La entrega continúa pendiente de su revisión funcional; no se inicia Fase 3.

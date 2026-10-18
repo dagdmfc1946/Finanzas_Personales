@@ -1,6 +1,6 @@
 # Manual de usuario — Finanzas DAGD
 
-Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega `0.2.0-alpha.3`, pendiente de revisión del usuario.
+Versión del software: consultar `VERSION` (SemVer 2.0.0: MAYOR.MENOR.PARCHE). Historial: `CHANGELOG.md`. Manual actualizado para Fase 2, entrega local `0.2.0-alpha.4`, pendiente de revisión del usuario.
 
 ## 1. Qué puedes usar ahora
 
@@ -143,6 +143,8 @@ No borres `data/`, `local/secret.key` ni la base para resolver errores. Una rein
 ## 12. Consultar documentación en el aplicativo
 
 En la parte inferior de la barra lateral, el enlace **CHANGELOG.md** abre el historial de cambios en una pestaña nueva. Justo debajo está **MANUAL_USUARIO.md**, que abre este manual en otra pestaña. La pantalla original conserva su formulario y filtros. Los lectores presentan títulos, listas, negritas, enlaces, tablas y bloques de código con formato. Consultan el archivo Markdown actual del proyecto cada vez que abres o recargas la página, sin modificarlo. El HTML se filtra antes de mostrarse; los ejemplos de código se conservan como texto dentro de sus bloques.
+
+En ambos lectores encontrarás **En este documento**, un índice con títulos y subtítulos. Pulsa una entrada para ir directamente a esa sección; el encabezado de destino queda resaltado. En escritorio el índice permanece a la izquierda mientras lees y puede desplazarse si es largo. En pantallas pequeñas se sitúa encima del contenido. La lectura utiliza más ancho de pantalla; los comandos largos conservan desplazamiento horizontal dentro de su bloque. El índice se actualiza automáticamente al cambiar los encabezados del archivo.
 
 Ambos documentos pueden consultarse antes de crear el usuario: `/documentacion/manual/` y `/documentacion/changelog/`. Solo se sirven esos dos archivos públicos; no se exponen archivos financieros privados.
 

@@ -10,10 +10,17 @@
   <link rel="stylesheet" href="{% static 'preview/document.css' %}">
 </head>
 <body>
+  <a class="skip" href="#documento">Saltar al documento</a>
   <main class="document-reader">
     <nav aria-label="Documentación"><a href="{% url 'home' %}">Volver a Finanzas DAGD</a></nav>
     <header><p>{{ filename }}</p><p>Documento actualizado con el proyecto.</p></header>
-    <article class="document-content" aria-label="Contenido de {{ filename }}">{{ content_html|safe }}</article>
+    <div class="document-layout">
+      {% if toc_html %}<aside class="document-index">
+        <h2>En este documento</h2>
+        <nav aria-label="Índice del documento">{{ toc_html|safe }}</nav>
+      </aside>{% endif %}
+      <article id="documento" class="document-content" aria-label="Contenido de {{ filename }}">{{ content_html|safe }}</article>
+    </div>
   </main>
 </body>
 </html>
